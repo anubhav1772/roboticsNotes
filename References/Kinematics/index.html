@@ -78,25 +78,36 @@
       </header>
 
       <main class="container">
-<div class="ud-atom">
-  <object class="pdf" 
-            data="docs/RobotKinematicsNotes.pdf"
-            width="800"
-            height="500">
-  </object>
-</main>
+        <div class="ud-atom">
+          <!-- <object class="pdf" 
+                    data="docs/RobotKinematicsNotes.pdf"
+                    width="800"
+                    height="500">
+          </object> -->
+          <iframe name="myiframe" 
+                  id="contentiframe"  
+                  style='width: 100%; margin-left: 0px; border: thin solid rgb(153, 153, 153);  
+                  padding-right: 10px; height:100vh;' 
+                  frameborder="0" 
+                  marginheight="0" 
+                  marginwidth="0" 
+                  src="docs/RobotKinematicsNotes.pdf" 
+                  allowfullscreen>loading...
+          </iframe>
+        </div>
+      </main>
 
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <p class="text-center">
-          <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
-        </p>
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p class="text-center">
+            <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <script src="../../assets/js/jquery-3.3.1.min.js"></script>
   <script src="../../assets/js/plyr.polyfilled.min.js"></script>
