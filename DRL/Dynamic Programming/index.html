@@ -1,0 +1,714 @@
+<!-- udacimak v1.2.2 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Summary</title>
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/css/plyr.css">
+  <link rel="stylesheet" href="../../assets/css/katex.min.css">
+  <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link rel="shortcut icon" type="image/png" href="../../assets/img/udacimak.png" />
+  <style type="text/css">
+  	/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav id="sidebar">
+  <div class="sidebar-header">
+    <h3>Dynamic Programming</h3>
+  </div>
+
+  <ul class="sidebar-list list-unstyled CTAs">
+    <li>
+      <a href="../../index.html" class="article">Back to Home</a>
+    </li>
+  </ul>
+
+  <ul class="sidebar-list list-unstyled components">
+    <li class="">
+      <a href="#">01. Introduction</a>
+    </li>
+    <li class="">
+      <a href="#">02. An Iterative Method</a>
+    </li>
+    <li class="">
+      <a href="#">03. Bellman Expectation Equation</a>
+    </li>
+    <li class="">
+      <a href="#">04. Iterative Policy Evaluation</a>
+    </li>
+    <li class="">
+      <a href="#">05. Action Values Estimation</a>
+    </li>
+    <li class="">
+      <a href="#">06. Policy Improvement</a>
+    </li>
+    <li class="">
+      <a href="#">07. Policy Iteration</a>
+    </li>
+    <li class="">
+      <a href="#">08. Truncated Policy Iteration</a>
+    </li>
+    <li class="">
+      <a href="#">09. Value Iteration</a>
+    </li>
+  </ul>
+
+  <ul class="sidebar-list list-unstyled CTAs">
+    <li>
+      <a href="../../index.html" class="article">Back to Home</a>
+    </li>
+  </ul>
+</nav>
+
+    <div id="content">
+      <header class="container-fluild header">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="align-items-middle">
+                <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </button>
+
+                <h1 style="display: inline-block">Dynamic Programming</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="ud-atom">
+  <h3></h3>
+  <div>
+  <!-- <h1 id="summary">Summary</h1> -->
+</div>
+
+</div>
+<!-- <div class="divider"></div><div class="ud-atom"> -->
+  <!-- <h3></h3> -->
+  <div>
+  <figure class="figure">
+    <img src="img/screen-shot-2017-10-02-at-10.41.44-am.png" alt="First step of policy iteration in gridworld example (Sutton and Barto, 2017)" class="img img-fluid">
+    <figcaption class="figure-caption">
+      <p>First step of policy iteration in gridworld example (Sutton and Barto, 2017)</p>
+    </figcaption>
+  </figure>
+</div>
+
+
+</div>
+<div class="divider"></div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-introduction">Introduction</h2>
+  <p>In the <strong>dynamic programming</strong> setting, the agent has full knowledge of the MDP.  (This is much easier than the <strong>reinforcement learning</strong> setting, where the agent initially knows nothing about how the environment decides state and reward and must learn entirely from interaction how to select actions.)</p>
+</div>
+
+</div>
+<div class="divider"></div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-an-iterative-method">An Iterative Method</h2>
+
+ <div class="row">
+  <div class="column">
+    <img src="img/iter11.png" alt="iter11" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter12.png" alt="iter12" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter13.png" alt="iter13" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter14.png" alt="iter14" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter141.png" alt="iter141" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter15.png" alt="iter15" style="width:100%">
+  </div>
+</div>
+
+<ul>
+<li>In order to obtain the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>, we need only solve the system of equations corresponding to the Bellman expectation equation for <span class="mathquill ud-math">v_\pi</span>.</li>
+<li>While it is possible to analytically solve the system, we will focus on an iterative solution approach.</li>
+<li>The iterative algorithm yields an estimate that converges to the true value function. This is the idea behind an algorithm known as <strong>Iterative Policy Evaluation</strong>.</li>
+</ul>
+</div>
+
+</div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/screen-shot-2017-09-26-at-2.18.38-pm.png" style="width:60%" alt="" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="notes-on-the-bellman-expectation-equation">Bellman Expectation Equation</h2>
+  <p>In the previous section, we derived one equation for each environment state.  For instance, for state <span class="mathquill ud-math">s_1</span>, we saw that:</p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = \frac{1}{2}(-1 + v_\pi(s_2)) + \frac{1}{2}(-3 + v_\pi(s_3))</span>.</p>
+<p>We mentioned that this equation follows directly from the Bellman expectation equation for <span class="mathquill ud-math">v_\pi</span>.  </p>
+<blockquote>
+  <p><span class="mathquill ud-math">v_\pi(s) = \text{} \mathbb{E}<em>\pi[R</em>{t+1} + \gamma v_\pi(S_{t+1}) | S_t=s] = \sum_{a \in \mathcal{A}(s)}\pi(a|s)\sum_{s' \in \mathcal{S}, r\in\mathcal{R}}p(s',r|s,a)(r + \gamma v_\pi(s'))</span> (<strong>The Bellman expectation equation for <span class="mathquill ud-math">v_\pi</span></strong>)</p>
+</blockquote>
+<p>In order to see this, we can begin by looking at what the Bellman expectation equation tells us about the value of state <span class="mathquill ud-math">s_1</span> (where we just need to plug in <span class="mathquill ud-math">s_1</span> for state <span class="mathquill ud-math">s</span>).</p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = \sum_{a \in \mathcal{A}(s_1)}\pi(a|s_1)\sum_{s' \in \mathcal{S}, r\in\mathcal{R}}p(s',r|s_1,a)(r + \gamma v_\pi(s'))</span></p>
+<p>Then, it's possible to derive the equation for state <span class="mathquill ud-math">s_1</span> by using the following:</p>
+<ul>
+<li><span class="mathquill ud-math">\mathcal{A}(s_1)={ \text{down}, \text{right} }</span> (<em>When in state <span class="mathquill ud-math">s_1</span>, the agent only has two potential actions: down or right.)</em></li>
+<li><span class="mathquill ud-math">\pi({down}|s_1) = \pi(\text{right}|s_1) = \frac{1}{2}</span> (<em>We are currently examining the policy where the agent goes down with 50% probability and right with 50% probability when in state <span class="mathquill ud-math">s_1</span>.</em>)</li>
+<li><span class="mathquill ud-math">p(s_3,-3|s_1,\text{down}) = 1</span> (and <span class="mathquill ud-math">p(s',r|s_1,\text{down}) = 0</span> if <span class="mathquill ud-math">s'\neq s_3</span> or <span class="mathquill ud-math">r\neq -3</span>) (<em>If the agent chooses to go down in state <span class="mathquill ud-math">s_1</span>, then with 100% probability, the next state is <span class="mathquill ud-math">s_3</span>, and the agent receives a reward of -3.</em>)</li>
+<li><span class="mathquill ud-math">p(s_2,-1|s_1,\text{right}) = 1</span> (and <span class="mathquill ud-math">p(s',r|s_1,\text{right}) = 0</span> if <span class="mathquill ud-math">s'\neq s_2</span> or <span class="mathquill ud-math">r\neq -1</span>) (<em>If the agent chooses to go right in state <span class="mathquill ud-math">s_1</span>, then with 100% probability, the next state is <span class="mathquill ud-math">s_2</span>, and the agent receives a reward of -1.</em>)</li>
+<li><span class="mathquill ud-math">\gamma = 1</span> (<em>We chose to set the discount rate to 1 in this gridworld example.</em>)</li>
+</ul>
+<p>Repeat the same process for the other states.</p>
+</div>
+
+</div>
+<div class="ud-atom">
+  <div>
+  <h2 id="notes-on-solving-the-system-of-equations">Solving the System of Equations</h2>
+  <p>In the previous section, we mentioned that you can directly solve the system of equations:</p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = \frac{1}{2}(-1 + v_\pi(s_2)) + \frac{1}{2}(-3 + v_\pi(s_3))</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_2) = \frac{1}{2}(-1 + v_\pi(s_1)) + \frac{1}{2}(5 + v_\pi(s_4))</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_3) = \frac{1}{2}(-1 + v_\pi(s_1)) + \frac{1}{2}(5 + v_\pi(s_4))</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_4) = 0</span></p>
+<p>Since the equations for <span class="mathquill ud-math">v_\pi(s_2)</span> and <span class="mathquill ud-math">v_\pi(s_3)</span> are identical, we must have that <span class="mathquill ud-math">v_\pi(s_2) = v_\pi(s_3)</span>.</p>
+<p>Thus, the equations for <span class="mathquill ud-math">v_\pi(s_1)</span> and <span class="mathquill ud-math">v_\pi(s_2)</span> can be changed to: </p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = \frac{1}{2}(-1 + v_\pi(s_2)) + \frac{1}{2}(-3 + v_\pi(s_2)) = -2 + v_\pi(s_2)</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_2) = \frac{1}{2}(-1 + v_\pi(s_1)) + \frac{1}{2}(5 + 0) = 2 + \frac{1}{2}v_\pi(s_1)</span></p>
+<p>Combining the two latest equations yields</p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = -2 + 2 + \frac{1}{2}v_\pi(s_1) = \frac{1}{2}v_\pi(s_1)</span>,</p>
+<p>which implies <span class="mathquill ud-math">v_\pi(s_1)=0</span>.   Furthermore, <span class="mathquill ud-math">v_\pi(s_3)  = v_\pi(s_2) = 2 + \frac{1}{2}v_\pi(s_1) = 2 + 0 = 2</span>.</p>
+<p>Thus, the state-value function is given by:</p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = 0</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_2) = 2</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_3) = 2</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_4) = 0</span></p>
+<p><strong>Note</strong>.  This example serves to illustrate the fact that it is <strong><em>possible</em></strong> to <em>directly</em> solve the system of equations given by the Bellman expectation equation for <span class="mathquill ud-math">v_\pi</span>.  However, in practice, and especially for much larger Markov decision processes (MDPs), we will instead use an <em>iterative</em> solution approach.</p>
+</div>
+
+<div>
+<h2 id="quiz-an-iterative-method">An Iterative Method Summary</h2>
+  <p>So far we have discussed how an agent might obtain the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>.</p>
+<p>In the dynamic programming setting, the agent has full knowledge of the Markov decision process (MDP).  In this case, it's possible to use the one-step dynamics <span class="mathquill ud-math">p(s',r|s,a)</span> of the MDP to obtain a system of equations corresponding to the Bellman expectation equation for <span class="mathquill ud-math">v_\pi</span>.</p>
+<p>In the gridworld example, the system of equations corresponding to the equiprobable random policy was given by:</p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = \frac{1}{2}(-1 + v_\pi(s_2)) + \frac{1}{2}(-3 + v_\pi(s_3))</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_2) = \frac{1}{2}(-1 + v_\pi(s_1)) + \frac{1}{2}(5 + v_\pi(s_4))</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_3) = \frac{1}{2}(-1 + v_\pi(s_1)) + \frac{1}{2}(5 + v_\pi(s_4))</span></p>
+<p><span class="mathquill ud-math">v_\pi(s_4) = 0</span></p>
+<p>In order to obtain the state-value function, we need only solve the system of equations.</p>
+<p>While it is always possible to <U><em>directly</em></U> solve the system, we will instead use an <strong><em>iterative</em> solution approach</strong>.</p>
+
+<p>The iterative method begins with an initial guess for the value of each state.  In particular, we began by assuming that the value of each state was zero.
+Then, we looped over the state space and amended the estimate for the state-value function through applying successive update equations.</p>
+<p>Recall that <span class="mathquill ud-math">V</span> denotes the most recent guess for the state-value function, and the update equations are:</p>
+<p><span class="mathquill ud-math">V(s_1) \leftarrow \frac{1}{2}(-1 + V(s_2)) + \frac{1}{2}(-3 + V(s_3))</span></p>
+<p><span class="mathquill ud-math">V(s_2) \leftarrow \frac{1}{2}(-1 + V(s_1)) + \frac{1}{2}(5)</span></p>
+<p><span class="mathquill ud-math">V(s_3) \leftarrow \frac{1}{2}(-1 + V(s_1)) + \frac{1}{2}(5)</span></p>
+
+
+</div>
+
+</div>
+
+</div><div class="ud-atom">
+  <div>
+  <h2 id="-iterative-policy-evaluation">Iterative Policy Evaluation</h2>
+
+<div class="row">
+  <div class="column">
+    <img src="img/iter16.png" alt="iter16" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter161.png" alt="iter17" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter17.png" alt="iter17" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter18.png" alt="iter18" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/iter19.png" alt="iter19" style="width:100%">
+  </div>
+</div>
+
+
+<ul>
+<li><strong>Iterative policy evaluation</strong> assumes the agent already has full and perfect knowledge of the MDP that characterizes the environment.</li>
+<li>This algorithm was motivated by the Bellman Expectation Equation for the State-Value Function and this algorithm is really a system of equations since we have one equation for each environment state.</li>
+<li>Theoretically we have a system of equation with one equation for each unknown quantity, we could solve this system. But, there is an easier way where instead of solving the system exactly we will construct an iterative algorithm where each step gets closer and closer to solving the system of equations. Specifically, our iterative algorithm will adapt this Bellman equation so that it could be used as an update rule.</li>
+<li>This algorithm is used in the dynamic programming setting to estimate the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>.  In this approach, a Bellman update is applied to the value function estimate until the changes to the estimate are nearly imperceptible.</li>
+<li> <strong>Stopping Criteria:</strong> In practice, when we implement this algorithm we will notice the first few times the update rule is applied there are big changes to the value function but eventually at a later time point we will notice the updates are hardly noticeable and once we get to that point where applying the update rule doesnot chnage the estimate of the value function much then that's a strong indication that our algorithm has got reasonably close to converging to the true value function. Inspired by this fact we can design a stopping criterion that terminates the algorithm whenever we have done a complete pass over all the states and none of the values has changed much.</li>
+</ul>
+<ul>
+  Note that policy evaluation is guaranteed to converge to the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>, as long as <span class="mathquill ud-math">v_\pi(s)</span> is finite for each state <span class="mathquill ud-math">s\in\mathcal{S}</span>.  For a finite Markov decision process (MDP), this is guaranteed as long as either:
+<ul>
+<li><span class="mathquill ud-math">\gamma < 1</span>, or</li>
+<li>if the agent starts in any state <span class="mathquill ud-math">s\in\mathcal{S}</span>, it is guaranteed to eventually reach a terminal state if it follows policy <span class="mathquill ud-math">\pi</span>.</li>
+</ul>
+</ul>
+
+</div>
+<div>
+  <figure class="figure">
+    <img src="img/screen-shot-2017-09-26-at-11.03.16-pm.png" style="width:60%" alt="" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+</div>
+
+
+<div class="ud-atom">
+  <h3 id="optional-additional-note-on-the-convergence-conditions">Additional Note on the Convergence Conditions</h3>
+  <div>
+  <p>To see intuitively <em>why</em> the conditions for convergence make sense, consider the case that neither of the conditions are satisfied, so:</p>
+<ul>
+<li><span class="mathquill ud-math">\gamma = 1</span>, and</li>
+<li>there is some state <span class="mathquill ud-math">s\in\mathcal{S}</span> where if the agent starts in that state, it will never encounter a terminal state if it follows policy <span class="mathquill ud-math">\pi</span>.</li>
+</ul>
+<p>In this case, </p>
+<ul>
+<li>reward is not discounted, and </li>
+<li>an episode may never finish.  </li>
+</ul>
+<p>Then, it is possible that iterative policy evaluation will not converge, and this is because the state-value function may not be well-defined!  To see this, note that in this case, calculating a state value could involve adding up an infinite number of (expected) rewards, where the sum may not <a href="https://en.wikipedia.org/wiki/Convergent_series" target="_blank">converge</a>.</p>
+<p>In case it would help to see a concrete example, consider an MDP with:</p>
+<ul>
+<li>two states <span class="mathquill ud-math">s_1</span> and <span class="mathquill ud-math">s_2</span>, where <span class="mathquill ud-math">s_2</span> is a terminal state  </li>
+<li>one action <span class="mathquill ud-math">a</span> (<em>Note: An MDP with only one action can also be referred to as a <a href="https://goo.gl/BNi4qu" target="_blank">Markov Reward Process (MRP)</a>.</em>)</li>
+<li><span class="mathquill ud-math">p(s_1,1|s_1, a) = 1</span></li>
+</ul>
+<p>In this case, say the agent's policy <span class="mathquill ud-math">\pi</span> is to "select" the only action that's available, so <span class="mathquill ud-math">\pi(s_1) = a</span>.  Say <span class="mathquill ud-math">\gamma = 1</span>.  According to the one-step dynamics, if the agent starts in state <span class="mathquill ud-math">s_1</span>, it will stay in that state forever and never encounter the terminal state <span class="mathquill ud-math">s_2</span>.</p>
+<p>In this case, <strong><span class="mathquill ud-math">v_\pi(s_1)</span> is not well-defined</strong>.  To see this, remember that <span class="mathquill ud-math">v_\pi(s_1)</span> is the (expected) return after visiting state <span class="mathquill ud-math">s_1</span>, and we have that </p>
+<p><span class="mathquill ud-math">v_\pi(s_1) = 1 + 1 + 1 + 1 + …</span> </p>
+<p>which <a href="https://en.wikipedia.org/wiki/Divergent_series" target="_blank">diverges</a> to infinity.  (Take the time now to convince yourself that if either of the two convergence conditions were satisfied in this example, then <span class="mathquill ud-math">v_\pi(s_1)</span> would be well-defined.  As a <strong>very optional</strong> next step, if you want to verify this mathematically, you may find it useful to review <a href="https://en.wikipedia.org/wiki/Geometric_series" target="_blank">geometric series</a> and the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution" target="_blank">negative binomial distribution</a>.)</p>
+</div> 
+
+</div>
+<div class="divider"></div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-estimation-of-action-values">Estimation of Action Values</h2>
+<ul>
+<li>In the dynamic programming setting, it is possible to quickly obtain the action-value function <span class="mathquill ud-math">q_\pi</span> from the state-value function <span class="mathquill ud-math">v_\pi</span> and the one-step dynamics of the MDP <span class="mathquill ud-math">p(s',r|s,a)</span> with the equation: <span class="mathquill ud-math">q_\pi(s,a) = \sum_{s'\in\mathcal{S}, r\in\mathcal{R}}p(s',r|s,a)(r+\gamma v_\pi(s'))</span><p>holds for all <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>.  </p></li>
+</ul>
+
+<p>In simple gridworld example, the environment is <strong>deterministic</strong>.  In other words, after the agent selects an action, the next state and reward are 100% guaranteed and non-random.  For deterministic environments, <span class="mathquill ud-math">p(s',r|s,a) \in { 0,1 }</span> for all <span class="mathquill ud-math">s', r, s, a</span>.    </p>
+<blockquote>
+  <p>In this case, when the agent is in state <span class="mathquill ud-math">s</span> and takes action <span class="mathquill ud-math">a</span>, the next state <span class="mathquill ud-math">s'</span> and reward <span class="mathquill ud-math">r</span> can be predicted with certainty, and we must have <span class="mathquill ud-math">q_\pi(s,a) = r + \gamma v_\pi(s')</span>.</p>
+</blockquote>
+<p>In general, the environment need not be deterministic, and instead may be <strong>stochastic</strong>.  This is the default behavior of the <code>FrozenLake</code> environment; in this case, once the agent selects an action, the next state and reward cannot be predicted with certainty and instead are random draws from a <a href="https://en.wikipedia.org/wiki/Conditional_probability_distribution" target="_blank">(conditional) probability distribution</a> <span class="mathquill ud-math">p(s',r|s,a)</span>.</p>
+<blockquote>
+  <p>In this case, when the agent is in state <span class="mathquill ud-math">s</span> and takes action <span class="mathquill ud-math">a</span>, the probability of each possible next state <span class="mathquill ud-math">s'</span> and reward <span class="mathquill ud-math">r</span> is given by <span class="mathquill ud-math">p(s',r|s,a)</span>.  In this case, we must have <span class="mathquill ud-math">q_\pi(s,a) = \sum_{s'\in\mathcal{S}^+, r\in\mathcal{R}}p(s',r|s,a)(r+\gamma v_\pi(s'))</span>, where we take the <a href="https://en.wikipedia.org/wiki/Expected_value" target="_blank">expected value</a> of the sum <span class="mathquill ud-math">r + \gamma v_\pi(s')</span>.</p>
+</blockquote>
+
+</div>
+
+</div>
+<!-- <div class="divider"></div> -->
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/est-action.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+
+
+</div>
+<div class="divider"></div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-policy-improvement">Policy Improvement</h2>
+<div class="row">
+  <div class="column">
+    <img src="img/pol_imp1.png" alt="pol_imp1" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/pol_imp2.png" alt="pol_imp2" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/pol_imp3.png" alt="pol_imp3" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/pol_imp4.png" alt="pol_imp4" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/pol_imp5.png" alt="pol_imp5" style="width:100%">
+  </div>
+</div>
+
+<strong>Policy improvement</strong> takes an estimate <span class="mathquill ud-math">V</span> of the action-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>, and returns an improved (or equivalent) policy <span class="mathquill ud-math">\pi'</span>, where <span class="mathquill ud-math">\pi'\geq\pi</span>.  The algorithm first constructs the action-value function estimate <span class="mathquill ud-math">Q</span>.  Then, for each state <span class="mathquill ud-math">s\in\mathcal{S}</span>, you need only select the action <span class="mathquill ud-math">a</span> that maximizes <span class="mathquill ud-math">Q(s,a)</span>.  In other words, <span class="mathquill ud-math">\pi'(s) = \arg\max_{a\in\mathcal{A}(s)}Q(s,a)</span> for all <span class="mathquill ud-math">s\in\mathcal{S}</span>.
+
+<p> It's an alogirthm that uses the value function for a policy in order to propose a new policy that atleast is as good as the current one.</p>
+
+<I>But why do we want to do that?</I><br>
+
+Policy evaluation and policy improvement go quite nicely together. Policy evaluation takes a policy and yields a value function. Then we can take the same value function and use policy improvement to get a new and potentially improved policy. Then it's possible to take the new policy and plug it in to do policy evaluation again, then policy improvement, over and over until we converge to an optimal policy.<br><br>
+
+<I>How might we design the policy evaluation step to find a policy that is atleast as good as the current one?</I><br>
+We break policy improvement into two steps. The first step is to convert the state value function to an action-value function. Now, we need to focus on how to use this action-value function to obtain a policy that is better than the equal probable random policy. For each state, we just pick the action that maximizes the action-value function.<br><br>
+
+<I>What would happen if we encounter a state with multiple choices of actions that maximize the action-value function?</I> </br>
+In this case, we have options. We could arbitrarily pick one or construct a stochastic policy that assigns non-zero probability to any or all of them.<br><br>
+
+<I>Why should this work?</I><br>
+
+Remember value function corresponds to a policy just stores the expected return of the agent follows the policy for all time steps. When we calculate the action-value function, we are looking at what would happen if the agent at some time t chose an action a and henceforth follows the policy. And, our method for constructing the next policy <span class="mathquill ud-math">\pi'</span> looks at this action-value function and for each state determines that first action a that is best for maximizing return. In this way, it follows that whatever expected return was associated to following the old policy <span class="mathquill ud-math">\pi</span> for all time steps, the agent has higher expected return if it initially followed policy <span class="mathquill ud-math">\pi'</span> and henceforth followed policy <span class="mathquill ud-math">\pi</span>. That said it's possible to prove that not only policy <span class="mathquill ud-math">\pi'</span> better to follow for the first time step, it's also better to follow for all time steps. In other words, it's possible to prove that policy <span class="mathquill ud-math">\pi'</span> is better than or equal to <span class="mathquill ud-math">\pi</span>. And remember in order to prove this we need to show the value function for policy <span class="mathquill ud-math">\pi'</span> is greater than or equal to value function for policy <span class="mathquill ud-math">\pi</span> for all states.
+
+
+
+</div>
+</div>
+<!-- <div class="divider"></div> -->
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/improve.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <p>In the event that there is some state <span class="mathquill ud-math">s\in\mathcal{S}</span> for which <span class="mathquill ud-math">\arg\max_{a\in\mathcal{A}(s)}Q(s,a)</span> is not unique, there is some flexibility in how the improved policy <span class="mathquill ud-math">\pi'</span> is constructed.  </p>
+<p>In fact, as long as the policy <span class="mathquill ud-math">\pi'</span> satisfies for each <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>:</p>
+<p><span class="mathquill ud-math">\pi'(a|s) = 0</span> if <span class="mathquill ud-math">a \notin \arg\max_{a'\in\mathcal{A}(s)}Q(s,a')</span>,</p>
+<p>it is an improved policy.  In other words, any policy that (for each state) assigns zero probability to the actions that do not maximize the action-value function estimate (for that state) is an improved policy.</p>
+</div>
+
+</div>
+<div class="divider"></div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-policy-iteration">Policy Iteration</h2>
+ <p>Iterative policy evaluation determines how good a policy is by calculating its value function, whereas policy improvement uses value function for a policy to construct a new policy that is better than or equal to the current policy. It would make sense to combine these two algorithms that successively proposes better and better policies. The name for the algorithm that combine these two steps is <strong>Policy iteration</strong>.</p>
+<p> It's an algorithm that can solve an MDP in the dynamic programming setting.  It proceeds as a sequence of policy evaluation and improvement steps, and is guaranteed to converge to the optimal policy (for an arbitrary <em>finite</em> MDP).
+</p>
+</div>
+<div class="row">
+  <div class="column">
+    <img src="img/pol_iter1.png" alt="pol_iter1" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/pol_iter2.png" alt="pol_iter2" style="width:100%">
+  </div>
+</div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/iteration.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+
+</div>
+<div class="divider"></div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-truncated-policy-iteration">Truncated Policy Iteration</h2>
+
+  <div class="row">
+	  <div class="column">
+	    <img src="img/trun_pol_iter1.png" alt="trun_pol_iter1" style="width:100%">
+	  </div>
+	  <div class="column">
+	    <img src="img/trun_pol_iter2.png" alt="trun_pol_iter2" style="width:100%">
+	  </div>
+	  <div class="column">
+	    <img src="img/trun_pol_iter3.png" alt="trun_pol_iter3" style="width:100%">
+	  </div>
+	  <div class="column">
+	    <img src="img/trun_pol_iter4.png" alt="trun_pol_iter4" style="width:100%">
+	  </div>
+ </div>
+<br>
+ We begin by the policy evaluation step in the Policy Iteration algorithm. Remember policy evaluation is an iterative algorithm where we rely on Bellman update rule. The number of iteration needed for a single round of policy evaluation is decided according to some small positive theta that we set. And the closer we want it our approximate state-value function to the true value function, the smaller we have to make the hyperparameter theta. <I>Can we sacrifice some accuracy here?</I> After all, who is to say how long would this policy evaluation algorithm should take. Smaller theta means it would take longer but exactly how much longer would depend on the MDP. May be instead of terminating the algorithm with the stopping criterion (shown above in screenshot), we can give an absolute number of iterations that we are willing to calculate. So, we can modify the policy evaluation step to instead terminate after updating the values of each of each of the states, may be once, twice or some positive integer number of times. The idea is that if our goal is to obtain an optimal policy we aren't prevented from that by having a value function that is little bit off. So we don't need to wait for a really good estimate of the value function before calculting an improved policy.<br><br>
+
+<ul>
+<li><strong>Truncated policy iteration</strong> is an algorithm used in the dynamic programming setting to estimate the state-value function <span class="mathquill ud-math">v_\pi</span>  corresponding to a policy <span class="mathquill ud-math">\pi</span>.  Whereas <strong>(iterative) policy evaluation</strong> applies as many Bellman updates as needed to attain convergence, truncated policy evaluation only performs a fixed number of sweeps through the state space.
+We refer to the algorithm in the evaluation step as <strong>truncated policy evaluation</strong>.</li>
+</ul>
+</div>
+</div>
+<div class="ud-atom">
+  <figure class="figure">
+    <img src="img/trun_pol_iter.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+
+In this case, the policy evaluation step is permitted only a limited number of sweeps through the state space. In other words, we limit the number of times the estimated value of each state is updated before proceeding to the policy improvement round.
+
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/truncated-eval.png" alt="" style="width:60%"class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+</div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <p>We can incorporate this amended policy evaluation algorithm into an algorithm similar to policy iteration, called <strong>truncated policy iteration</strong>.  </p>
+<p>The pseudocode can be found below.</p>
+</div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/truncated-iter.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+<p>You may also notice that the stopping criterion for truncated policy iteration differs from that of policy iteration.  In policy iteration, we terminated the loop when the policy was unchanged after a single policy improvement step.  In truncated policy iteration, we stop the loop only when the value function estimate has converged.  </p>
+<p>We note that checking for an unchanged policy is unlikely to work if the hyperparameter <code>max_iterations</code> is set too small.  (To see this, consider the case that <code>max_iterations</code> is set to a small value.  Then even if the algorithm is far from convergence to the optimal value function <span class="mathquill ud-math">v_*</span> or optimal policy <span class="mathquill ud-math">\pi_*</span>, we can imagine that updates to the value function estimate <span class="mathquill ud-math">V</span> may be too small to result in any updates to its corresponding policy.)</p>
+
+</div>
+<div class="divider"></div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <h2 id="-value-iteration">Value Iteration</h2>
+<ul>
+<li><strong>Value iteration</strong> is an algorithm used in the dynamic programming setting to estimate the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>.  In this approach, each sweep over the state space simultaneously performs policy evaluation and policy improvement.</li> <li>Value iteration is guaranteed to find the optimal policy <span class="mathquill ud-math">\pi_*</span> for any finite MDP.</li>
+</ul>
+</div>
+
+</div>
+<div class="row">
+  <div class="column">
+    <img src="img/val_iter.png" alt="val_iter" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/val_iter1.png" alt="val_iter1" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/val_iter2.png" alt="val_iter2" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/val_iter3.png" alt="val_iter3" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/val_iter4.png" alt="val_iter4" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/val_iter5.png" alt="val_iter5" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="img/val_iter6.png" alt="val_iter6" style="width:100%">
+  </div>
+</div>
+</div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/val_iter_pseudo.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+</div><div class="ud-atom">
+  <h3></h3>
+  <div>
+  <figure class="figure">
+    <img src="img/value-iteration.png" alt="" style="width:60%" class="img img-fluid">
+    <figcaption class="figure-caption">
+      
+    </figcaption>
+  </figure>
+</div>
+</div>
+<div class="ud-atom">
+  <h3></h3>
+  <div>
+  <p>Note that the stopping criterion is satisfied when the difference between successive value function estimates is sufficiently small.  In particular, the loop terminates if the difference is less than <span class="mathquill ud-math">\theta</span> for each state.  And, the closer we want the final value function estimate to be to the optimal value function, the smaller we need to set the value of <span class="mathquill ud-math">\theta</span>.</p>
+<p>Feel free to play around with the value of <span class="mathquill ud-math">\theta</span> in your implementation; note that in the case of the FrozenLake environment, values around <code>1e-8</code> seem to work reasonably well.  </p>
+<p>For those of you who are interested in <em>more rigorous</em> guidelines on how exactly to set the value of <span class="mathquill ud-math">\theta</span>, you might be interested in perusing  <a href="http://www.leemon.com/papers/1993wb2.pdf" target="_blank">this paper</a>, where you are encouraged to pay particular attention to Theorem 3.2.  Their main result of interest can be summarized as follows:  </p>
+<blockquote>
+  <p>Let <span class="mathquill ud-math">V^{\text{final}}</span> denote the final value function estimate that is calculated by the algorithm.  Then it can be shown that <span class="mathquill ud-math">V^{\text{final}}</span> differs from the optimal value function <span class="mathquill ud-math">v_*</span> by at most <span class="mathquill ud-math">\frac{2\theta\gamma}{1-\gamma}</span>.  In other words, for each <span class="mathquill ud-math">s\in\mathcal{S}</span>,</p>
+</blockquote>
+<blockquote>
+  <p><span class="mathquill ud-math">\max_{s\in\mathcal{S}}|V^{\text{final}}(s) - v_*(s)| < \frac{2\theta\gamma}{1-\gamma}</span>.</p>
+</blockquote>
+</div>
+
+</div>
+
+<div class="divider"></div>
+<div class="ud-atom">
+    <table class="table">
+      <tr class="thead-dark table-hover">
+        <th>
+          <p>Description</p>
+        </th>
+        <th>
+          <p>Algorithm</p>
+        </th>
+      </tr>
+
+      <tr>
+        <td>
+          <p>Policy Improvement</p>
+        </td>
+        <td>
+            <p>Given a value function corresponding to a policy, proposes a better (or equal) policy.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Policy Iteration</p>
+        </td>
+        <td>
+            <p>Finds the optimal policy through successive rounds of evaluation and improvement.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>(Iterative) Policy Evaluation</p>
+        </td>
+        <td>
+            <p>Computes the value function corresponding to an arbitrary policy.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Value Iteration</p>
+        </td>
+        <td>
+            <p>Finds the optimal policy through successive rounds of evaluation and improvement (where the evaluation step is stopped after a single sweep through the state space).</p>
+        </td>
+      </tr>
+    </table>
+  </details>
+</div>
+
+</div>
+
+
+<div class="divider"></div>
+
+</div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p class="text-center">
+          <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+  <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+  <script src="../../assets/js/plyr.polyfilled.min.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="../../assets/js/katex.min.js"></script>
+  <script>
+    // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+
+</html>
