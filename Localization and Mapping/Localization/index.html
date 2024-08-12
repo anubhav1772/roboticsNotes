@@ -401,6 +401,82 @@ At the basis of the Kalman Filter is the Gaussian distribution, sometimes referr
   <div>
   <h2 id="-Multidimensional-KF">Multidimensional Kalman Filters</h2>
   
+  <p>In our 1-D examples, the system state was represented by one variable. In n-dimensional systems, the state is a vector with n state variables. </p>
+  <p><b>Example: </b>In a 2-D world, states could be
+  <span class='mathquill'> \large  
+  \begin{bmatrix}
+  x \\
+  y
+  \end{bmatrix}
+  </span> (x and y positions of a robot), or
+
+  <span class='mathquill'> \large  
+  \begin{bmatrix}
+  x \\
+  \dot{x}
+  \end{bmatrix}
+  </span> (position and velocity of a robot)</p>
+  <p>When working in 1-D, the state has to observable, meaning it has to be something that can be measured directly.</p>
+  <p>In multidimensional states, there may exist hidden state variables, ones that we can't measure with the sensors available. However, we may be able to infer their values from other states and measurements. In the example <span class='mathquill'> \large  
+  \begin{bmatrix}
+  x \\
+  \dot{x}
+  \end{bmatrix}
+  </span>, the location of the robot is observable while its velocity is not, making it a hidden state variable. However, a robot's position and velocity over time are linked through a very simple formula: <span class="mathquill">\large x' = x + \dot{x} \Delta t </span></p>
+  <div class="row">
+    <div class="column">
+      <img src="img/loc19.png" alt="loc19" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc20.png" alt="loc20" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc21.png" alt="loc21" style="width:100%">
+    </div>
+  </div>
+  <p>Let's look at this on a graph! If initially the position of the robot is known but its velocity is not, then the estimate of the robot's state would like as shown above. A gaussian that is very narrow in the <span class="mathquill">\large x</span> dimension, representing confidence about robot's location and very wide along <span class="mathquill">\large \dot{x}</span> dimension since the robot's velocity is completely unknown. Next, a <strong>state prediction</strong> can be calculated. This is where a Kalman Filter starts to get exciting. Knowing the relationship between a hidden variable and observable variable is key. </p>
+  <div class="row">
+    <div class="column">
+      <img src="img/loc22.png" alt="loc22" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc23.png" alt="loc23" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc24.png" alt="loc24" style="width:100%">
+    </div>
+  </div>
+  <p>Let's assume one iteration of a kalman Filter taskes 1s, i.e., <span class="mathquill">(\Delta t = 1)</span>. Now using the above formula we can calculate the posterior state for each possible velocity. For example, if the velocity is 0, the posterior state would be identical to the prior. Similarly, put different values of velocity in above formula to get different posterior states. From this, we can draw a posterior gaussian like shown above. This doesn't yet tell us anything about the velocity. It just graphs the correlation between velocity and the location of the robot.</p>
+  <div class="row">
+    <div class="column">
+      <img src="img/loc25.png" alt="loc25" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc26.png" alt="loc26" style="width:100%">
+    </div>
+  </div>
+  <p>Next is a <strong>measurement update</strong>. Let's see if it can provide us with sufficient information to identify the velocity of the robot. <br /> The initial belief was useful to calculate the state prediction but has no additional value and the result of the state prediction can be called prior belief for our measurement update. <br />Let's say the new measurement suggests a new location of the robot (like <span class="mathquill">x=</span>50). If we apply measurement update to the new prior, we will have a very small posterior, centered around <span class="mathquill">x=</span>50 and <span class="mathquill">\dot{x}=</span>15. It's the exact same measurement update we applied before, implemented in 2-D. Check the second graph above. <strong>The posterior belief is just the weighted sum of the prior belief and the measurement and more confident than either the prior or the measurement.</strong> Then the relationship between the two dimension narrows down to posterior for the <span class="mathquill">\dot{x}</span> axis. After all, if the robot moved from <span class="mathquill">x=</span>35 to <span class="mathquill">x=</span>50 in 1s, the speed should be trivial to calculate.</p>
+
+  <div class="row">
+    <div class="column">
+      <img src="img/loc27.png" alt="loc27" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc28.png" alt="loc28" style="width:100%">
+    </div>
+  </div>
+  <div class="row">
+    <div class="column">
+      <img src="img/loc29.png" alt="loc29" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="img/loc30.png" alt="loc30" style="width:100%">
+    </div>
+  </div>
+
+  <p>So, it seems the two iterations of the KF cycle were enough to infer the robot's velocity. Continuing iteration through the measurement update and state prediction steps will update the robot's internal state to keep it aligned with where it is in the real world.</p>
+
+
   <h4 id="-Design-of-Multi-Dimensional-KF">Design of Multi-Dimensional Kalman Filters</h4>
 
   <h5 id="-State-Transition">State Transition</h5>
