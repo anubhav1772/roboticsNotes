@@ -1,472 +1,523 @@
-<!-- udacimak v1.2.2 -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>The RL Framework : Summary</title>
-  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../assets/css/plyr.css">
-  <link rel="stylesheet" href="../../assets/css/katex.min.css">
-  <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
-  <link rel="stylesheet" href="../../assets/css/styles.css">
-  <link rel="shortcut icon" type="image/png" href="../../assets/img/udacimak.png" />
-  <style type="text/css">
-    /* Three image containers (use 25% for four, and 50% for two, etc) */
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
-
-/* Clear floats after image containers */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The RL Framework : The Problem</title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/plyr.css">
+    <link rel="stylesheet" href="../../assets/css/katex.min.css">
+    <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+    <style type="text/css">
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+    
+    /* Clear floats after image containers */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    </style>
 </head>
 
 <body>
-  <div class="wrapper">
-    <nav id="sidebar">
-  <div class="sidebar-header">
-    <h3>The RL Framework: The Problem</h3>
-  </div>
-
-  <ul class="sidebar-list list-unstyled CTAs">
-    <li>
-      <a href="../../index.html" class="article">Back to Home</a>
-    </li>
-  </ul>
-
-  <ul class="sidebar-list list-unstyled components">
-    <li class="">
-      <a href="#">01. Introduction</a>
-    </li>
-    <li class="">
-      <a href="#">02. The Setting, Revisited</a>
-    </li>
-    <li class="">
-      <a href="#">03. Episodic vs. Continuing Tasks</a>
-    </li>
-    <li class="">
-      <a href="#">04. The Reward Hypothesis</a>
-    </li>
-    <li class="">
-      <a href="#">05. Goals and Rewards</a>
-    </li>
-    <li class="">
-      <a href="#">06. Cumulative Reward</a>
-    </li>
-    <li class="">
-      <a href="#">07. Discounted Return</a>
-    </li>
-    <li class="">
-      <a href="#">08. MDPs</a>
-    </li>
-    <li class="">
-      <a href="#">09. One-Step Dynamics</a>
-    </li>
-  </ul>
-
-  <ul class="sidebar-list list-unstyled CTAs">
-    <li>
-      <a href="../../index.html" class="article">Back to Home</a>
-    </li>
-  </ul>
-</nav>
-
-    <div id="content">
-      <header class="container-fluild header">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="align-items-middle">
-                <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </button>
-
-                <h1 style="display: inline-block">The RL Framework : The Problem</h1>
-              </div>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>The RL Framework: The Problem</h3>
             </div>
-          </div>
+
+            <ul class="sidebar-list list-unstyled CTAs">
+                <li>
+                    <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-list list-unstyled components">
+                <li class="">
+                    <a href="#">01. Introduction</a>
+                </li>
+                <li class="">
+                    <a href="#">02. The Setting, Revisited</a>
+                </li>
+                <li class="">
+                    <a href="#">03. Episodic vs. Continuing Tasks</a>
+                </li>
+                <li class="">
+                    <a href="#">04. The Reward Hypothesis</a>
+                </li>
+                <li class="">
+                    <a href="#">05. Goals and Rewards</a>
+                </li>
+                <li class="">
+                    <a href="#">06. Cumulative Reward</a>
+                </li>
+                <li class="">
+                    <a href="#">07. Discounted Return</a>
+                </li>
+                <li class="">
+                    <a href="#">08. MDPs</a>
+                </li>
+                <li class="">
+                    <a href="#">09. One-Step Dynamics</a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-list list-unstyled CTAs">
+                <li>
+                    <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <header class="container-fluild header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="align-items-middle">
+                                <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </button>
+
+                                <h1 style="display: inline-block">The RL Framework : The Problem</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h5 id="summary">Learn how to mathematically formulate tasks as Markov Decision Processes.</h5>
+                            </div>
+
+                        </div>
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <figure class="figure">
+                                    <img src="img/screen-shot-2017-09-20-at-12.02.06-pm.png" alt="The agent-environment interaction in reinforcement learning. (Source: Sutton and Barto, 2017)" class="img img-fluid">
+                                    <figcaption class="figure-caption">
+                                        <p>The agent-environment interaction in reinforcement learning. (Source: Sutton and Barto, 2017)</p>
+                                    </figcaption>
+                                </figure>
+                                <p>
+                                    The RL framework gives us a way to study how an agent could learn to accomplish a goal from interacting with its environment. This framework simplies the interaction into three signals that are passed between the agent and the environment.</p>
+                                <ul>
+                                    <li>The <strong>state</strong> signal is the environment's way of presenting a situation to the agent.</li>
+                                    <li>The agent then responds with an <strong>action</strong> which influences the environment.</li>
+                                    <li>The environment responds with a <strong>reward</strong> which gives some indication of whether the agent responded appropriately to the environment.</li>
+                                </ul>
+                                Also built into the framework is the agent's goal which is to maximize cummulative reward.
+                            </div>
+
+
+                        </div>
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-the-setting-revisited">The Setting, Revisited</h2>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/rlf1.png" alt="rlf1" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf2.png" alt="rlf2" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf3.png" alt="rlf3" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf4.png" alt="rlf4" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf5.png" alt="rlf5" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf6.png" alt="rlf6" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf7.png" alt="rlf7" style="width:100%">
+                                </div>
+                            </div>
+                            <ul>
+                                <li>The reinforcement learning (RL) framework is characterized by an <strong>agent</strong> learning to interact with its <strong>environment</strong>.</li>
+                                <li>At each time step, the agent receives the environment's <strong>state</strong> (<em>the environment presents a situation to the agent)</em>, and the agent must choose an appropriate <strong>action</strong> in response.
+                                    One time step later, the agent receives a <strong>reward</strong> (<em>the environment indicates whether the agent has responded appropriately to the state</em>) and a new <strong>state</strong>.</li>
+                                <li>At time step 0, the agent first receives the environment state (we denoted it by S0, 0 denotes time step 0). Then based on that observation, the agent chooses an action A0. At the next time step (in this case, time step
+                                    1) and as a result of direct consequences of the choice of action A0 and environment previous state S0, the environment transition to a new state S1 and gives some reward R1 to the agent. The agent then chooses an action
+                                    A1. At time step 2, the process continues where the environment passes the reward and state. Then, the agent responses with an action and so on...</li>
+                                <li>The agent interacts with the environment and this interaction is manifested as a sequence of states, actions and rewards. The reward will always be a relevant quantity to the agent.</li>
+                                <li>All agents have the goal to maximize expected <strong>cumulative reward</strong>, or the expected sum of rewards attained over all time steps. In other words, it seeks to find the strategy for choosing actions with the
+                                    cummulative reward is likely to be quite high. And, the agent can only accomplish this by interacting with the environment. This is because, at every time step, the environment decides how much reward the agent receives.
+                                    In other words, the agent must play by the rules of the environment. But, through interaction, the agent can learn those rules and choose appropriate actions its goal.</li>
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-episodic-vs-continuing-tasks">Episodic vs. Continuing Tasks</h2>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/rlf8.png" alt="rlf8" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf9.png" alt="rlf9" style="width:100%">
+                                </div>
+                            </div>
+                            <ul>
+                                <li>A <strong>task</strong> is an instance of the reinforcement learning (RL) problem.</li>
+                                <li><strong>Continuing tasks</strong> are tasks that continue forever, without end.</li>
+                                <li><strong>Episodic tasks</strong> are tasks with a well-defined starting and ending point.
+                                    <ul>
+                                        <li>In this case, we refer to a complete sequence of interaction, from start to finish, as an <strong>episode</strong>.</li>
+                                        <li>Episodic tasks come to an end whenever the agent reaches a <strong>terminal state</strong>.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Playing Chess: </strong>Say you are an agent, and your goal is to play chess. At every time step, you choose any <strong>action</strong> from the set of possible moves in the game. Your opponent is part of the environment;
+                                    she responds with her own move, and the <strong>state</strong> you receive at the next time step is the configuration of the board, when it’s your turn to choose a move again. The <strong>reward</strong> is only delivered
+                                    at the end of the game, and, let’s say, is +1 if you win, and -1 if you lose.
+                                    <br> This is an <strong>episodic task</strong>, where an episode finishes when the game ends. The idea is that by playing the game many times, or by interacting with the environment in many episodes, you can learn to play
+                                    chess better and better.
+                                    <br> It's important to note that this problem is exceptionally difficult, because the feedback is only delivered at the very end of the game. So, if you lose a game (and get a reward of -1 at the end of the episode), it’s
+                                    unclear when exactly you went wrong: maybe you were so bad at playing that every move was horrible, or maybe instead … you played beautifully for the majority of the game, and then made only a small mistake at the end.
+                                    <br> When the reward signal is largely uninformative in this way, we say that the task suffers the problem of sparse rewards. There’s an entire area of research dedicated to this problem, and you’re encouraged to read more
+                                    about it, if it interests you.</li>
+                                <li><strong>Escaping a Maze: </strong> Consider a game in which the agent is located in a maze and trying to find the quickest route to the goal. If all the agent can do is randomly explore the maze, it will not be able to
+                                    learn anything until it reaches the goal at least once.</li>
+                                <li><strong>Example of Episodic task:</strong> Consider an RL agent that would like to learn to play the board game Go.</li>
+                                <li><strong>Example of Continuing task:</strong> Consider an immortal puppy agent that would like to obtain as many treats as possible from its (immortal) owner.</li>
+                            </ul>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-the-reward-hypothesis">The Reward Hypothesis</h2>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/rlf10.png" alt="rlf10" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf11.png" alt="rlf11" style="width:100%">
+                                </div>
+                            </div>
+                            <ul>
+                                <li><strong>Reward Hypothesis</strong>: All goals can be framed as the maximization of (expected) cumulative reward.</li>
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-goals-and-rewards">Goals and Rewards</h2>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/rlf12.png" alt="rlf12" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf13.png" alt="rlf13" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf14.png" alt="rlf14" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf15.png" alt="rlf15" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf16.png" alt="rlf16" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf17.png" alt="rlf17" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf18.png" alt="rlf18" style="width:100%">
+                                </div>
+                            </div>
+                            <br>
+                            <p><strong>Readings</strong></p>
+                            <ul>
+                                <li>
+                                    <p>If you'd like to learn more about the research that was done at <a href="https://deepmind.com/" target="_blank">DeepMind</a>, please check out <a href="https://deepmind.com/blog/producing-flexible-behaviours-simulated-environments/"
+                                        target="_blank">this link</a>. The research paper can be accessed <a href="https://arxiv.org/pdf/1707.02286.pdf" target="_blank">here</a>. Also, check out this cool <a href="https://www.youtube.com/watch?v=hx_bgoTF7bs&feature=youtu.be"
+                                        target="_blank">video</a>!</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-cumulative-reward">Cumulative Reward</h2>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/rlf19.png" alt="rlf19" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf20.png" alt="rlf20" style="width:100%">
+                                </div>
+                            </div>
+                            <ul>
+                                <li>The <strong>return at time step  <span class="mathquill ud-math">t</span></strong> is <span class="mathquill ud-math">G_t := R_{t+1} + R_{t+2} + R_{t+3} + \ldots </span></li>
+                                <li>The agent selects actions with the goal of maximizing expected (discounted) return.</li>
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-discounted-return">Discounted Return</h2>
+                                <p><strong>Should present reward carry the same weight as future reward?</strong></p>
+                                <div class="row">
+                                    <div class="column">
+                                        <img src="img/rlf21.png" alt="rlf21" style="width:100%">
+                                    </div>
+                                    <div class="column">
+                                        <img src="img/rlf22.png" alt="rlf22" style="width:100%">
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>We will use "return" and "discounted return" interchangably.
+                                        <br>For an arbitrary time step <span class="mathquill ud-math">t</span>, both refer to <span class="mathquill ud-math">G_t \doteq R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots = \sum_{k=0}^\infty \gamma^k R_{t+k+1}</span>,
+                                        where <span class="mathquill ud-math">\gamma \in [0,1]</span>.
+                                        <ul>
+                                            <li>In particular, when we refer to "return", it is not necessarily the case that <span class="mathquill ud-math">\gamma = 1</span>, and when we refer to "discounted return", it is not necessarily true that
+                                                <span
+                                                class="mathquill ud-math">\gamma
+                                                    < 1</span>. </li>
+                                        </ul>
+                                    </li>
+
+                                    <li><strong>Discounted Return : </strong> By discounted, we mean we would change the goal to care more about immediate rewards rather than rewards that are received farther in the future.</li>
+                                    <li>The <strong>discounted return at time step  <span class="mathquill ud-math">t</span></strong> is <span class="mathquill ud-math">G_t := R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots </span>.</li>
+                                    <li>The <strong>discount rate <span class="mathquill ud-math">\gamma</span></strong> is something that you set, to refine the goal that you have the agent.
+                                        <ul>
+                                            <li>It must satisfy <span class="mathquill ud-math">0 \leq \gamma \leq 1</span>.</li>
+                                            <li>If <span class="mathquill ud-math">\gamma=0</span>, the agent only cares about the most immediate reward.</li>
+                                            <li>If <span class="mathquill ud-math">\gamma=1</span>, the return is not discounted.</li>
+                                            <li>For larger values of <span class="mathquill ud-math">\gamma</span>, the agent cares more about the distant future. Smaller values of <span class="mathquill ud-math">\gamma</span> result in more extreme discounting,
+                                                where - in the most extreme case - agent only cares about the most immediate reward.</li>
+                                        </ul>
+                                    </li>
+                                    <li> <strong>The discount rate is always set to some number much closer to 1 than to 0 </strong>otherwise the agent becomes excessively short-sighted to a fault.</li>
+                                    <li>It is important to note that discounting is particularly important to continuing tasks. A countinuing task is one where the agent-environment interaction goes on without end. Here, we will use discounting to avoid having
+                                        to look too far into the limitless future.</li>
+                                    <li>With or without discounting the goal is always the same, that is to maximize the cumulative reward. The discount rate comes in when the agent chooses actions at an arbitrary time step. It uses the discount rate as part
+                                        of its program for picking actions and that program is more interested in securing rewards that come sooner and more likely than the rewards that come later and less likely. </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <p><strong>Readings</strong></p>
+                        <ul>
+                            <li> <a href="https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947" target="_blank">Cart-Pole Balancing with Q-Learning</a></p>
+                            </li>
+                            <li>In this classic reinforcement learning task, a cart is positioned on a frictionless track, and a pole is attached to the top of the cart. The objective is to keep the pole from falling over by moving the cart either left or
+                                right, and without falling off the track. In the <a href="https://gym.openai.com/envs/CartPole-v0/" target="_blank">OpenAI Gym implementation</a>, the agent applies a force of +1 or -1 to the cart at every time step. It
+                                is formulated as an episodic task, where the episode ends when (1) the pole falls more than 20.9 degrees from vertical, (2) the cart moves more than 2.4 units from the center of the track, or (3) when more than 200 time
+                                steps have elapsed. The agent receives a reward of +1 for every time step, including the final step of the episode. You can read more about this environment in <a href="https://github.com/openai/gym/wiki/CartPole-v0" target="_blank">OpenAI's github</a>.</li>
+                        </ul>
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <div>
+                                <h2 id="-mdps-and-one-step-dynamics">MDPs and One-Step Dynamics</h2>
+                            </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/rlf23.png" alt="rlf23" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf24.png" alt="rlf24" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf25.png" alt="rlf25" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf26.png" alt="rlf26" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf27.png" alt="rlf27" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf28.png" alt="rlf28" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf29.png" alt="rlf29" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf30.png" alt="rlf30" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlf31.png" alt="rlf31" style="width:100%">
+                                </div>
+                            </div>
+                            <br>
+                            <ul>
+                                <li>In general, the <strong>state space <span class="mathquill ud-math">\mathcal{S}</span></strong> is the set of all <em>nonterminal</em> states. </li>
+                                <ul>
+                                    <li>In continuing tasks (like the recycling task), this is equivalent to the set of all states.</li>
+                                </ul>
+                                <li>In episodic tasks, we use <span class="mathquill ud-math">\mathcal{S}^+</span> to refer to the set of <strong>all states, including terminal states</strong>.</li>
+                                <li>The <strong>action space <span class="mathquill ud-math">\mathcal{A}</span></strong> is the set of possible actions. (Alternatively, <span class="mathquill ud-math">\mathcal{A}(s)</span> refers to the set of possible actions
+                                    available in state <span class="mathquill ud-math">s \in \mathcal{S}</span>.)</li>
+                                <li>The <strong>one-step dynamics</strong> of the environment determine how the environment decides the state and reward at every time step. The dynamics can be defined by specifying <span class="mathquill ud-math">p(s',r|s,a) \doteq \mathbb{P}(S_{t+1}=s', R_{t+1}=r|S_{t} = s, A_{t}=a)</span>                                    for each possible <span class="mathquill ud-math">s', r, s, \text{and } a</span>.</li>
+                                <li>A <strong>(finite) Markov Decision Process (MDP)</strong> is defined by:
+                                    <ul>
+                                        <li>a (finite) set of states <span class="mathquill ud-math">\mathcal{S}</span> (or <span class="mathquill ud-math">\mathcal{S}^+</span>, in the case of an episodic task)</li>
+                                        <li>a (finite) set of actions <span class="mathquill ud-math">\mathcal{A}</span></li>
+                                        <li>a set of rewards <span class="mathquill ud-math">\mathcal{R}</span></li>
+                                        <li>the one-step dynamics of the environment</li>
+                                        <li>the discount rate <span class="mathquill ud-math">\gamma \in [0,1]</span></li>
+                                    </ul>
+                                </li>
+                                <li>In a finite MDP, the state space <span class="mathquill ud-math">\mathcal{S}</span> (or <span class="mathquill ud-math">\mathcal{S}^+</span>, in the case of an episodic task) and action space <span class="mathquill ud-math">\mathcal{A}</span>                                    must both be finite.</li>
+                            </ul>
+                        </div>
+
+                        <h3>One-Step Dynamics</h3>
+                        <p>Consider the recycling robot example. In the previous concept, we described one method that the environment could use to decide the state and reward, at any time step.</p>
+
+                        <img src="img/screen-shot-2017-09-21-at-12.20.30-pm.png" style="width:60%" alt="" class="img img-fluid" />
+
+                        <p>Say at an arbitrary time step <span class="mathquill ud-math">t</span>, the state of the robot's battery is high (<span class="mathquill ud-math">S_t = \text{high}</span>). Then, in response, the agent decides to search (
+                            <span
+                            class="mathquill ud-math">A_t = \text{search}</span>). You learned in the previous concept that in this case, the environment responds to the agent by flipping a theoretical coin with 70% probability of landing heads.</p>
+                        <ul>
+                            <li>If the coin lands heads, the environment decides that the next state is high (<span class="mathquill ud-math">S_{t+1} = \text{high}</span>), and the reward is 4 (<span class="mathquill ud-math">R_{t+1} = 4</span>).</li>
+                            <li>If the coin lands tails, the environment decides that the next state is low (<span class="mathquill ud-math">S_{t+1} = \text{low}</span>), and the reward is 4 (<span class="mathquill ud-math">R_{t+1} = 4</span>).</li>
+                        </ul>
+                        <p>This is depicted in the figure below.</p>
+
+                        <img src="img/screen-shot-2017-09-21-at-12.20.50-pm.png" style="width:60%" alt="" class="img img-fluid" />
+
+                        <p>In fact, for any state <span class="mathquill ud-math">S_{t}</span> and action <span class="mathquill ud-math">A_{t}</span>, it is possible to use the figure to determine exactly how the agent will decide the next state <span class="mathquill ud-math">S_{t+1}</span>                            and reward <span class="mathquill ud-math">R_{t+1}</span>.</p>
+
+                        <p>It will prove convenient to represent the environment's dynamics using mathematical notation. In this concept, we will introduce this notation (which can be used for any reinforcement learning task) and use the recycling robot
+                            as an example.</p>
+
+                        <img src="img/screen-shot-2017-09-21-at-12.20.30-pm.png" style="width:60%" alt="" class="img img-fluid" />
+                        <p>At an arbitrary time step <span class="mathquill ud-math">t</span>, the agent-environment interaction has evolved as a sequence of states, actions, and rewards</p>
+                        <p><span class="mathquill ud-math">(S_0, A_0, R_1, S_1, A_1, \ldots, R_{t-1}, S_{t-1}, A_{t-1}, R_t, S_t, A_t)</span>.</p>
+                        <p>When the environment responds to the agent at time step <span class="mathquill ud-math">t+1</span>, it considers only the state and action at the previous time step (<span class="mathquill ud-math">S_t, A_t</span>). </p>
+                        <p>In particular, it does not care what state was presented to the agent more than one step prior. (<em>In other words</em>, the environment does not consider any of <span class="mathquill ud-math">{ S_0, \ldots, S_{t-1}  }</span>.)
+                            </p>
+                        <p>And, it does not look at the actions that the agent took prior to the last one. (<em>In other words</em>, the environment does not consider any of <span class="mathquill ud-math">{ A_0, \ldots, A_{t-1} }</span>.) </p>
+                        <p>Furthermore, how well the agent is doing, or how much reward it is collecting, has no effect on how the environment chooses to respond to the agent. (<em>In other words</em>, the environment does not consider any of <span class="mathquill ud-math">{ R_0, \ldots, R_t } </span>.)
+                            </p>
+                        <p>Because of this, we can completely define how the environment decides the state and reward by specifying </p>
+                        <p><span class="mathquill ud-math">p(s',r|s,a) \doteq \mathbb{P}(S_{t+1}=s', R_{t+1}=r|S_t = s, A_t=a)</span> </p>
+                        <p>for each possible <span class="mathquill ud-math">s', r, s, \text{and } a</span>. These conditional probabilities are said to specify the <strong>one-step dynamics</strong> of the environment.</p>
+
+                        <p><strong>An Example: </strong>Let's return to the case that <span class="mathquill ud-math">S_t = \text{high}</span>, and <span class="mathquill ud-math">A_t = \text{search}</span>.</p>
+
+                        <img src="img/screen-shot-2017-09-21-at-12.20.50-pm.png" style="width:60%" alt="" class="img img-fluid" />
+
+                        <p>Then, when the environment responds to the agent at the next time step,</p>
+                        <ul>
+                            <li>
+                                <p>with 70% probability, the next state is high and the reward is 4. In other words, <span class="mathquill ud-math">p(\text{high}, 4|\text{high},\text{search}) = \mathbb{P}(S_{t+1}=\text{high}, R_{t+1}=4|S_{t} = \text{high}, A_{t}=\text{search}) = 0.7</span>.</p>
+                            </li>
+                            <li>
+                                <p>with 30% probability, the next state is low and the reward is 4. In other words, <span class="mathquill ud-math">p(\text{low}, 4|\text{high},\text{search}) = \mathbb{P}(S_{t+1}=\text{low}, R_{t+1}=4|S_{t} = \text{high}, A_{t}=\text{search}) = 0.3</span>.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="text-center">
+                                <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-      </header>
-
-      <main class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h5 id="summary">Learn how to mathematically formulate tasks as Markov Decision Processes.</h5>
-  </div>
-
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <figure class="figure">
-    <img src="img/screen-shot-2017-09-20-at-12.02.06-pm.png" alt="The agent-environment interaction in reinforcement learning. (Source: Sutton and Barto, 2017)" class="img img-fluid">
-    <figcaption class="figure-caption">
-      <p>The agent-environment interaction in reinforcement learning. (Source: Sutton and Barto, 2017)</p>
-    </figcaption>
-  </figure>
-  <p>
-  The RL framework gives us a way to study how an agent could learn to accomplish a goal from interacting with its environment. This framework simplies the interaction into three signals that are passed between the agent and the environment.</p>
-  <ul>
-    <li>The <strong>state</strong> signal is the environment's way of presenting a situation to the agent.</li>
-    <li>The agent then responds with an <strong>action</strong> which influences the environment.</li>
-    <li>The environment responds with a <strong>reward</strong> which gives some indication of whether the agent responded appropriately to the environment.</li>
-  </ul>
-    Also built into the framework is the agent's goal which is to maximize cummulative reward.
-</div>
-
-
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-the-setting-revisited">The Setting, Revisited</h2>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/rlf1.png" alt="rlf1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf2.png" alt="rlf2" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf3.png" alt="rlf3" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf4.png" alt="rlf4" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf5.png" alt="rlf5" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf6.png" alt="rlf6" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf7.png" alt="rlf7" style="width:100%">
-  </div>
-</div>
-<ul>
-<li>The reinforcement learning (RL) framework is characterized by an <strong>agent</strong> learning to interact with its <strong>environment</strong>.</li>
-<li>At each time step, the agent receives the environment's <strong>state</strong> (<em>the environment presents a situation to the agent)</em>, and the agent must choose an appropriate <strong>action</strong> in response.  One time step later, the agent receives a <strong>reward</strong> (<em>the environment indicates whether the agent has responded appropriately to the state</em>) and a new <strong>state</strong>.</li>
-<li>At time step 0, the agent first receives the environment state (we denoted it by S0, 0 denotes time step 0). Then based on that observation, the agent chooses an action A0. At the next time step (in this case, time step 1) and as a result of direct consequences of the choice of action A0 and environment previous state S0, the environment transition to a new state S1 and gives some reward R1 to the agent. The agent then chooses an action A1. At time step 2, the process continues where the environment passes the reward and state. Then, the agent responses with an action and so on...</li>
-<li>The agent interacts with the environment and this interaction is manifested as a sequence of states, actions and rewards. The reward will always be a relevant quantity to the agent.</li>
-<li>All agents have the goal to maximize expected <strong>cumulative reward</strong>, or the expected sum of rewards attained over all time steps. In other words, it seeks to find the strategy for choosing actions with the cummulative reward is likely to be quite high. And, the agent can only accomplish this by interacting with the environment. This is because, at every time step, the environment decides how much reward the agent receives. In other words, the agent must play by the rules of the environment. But, through interaction, the agent can learn those rules and choose appropriate actions its goal.</li>
-</ul>
-</div>
-
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-episodic-vs-continuing-tasks">Episodic vs. Continuing Tasks</h2>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/rlf8.png" alt="rlf8" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf9.png" alt="rlf9" style="width:100%">
-  </div>
-</div>
-<ul>
-<li>A <strong>task</strong> is an instance of the reinforcement learning (RL) problem.</li>
-<li><strong>Continuing tasks</strong> are tasks that continue forever, without end.</li>
-<li><strong>Episodic tasks</strong> are tasks with a well-defined starting and ending point.<ul>
-<li>In this case, we refer to a complete sequence of interaction, from start to finish, as an <strong>episode</strong>.</li>
-<li>Episodic tasks come to an end whenever the agent reaches a <strong>terminal state</strong>.</li></ul></li>
-<li><strong>Playing Chess: </strong>Say you are an agent, and your goal is to play chess. At every time step, you choose any <strong>action</strong> from the set of possible moves in the game. Your opponent is part of the environment; she responds with her own move, and the <strong>state</strong> you receive at the next time step is the configuration of the board, when it’s your turn to choose a move again. The <strong>reward</strong> is only delivered at the end of the game, and, let’s say, is +1 if you win, and -1 if you lose.<br>
-
-This is an <strong>episodic task</strong>, where an episode finishes when the game ends. The idea is that by playing the game many times, or by interacting with the environment in many episodes, you can learn to play chess better and better.<br>
-
-It's important to note that this problem is exceptionally difficult, because the feedback is only delivered at the very end of the game. So, if you lose a game (and get a reward of -1 at the end of the episode), it’s unclear when exactly you went wrong: maybe you were so bad at playing that every move was horrible, or maybe instead … you played beautifully for the majority of the game, and then made only a small mistake at the end.<br>
-
-When the reward signal is largely uninformative in this way, we say that the task suffers the problem of sparse rewards. There’s an entire area of research dedicated to this problem, and you’re encouraged to read more about it, if it interests you.</li>
-<li><strong>Escaping a Maze: </strong>
-Consider a game in which the agent is located in a maze and trying to find the quickest route to the goal. If all the agent can do is randomly explore the maze, it will not be able to learn anything until it reaches the goal at least once.</li>
-<li><strong>Example of Episodic task:</strong> Consider an RL agent that would like to learn to play the board game Go.</li>
-<li><strong>Example of Continuing task:</strong> Consider an immortal puppy agent that would like to obtain as many treats as possible from its (immortal) owner.</li>
-</ul>
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-the-reward-hypothesis">The Reward Hypothesis</h2>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/rlf10.png" alt="rlf10" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf11.png" alt="rlf11" style="width:100%">
-  </div>
-</div>
-<ul>
-<li><strong>Reward Hypothesis</strong>: All goals can be framed as the maximization of (expected) cumulative reward.</li>
-</ul>
-</div>
-
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-goals-and-rewards">Goals and Rewards</h2>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/rlf12.png" alt="rlf12" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf13.png" alt="rlf13" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf14.png" alt="rlf14" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf15.png" alt="rlf15" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf16.png" alt="rlf16" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf17.png" alt="rlf17" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf18.png" alt="rlf18" style="width:100%">
-  </div>
-</div>
-<br>
-<p><strong>Readings</strong></p>
-<ul>
-<li><p>If you'd like to learn more about the research that was done at <a href="https://deepmind.com/" target="_blank">DeepMind</a>, please check out <a href="https://deepmind.com/blog/producing-flexible-behaviours-simulated-environments/" target="_blank">this link</a>.  The research paper can be accessed <a href="https://arxiv.org/pdf/1707.02286.pdf" target="_blank">here</a>.  Also, check out this cool <a href="https://www.youtube.com/watch?v=hx_bgoTF7bs&feature=youtu.be" target="_blank">video</a>!</p>
-</li>
-</ul>
-</div>
-
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-cumulative-reward">Cumulative Reward</h2>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/rlf19.png" alt="rlf19" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf20.png" alt="rlf20" style="width:100%">
-  </div>
-</div>
-<ul>
-<li>The <strong>return at time step  <span class="mathquill ud-math">t</span></strong> is <span class="mathquill ud-math">G_t := R_{t+1} + R_{t+2} + R_{t+3} + \ldots </span></li>
-<li>The agent selects actions with the goal of maximizing expected (discounted) return.</li>
-</ul>
-</div>
-
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-discounted-return">Discounted Return</h2>
-  <p><strong>Should present reward carry the same weight as future reward?</strong></p>
-  <div class="row">
-  <div class="column">
-    <img src="img/rlf21.png" alt="rlf21" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf22.png" alt="rlf22" style="width:100%">
-  </div>
-</div>
-<ul>
-  <li>We will use "return" and "discounted return" interchangably.  <br>For an arbitrary time step <span class="mathquill ud-math">t</span>, both refer to <span class="mathquill ud-math">G_t \doteq R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots = \sum_{k=0}^\infty \gamma^k R_{t+k+1}</span>, where <span class="mathquill ud-math">\gamma \in [0,1]</span>.  
-    <ul><li>In particular, when we refer to "return", it is not necessarily the case that <span class="mathquill ud-math">\gamma = 1</span>, and when we refer to "discounted return", it is not necessarily true that <span class="mathquill ud-math">\gamma < 1</span>.  </li></ul></li>
-
-  <li><strong>Discounted Return : </strong> By discounted, we mean we would change the goal to care more about immediate rewards rather than rewards that are received farther in the future.</li>
-  <li>The <strong>discounted return at time step  <span class="mathquill ud-math">t</span></strong> is <span class="mathquill ud-math">G_t := R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots </span>.</li>
-  <li>The <strong>discount rate <span class="mathquill ud-math">\gamma</span></strong> is something that you set, to refine the goal that you have the agent.  <ul>
-  <li>It must satisfy <span class="mathquill ud-math">0 \leq \gamma \leq 1</span>.</li>
-  <li>If <span class="mathquill ud-math">\gamma=0</span>, the agent only cares about the most immediate reward.</li>
-  <li>If <span class="mathquill ud-math">\gamma=1</span>, the return is not discounted.</li>
-  <li>For larger values of <span class="mathquill ud-math">\gamma</span>, the agent cares more about the distant future. Smaller values of <span class="mathquill ud-math">\gamma</span> result in more extreme discounting, where - in the most extreme case - agent only cares about the most immediate reward.</li></ul></li>
-  <li> <strong>The discount rate is always set to some number much closer to 1 than to 0 </strong>otherwise the agent becomes excessively short-sighted to a fault.</li>
-  <li>It is important to note that discounting is particularly important to continuing tasks. A countinuing task is one where the agent-environment interaction goes on without end. Here, we will use discounting to avoid having to look too far into the limitless future.</li>
-  <li>With or without discounting the goal is always the same, that is to maximize the cumulative reward. The discount rate comes in when the agent chooses actions at an arbitrary time step. It uses the discount rate as part of its program for picking actions and that program is more interested in securing rewards that come sooner and more likely than the rewards that come later and less likely. </li>
-</ul>
-</div>
-</div>
-
-<p><strong>Readings</strong></p>
-<ul>
-<li> <a href="https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947" target="_blank">Cart-Pole Balancing with Q-Learning</a></p>
-</li>
-<li>In this classic reinforcement learning task, a cart is positioned on a frictionless track, and a pole is attached to the top of the cart.  The objective is to keep the pole from falling over by moving the cart either left or right, and without falling off the track. In the <a href="https://gym.openai.com/envs/CartPole-v0/" target="_blank">OpenAI Gym implementation</a>, the agent applies a force of +1 or -1 to the cart at every time step.  It is formulated as an episodic task, where the episode ends when (1) the pole falls more than 20.9 degrees from vertical, (2) the cart moves more than 2.4 units from the center of the track, or (3) when more than 200 time steps have elapsed.  The agent receives a reward of +1 for every time step, including the final step of the episode.  You can read more about this environment in <a href="https://github.com/openai/gym/wiki/CartPole-v0" target="_blank">OpenAI's github</a>.</li>
-</ul>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mdps-and-one-step-dynamics">MDPs and One-Step Dynamics</h2>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/rlf23.png" alt="rlf23" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf24.png" alt="rlf24" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf25.png" alt="rlf25" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf26.png" alt="rlf26" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf27.png" alt="rlf27" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf28.png" alt="rlf28" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf29.png" alt="rlf29" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf30.png" alt="rlf30" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/rlf31.png" alt="rlf31" style="width:100%">
-  </div>
-</div>
-<br>
-<ul>
-<li>In general, the <strong>state space <span class="mathquill ud-math">\mathcal{S}</span></strong> is the set of all <em>nonterminal</em> states.  </li>
-<ul><li>In continuing tasks (like the recycling task), this is equivalent to the set of all states.</li></ul>
-<li>In episodic tasks, we use <span class="mathquill ud-math">\mathcal{S}^+</span> to refer to the set of <strong>all states, including terminal states</strong>.</li>
-<li>The <strong>action space <span class="mathquill ud-math">\mathcal{A}</span></strong> is the set of possible actions.  (Alternatively, <span class="mathquill ud-math">\mathcal{A}(s)</span> refers to the set of possible actions available in state <span class="mathquill ud-math">s \in \mathcal{S}</span>.)</li>
-<li>The <strong>one-step dynamics</strong> of the environment determine how the environment decides the state and reward at every time step.  The dynamics can be defined by specifying <span class="mathquill ud-math">p(s',r|s,a) \doteq \mathbb{P}(S_{t+1}=s', R_{t+1}=r|S_{t} = s, A_{t}=a)</span> for each possible <span class="mathquill ud-math">s', r, s, \text{and } a</span>.</li>
-<li>A <strong>(finite) Markov Decision Process (MDP)</strong> is defined by:<ul>
-<li>a (finite) set of states <span class="mathquill ud-math">\mathcal{S}</span> (or <span class="mathquill ud-math">\mathcal{S}^+</span>, in the case of an episodic task)</li>
-<li>a (finite) set of actions <span class="mathquill ud-math">\mathcal{A}</span></li>
-<li>a set of rewards <span class="mathquill ud-math">\mathcal{R}</span></li>
-<li>the one-step dynamics of the environment</li>
-<li>the discount rate <span class="mathquill ud-math">\gamma \in [0,1]</span></li></ul></li>
-<li>In a finite MDP, the state space <span class="mathquill ud-math">\mathcal{S}</span> (or <span class="mathquill ud-math">\mathcal{S}^+</span>, in the case of an episodic task) and action space <span class="mathquill ud-math">\mathcal{A}</span> must both be finite.</li>
-</ul>
-</div>
-
-<h3>One-Step Dynamics</h3>
-<p>Consider the recycling robot example.  In the previous concept, we described one method that the environment could use to decide the state and reward, at any time step.</p>
-
-<img src="img/screen-shot-2017-09-21-at-12.20.30-pm.png" style="width:60%" alt="" class="img img-fluid"/>
-
-<p>Say at an arbitrary time step <span class="mathquill ud-math">t</span>, the state of the robot's battery is high (<span class="mathquill ud-math">S_t = \text{high}</span>).  Then, in response, the agent decides to search (<span class="mathquill ud-math">A_t = \text{search}</span>).  You learned in the previous concept that in this case, the environment responds to the agent by flipping a theoretical coin with 70% probability of landing heads.</p>
-<ul>
-<li>If the coin lands heads, the environment decides that the next state is high (<span class="mathquill ud-math">S_{t+1} = \text{high}</span>), and the reward is 4 (<span class="mathquill ud-math">R_{t+1} = 4</span>).</li>
-<li>If the coin lands tails, the environment decides that the next state is low  (<span class="mathquill ud-math">S_{t+1} = \text{low}</span>), and the reward is 4 (<span class="mathquill ud-math">R_{t+1} = 4</span>).</li>
-</ul>
-<p>This is depicted in the figure below.</p>
-
-<img src="img/screen-shot-2017-09-21-at-12.20.50-pm.png" style="width:60%" alt="" class="img img-fluid"/>
-
-<p>In fact, for any state <span class="mathquill ud-math">S_{t}</span> and action <span class="mathquill ud-math">A_{t}</span>, it is possible to use the figure to determine exactly how the agent will decide the next state <span class="mathquill ud-math">S_{t+1}</span> and reward <span class="mathquill ud-math">R_{t+1}</span>.</p>
-
-<p>It will prove convenient to represent the environment's dynamics using mathematical notation.  In this concept, we will introduce this notation (which can be used for any reinforcement learning task) and use the recycling robot as an example.</p>
-
-<img src="img/screen-shot-2017-09-21-at-12.20.30-pm.png" style="width:60%" alt="" class="img img-fluid"/>
-<p>At an arbitrary time step <span class="mathquill ud-math">t</span>, the agent-environment interaction has evolved as a sequence of states, actions, and rewards</p>
-<p><span class="mathquill ud-math">(S_0, A_0, R_1, S_1, A_1, \ldots, R_{t-1}, S_{t-1}, A_{t-1}, R_t, S_t, A_t)</span>.</p>
-<p>When the environment responds to the agent at time step <span class="mathquill ud-math">t+1</span>, it considers only the state and action at the previous time step (<span class="mathquill ud-math">S_t, A_t</span>).  </p>
-<p>In particular, it does not care what state was presented to the agent more than one step prior.  (<em>In other words</em>, the environment does not consider any of <span class="mathquill ud-math">{ S_0, \ldots, S_{t-1}  }</span>.)  </p>
-<p>And, it does not look at the actions that the agent took prior to the last one.  (<em>In other words</em>, the environment does not consider any of <span class="mathquill ud-math">{ A_0, \ldots, A_{t-1} }</span>.) </p>
-<p>Furthermore, how well the agent is doing, or how much reward it is collecting, has no effect on how the environment chooses to respond to the agent.   (<em>In other words</em>, the environment does not consider any of <span class="mathquill ud-math">{ R_0, \ldots, R_t } </span>.) </p>
-<p>Because of this, we can completely define how the environment decides the state and reward by specifying </p>
-<p><span class="mathquill ud-math">p(s',r|s,a) \doteq \mathbb{P}(S_{t+1}=s', R_{t+1}=r|S_t = s, A_t=a)</span> </p>
-<p>for each possible <span class="mathquill ud-math">s', r, s, \text{and } a</span>.  These conditional probabilities are said to specify the <strong>one-step dynamics</strong> of the environment.</p>
-
-<p><strong>An Example: </strong>Let's return to the case that <span class="mathquill ud-math">S_t = \text{high}</span>, and <span class="mathquill ud-math">A_t = \text{search}</span>.</p>
-
-<img src="img/screen-shot-2017-09-21-at-12.20.50-pm.png" style="width:60%" alt="" class="img img-fluid"/>
-
-<p>Then, when the environment responds to the agent at the next time step,</p>
-<ul>
-<li><p>with 70% probability, the next state is high and the reward is 4.  In other words, <span class="mathquill ud-math">p(\text{high}, 4|\text{high},\text{search}) = \mathbb{P}(S_{t+1}=\text{high}, R_{t+1}=4|S_{t} = \text{high}, A_{t}=\text{search}) = 0.7</span>.</p></li>
-<li><p>with 30% probability, the next state is low and the reward is 4.  In other words, <span class="mathquill ud-math">p(\text{low}, 4|\text{high},\text{search}) = \mathbb{P}(S_{t+1}=\text{low}, R_{t+1}=4|S_{t} = \text{high}, A_{t}=\text{search}) = 0.3</span>.</p></li>
-</ul>
-</div>
-</div>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <p class="text-center">
-          <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
-        </p>
-      </div>
     </div>
-  </div>
-</footer>
-</div>
-</div>
 
 
-  <script src="../../assets/js/jquery-3.3.1.min.js"></script>
-  <script src="../../assets/js/plyr.polyfilled.min.js"></script>
-  <script src="../../assets/js/bootstrap.min.js"></script>
-  <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="../../assets/js/katex.min.js"></script>
-  <script>
-    // Initialize Plyr video players
-    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
-
-    // render math equations
-    let elMath = document.getElementsByClassName('mathquill');
-    for (let i = 0, len = elMath.length; i < len; i += 1) {
-      const el = elMath[i];
-
-      katex.render(el.textContent, el, {
-        throwOnError: false
-      });
-    }
-
-    // this hack will make sure Bootstrap tabs work when using Handlebars
-    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
-      $("#question-tabs a.nav-link").on('click', function () {
-        $("#question-tab-contents .tab-pane").hide();
-        $($(this).attr("href")).show();
-      });
-      $("#user-answer-tabs a.nav-link").on('click', function () {
-        $("#user-answer-tab-contents .tab-pane").hide();
-        $($(this).attr("href")).show();
-      });
-    } else {
-      $("a.nav-link").on('click', function () {
-        $(".tab-pane").hide();
-        $($(this).attr("href")).show();
-      });
-    }
-
-    // side bar events
-    $(document).ready(function () {
-      $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-      });
-
-      $('#sidebarCollapse').on('click', function () {
-        $('#sidebar, #content').toggleClass('active');
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-      });
-    });
-  </script>
+    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../../assets/js/plyr.polyfilled.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../assets/js/katex.min.js"></script>
+    <script>
+        // Initialize Plyr video players
+        const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+    
+        // render math equations
+        let elMath = document.getElementsByClassName('mathquill');
+        for (let i = 0, len = elMath.length; i < len; i += 1) {
+          const el = elMath[i];
+    
+          katex.render(el.textContent, el, {
+            throwOnError: false
+          });
+        }
+    
+        // this hack will make sure Bootstrap tabs work when using Handlebars
+        if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+          $("#question-tabs a.nav-link").on('click', function () {
+            $("#question-tab-contents .tab-pane").hide();
+            $($(this).attr("href")).show();
+          });
+          $("#user-answer-tabs a.nav-link").on('click', function () {
+            $("#user-answer-tab-contents .tab-pane").hide();
+            $($(this).attr("href")).show();
+          });
+        } else {
+          $("a.nav-link").on('click', function () {
+            $(".tab-pane").hide();
+            $($(this).attr("href")).show();
+          });
+        }
+    
+        // side bar events
+        $(document).ready(function () {
+          $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+          });
+    
+          $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+          });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,659 +1,751 @@
-<!-- udacimak v1.2.2 -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Summary</title>
-  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../assets/css/plyr.css">
-  <link rel="stylesheet" href="../../assets/css/katex.min.css">
-  <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
-  <link rel="stylesheet" href="../../assets/css/styles.css">
-  <link rel="shortcut icon" type="image/png" href="../../assets/img/udacimak.png" />
-  <style type="text/css">
-  	/* Three image containers (use 25% for four, and 50% for two, etc) */
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
-
-/* Clear floats after image containers */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Monte Carlo Methods</title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/plyr.css">
+    <link rel="stylesheet" href="../../assets/css/katex.min.css">
+    <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+    <style type="text/css">
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column {
+          float: left;
+          width: 33.33%;
+          padding: 5px;
+        }
+        
+        /* Clear floats after image containers */
+        .row::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="wrapper">
-    <nav id="sidebar">
-  <div class="sidebar-header">
-    <h3>Monte Carlo Methods</h3>
-  </div>
-
-  <ul class="sidebar-list list-unstyled CTAs">
-    <li>
-      <a href="../../index.html" class="article">Back to Home</a>
-    </li>
-  </ul>
-
-  <ul class="sidebar-list list-unstyled components">
-    <li class="">
-      <a href="#">01. Introduction</a>
-    </li>
-    <li class="">
-      <a href="#">02. MC Prediction: State Values</a>
-    </li>
-    <li class="">
-      <a href="#">03. MC Prediction: Action Values</a>
-    </li>
-    <li class="">
-      <a href="#">04. Generalized Policy Iteration</a>
-    </li>
-    <li class="">
-      <a href="#">05. MC Control: Incremental Mean</a>
-    </li>
-    <li class="">
-      <a href="#">06. MC Control: Policy Evaluation</a>
-    </li>
-    <li class="">
-      <a href="#">07. MC Control: Policy Improvement</a>
-    </li>
-    <li class="">
-      <a href="#">08. Epsilon-Greedy Policies</a>
-    </li>
-    <li class="">
-      <a href="#">09. Exploration vs. Exploitation</a>
-    </li>
-    <li class="">
-      <a href="#">10. MC Control: Constant-alpha</a>
-    </li>
-  </ul>
-
-  <ul class="sidebar-list list-unstyled CTAs">
-    <li>
-      <a href="../../index.html" class="article">Back to Home</a>
-    </li>
-  </ul>
-</nav>
-
-    <div id="content">
-      <header class="container-fluild header">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="align-items-middle">
-                <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </button>
-
-                <h1 style="display: inline-block">Monte Carlo Methods </h1>
-              </div>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Monte Carlo Methods</h3>
             </div>
-          </div>
-        </div>
-      </header>
 
-      <main class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="ud-atom">
-  <h3></h3>
-  <!-- <div>
+            <ul class="sidebar-list list-unstyled CTAs">
+                <li>
+                    <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-list list-unstyled components">
+                <li class="">
+                    <a href="#">01. Introduction</a>
+                </li>
+                <li class="">
+                    <a href="#">02. MC Prediction: State Values</a>
+                </li>
+                <li class="">
+                    <a href="#">03. MC Prediction: Action Values</a>
+                </li>
+                <li class="">
+                    <a href="#">04. Generalized Policy Iteration</a>
+                </li>
+                <li class="">
+                    <a href="#">05. MC Control: Incremental Mean</a>
+                </li>
+                <li class="">
+                    <a href="#">06. MC Control: Policy Evaluation</a>
+                </li>
+                <li class="">
+                    <a href="#">07. MC Control: Policy Improvement</a>
+                </li>
+                <li class="">
+                    <a href="#">08. Epsilon-Greedy Policies</a>
+                </li>
+                <li class="">
+                    <a href="#">09. Exploration vs. Exploitation</a>
+                </li>
+                <li class="">
+                    <a href="#">10. MC Control: Constant-alpha</a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-list list-unstyled CTAs">
+                <li>
+                    <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <header class="container-fluild header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="align-items-middle">
+                                <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </button>
+
+                                <h1 style="display: inline-block">Monte Carlo Methods </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="ud-atom">
+                            <h3></h3>
+                            <!-- <div>
   <h1 id="summary">Monte Carlo Methods</h1>
 </div> -->
 
-</div>
-<!-- <div class="divider"></div><div class="ud-atom">
+                        </div>
+                        <!-- <div class="divider"></div><div class="ud-atom">
   <h3></h3> -->
-  RL problems where the agent is not given the full knowledge of how the environement operates and instead must learn from interaction. In other words, <strong>the environment is unknown to the agent</strong>.
-  <div>
-  <figure class="figure">
-    <img src="img/screen-shot-2017-10-05-at-3.55.40-pm.png" alt="Optimal policy and state-value function in blackjack (Sutton and Barto, 2017)" class="img img-fluid">
-    <figcaption class="figure-caption">
-      <p>Optimal policy and state-value function in blackjack (Sutton and Barto, 2017)</p>
-    </figcaption>
-  </figure>
-</div>
+                        RL problems where the agent is not given the full knowledge of how the environement operates and instead must learn from interaction. In other words, <strong>the environment is unknown to the agent</strong>.
+                        <div>
+                            <figure class="figure">
+                                <img src="img/screen-shot-2017-10-05-at-3.55.40-pm.png" alt="Optimal policy and state-value function in blackjack (Sutton and Barto, 2017)" class="img img-fluid">
+                                <figcaption class="figure-caption">
+                                    <p>Optimal policy and state-value function in blackjack (Sutton and Barto, 2017)</p>
+                                </figcaption>
+                            </figure>
+                        </div>
 
 
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mc-prediction-state-values">MC Prediction: State Values</h2>
-<ul>
-<li>Algorithms that solve the <strong>prediction problem</strong> determine the value function <span class="mathquill ud-math">v_\pi</span> (or <span class="mathquill ud-math">q_\pi</span>) corresponding to a policy <span class="mathquill ud-math">\pi</span>.</li>
-<li>Methods that evaluate a policy <span class="mathquill ud-math">\pi</span> from interaction with the environment fall under one of two categories:<ul>
-<li><strong>On-policy</strong> methods have the agent interact with the environment by following the same policy <span class="mathquill ud-math">\pi</span> that it seeks to evaluate (or improve).</li>
-<li><strong>Off-policy</strong> methods have the agent interact with the environment by following a policy <span class="mathquill ud-math">b</span> (where <span class="mathquill ud-math">b\neq\pi</span>) that is different from the policy that it seeks to evaluate (or improve).</li></ul></li>
-<li>Each occurrence of state <span class="mathquill ud-math">s\in\mathcal{S}</span> in an episode is called a <strong>visit to <span class="mathquill ud-math">s</span></strong>.</li>
-<li>There are two types of Monte Carlo (MC) prediction methods (for estimating <span class="mathquill ud-math">v_\pi</span>):<ul>
-<li><strong>First-visit MC</strong> estimates <span class="mathquill ud-math">v_\pi(s)</span> as the average of the returns following <em>only first</em> visits to <span class="mathquill ud-math">s</span> (that is, it ignores returns that are associated to later visits).</li>
-<li><strong>Every-visit MC</strong> estimates <span class="mathquill ud-math">v_\pi(s)</span> as the average of the returns following <em>all</em> visits to <span class="mathquill ud-math">s</span>.</li></ul></li>
-</ul>
-</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-mc-prediction-state-values">MC Prediction: State Values</h2>
+                            <ul>
+                                <li>Algorithms that solve the <strong>prediction problem</strong> determine the value function <span class="mathquill ud-math">v_\pi</span> (or <span class="mathquill ud-math">q_\pi</span>) corresponding to a policy <span class="mathquill ud-math">\pi</span>.</li>
+                                <li>Methods that evaluate a policy <span class="mathquill ud-math">\pi</span> from interaction with the environment fall under one of two categories:
+                                    <ul>
+                                        <li><strong>On-policy</strong> methods have the agent interact with the environment by following the same policy <span class="mathquill ud-math">\pi</span> that it seeks to evaluate (or improve).</li>
+                                        <li><strong>Off-policy</strong> methods have the agent interact with the environment by following a policy <span class="mathquill ud-math">b</span> (where <span class="mathquill ud-math">b\neq\pi</span>) that is different
+                                            from the policy that it seeks to evaluate (or improve).</li>
+                                    </ul>
+                                </li>
+                                <li>Each occurrence of state <span class="mathquill ud-math">s\in\mathcal{S}</span> in an episode is called a <strong>visit to <span class="mathquill ud-math">s</span></strong>.</li>
+                                <li>There are two types of Monte Carlo (MC) prediction methods (for estimating <span class="mathquill ud-math">v_\pi</span>):
+                                    <ul>
+                                        <li><strong>First-visit MC</strong> estimates <span class="mathquill ud-math">v_\pi(s)</span> as the average of the returns following <em>only first</em> visits to <span class="mathquill ud-math">s</span> (that is,
+                                            it ignores returns that are associated to later visits).</li>
+                                        <li><strong>Every-visit MC</strong> estimates <span class="mathquill ud-math">v_\pi(s)</span> as the average of the returns following <em>all</em> visits to <span class="mathquill ud-math">s</span>.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
 
-<div class="row">
-  <div class="column">
-    <img src="img/mc0.png" alt="mc0" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc1.png" alt="mc1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc2.png" alt="mc2" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc3.png" alt="mc3" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc4.png" alt="mc4" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc5.png" alt="mc5" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc6.png" alt="mc6" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc7.png" alt="mc7" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc8.png" alt="mc8" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc9.png" alt="mc9" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mc10.png" alt="mc10" style="width:100%">
-  </div>
-</div>
-<figure class="figure">
-    <img src="img/mc-pred-state.png" alt="" style="width:60%" class="img img-fluid">
-    <figcaption class="figure-caption">
-      
-    </figcaption>
- </figure>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/mc0.png" alt="mc0" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc1.png" alt="mc1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc2.png" alt="mc2" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc3.png" alt="mc3" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc4.png" alt="mc4" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc5.png" alt="mc5" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc6.png" alt="mc6" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc7.png" alt="mc7" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc8.png" alt="mc8" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc9.png" alt="mc9" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mc10.png" alt="mc10" style="width:100%">
+                            </div>
+                        </div>
+                        <figure class="figure">
+                            <img src="img/mc-pred-state.png" alt="" style="width:60%" class="img img-fluid">
+                            <figcaption class="figure-caption">
 
-<p>If you are interested in learning more about the difference between first-visit and every-visit MC methods, you are encouraged to read Section 3 of [<a href="https://link.springer.com/article/10.1007/BF00114726">this</a> <a href="https://link.springer.com/content/pdf/10.1007/BF00114726.pdf">paper</a>]<br />
-Their results are summarized in Section 3.6.  The authors showed:</p>
-<ul>
-<li>Every-visit MC is <a href="https://en.wikipedia.org/wiki/Bias_of_an_estimator" target="_blank">biased</a>, whereas first-visit MC is unbiased (see Theorems 6 and 7).</li>
-<li>Initially, every-visit MC has lower <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank">mean squared error (MSE)</a>, but as more episodes are collected, first-visit MC attains better MSE (see Corollary 9a and 10a, and Figure 4).</li>
-</ul>
-<p>Both the first-visit and every-visit method are <strong>guaranteed to converge</strong> to the true value function, as the number of visits to each state approaches infinity.  (<em>So, in other words, as long as the agent gets enough experience with each state, the value function estimate will be pretty close to the true value.</em>)  In the case of first-visit MC, convergence follows from the <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank">Law of Large Numbers</a>, and the details are covered in section 5.1 of the <a href="http://go.udacity.com/rl-textbook" target="_blank">textbook</a>.</p>
-<figure class="figure">
-    <img src="img/mc11.png" alt="" style="width:80%" class="img img-fluid">
-    <figcaption class="figure-caption">
-      
-    </figcaption>
- </figure>
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mc-prediction-action-values">MC Prediction: Action Values</h2>
-  In the <strong>Dynamic Programming</strong> case, we used the state value function to obtain an action value function, as given below: <br /><br /><span class="mathquill ud-math">q_\pi(s,a) = \sum_{s'\in\mathcal{S}, r\in\mathcal{R}}p(s',r|s,a)(r+\gamma v_\pi(s'))</span><br /><br />
-  Can we follow the same procedure here (in <strong>Monte Carlo</strong> case)?<br /><br />
-  <strong>Unfortunately, no!</strong> Remember, <span class="mathquill ud-math">p(s',r|s,a)</span> encodes the one-step dynamics of the environement. This was known to the agent in the DP setting but in the RL setting, the agent doesn't know these dynamics. So, we can't apply above equation as before. Instead to get the action values, we would make a small modification to the prediction algorithm.<br /><br />
-<ul>
-<li>Each occurrence of the state-action pair <span class="mathquill ud-math">s,a</span> (<span class="mathquill ud-math">s\in\mathcal{S},a\in\mathcal{A}</span>) in an episode is called a <strong>visit to <span class="mathquill ud-math">s,a</span></strong>.</li>
-<li>There are two types of MC prediction methods (for estimating <span class="mathquill ud-math">q_\pi</span>):<ul>
-<li><strong>First-visit MC</strong> estimates <span class="mathquill ud-math">q_\pi(s,a)</span> as the average of the returns following <em>only first</em> visits to <span class="mathquill ud-math">s,a</span> (that is, it ignores returns that are associated to later visits).</li>
-<li><strong>Every-visit MC</strong> estimates <span class="mathquill ud-math">q_\pi(s,a)</span> as the average of the returns following <em>all</em> visits to <span class="mathquill ud-math">s,a</span>.</li></ul></li>
-</ul>
-</div>
+                            </figcaption>
+                        </figure>
 
-<div class="row">
-  <div class="column">
-    <img src="img/mca1.png" alt="mca1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca2.png" alt="mca2" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca3.png" alt="mca3" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca4.png" alt="mca4" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca5.png" alt="mca5" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca6.png" alt="mca6" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca7.png" alt="mca7" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/mca8.png" alt="mca8" style="width:100%">
-  </div>
-</div>
-<figure class="figure">
-    <img src="img/mc-pred-action.png" alt="" style="width:60%" class="img img-fluid">
-    <figcaption class="figure-caption">
-      
-    </figcaption>
-  </figure>
-  <div>
-  <p>Both the first-visit and every-visit methods are <strong>guaranteed to converge</strong> to the true value function, as the number of visits to each state-action pair approaches infinity.  (<em>So, in other words, as long as the agent gets enough experience with each state-action pair, the value function estimate will be pretty close to the true value.</em>)</p>
-<p><strong>We won't use MC prediction to estimate the action-values corresponding to a deterministic policy</strong>; this is because many state-action pairs will <em>never</em> be visited (since a deterministic policy always chooses the <em>same</em> action from each state).  Instead, so that convergence is guaranteed, we will only estimate action-value functions corresponding to policies where each action has a non-zero probability of being selected from each state.</p>
-</div>
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-generalized-policy-iteration">Generalized Policy Iteration</h2>
-<ul>
-<li>Algorithms designed to solve the <strong>control problem</strong> determine the optimal policy <span class="mathquill ud-math">\pi_*</span> from interaction with the environment.</li>
-<li><strong>Generalized policy iteration (GPI)</strong> refers to the general method of using alternating rounds of policy evaluation and improvement in the search for an optimal policy. (All of the reinforcement learning algorithms we examine in this course can be classified as GPI)</li>
-</ul>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/gpi1.png" alt="gpi1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/pol_val_iter.png" alt="pol_val_iter" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/gpi2.png" alt="gpi2" style="width:100%">
-  </div>
- </div>
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mc-control-incremental-mean">MC Control: Incremental Mean</h2>
-<ul>
-<li>In this concept, we derived an algorithm that keeps a running average of a sequence of numbers.</li>
-</ul>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/im1.png" alt="im1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/im2.png" alt="im2" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/im3.png" alt="im3" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/im4.png" alt="im4" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/im5.png" alt="im5" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/im6.png" alt="im6" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/im7.png" alt="im7" style="width:100%">
-  </div>
-</div>
-<p>In this, we learned about an algorithm that can keep a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>.  The algorithm looked at each number in the sequence in order, and successively updated the mean <span class="mathquill ud-math">\mu</span>.</p>
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mc-control-policy-evaluation">MC Control: Policy Evaluation</h2>
-<ul>
-<li>In this concept, we amended the policy evaluation step to update the value function after every episode of interaction.</li>
-</ul>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/im1.png" alt="im1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/pol_eval1.png" alt="pol_eval1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/pol_eval2.png" alt="pol_eval2" style="width:100%">
-  </div>
-</div>
-</div>
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mc-control-policy-improvement">MC Control: Policy Improvement</h2>
-<ul>
-<li>A policy is <strong>greedy</strong> with respect to an action-value function estimate <span class="mathquill ud-math">Q</span> if for every state <span class="mathquill ud-math">s\in\mathcal{S}</span>, it is guaranteed to select an action <span class="mathquill ud-math">a\in\mathcal{A}(s)</span> such that <span class="mathquill ud-math">a = \arg\max_{a\in\mathcal{A}(s)}Q(s,a)</span>.  (It is common to refer to the selected action as the <strong>greedy action</strong>.)</li>
-<li>A policy is <strong><span class="mathquill ud-math">\epsilon</span>-greedy</strong> with respect to an action-value function estimate <span class="mathquill ud-math">Q</span> if for every state <span class="mathquill ud-math">s\in\mathcal{S}</span>, <ul>
-<li>with probability <span class="mathquill ud-math">1-\epsilon</span>, the agent selects the greedy action, and</li>
-<li>with probability <span class="mathquill ud-math">\epsilon</span>, the agent selects an action (uniformly) at random.</li></ul></li>
-</ul>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/pol_imp1.png" alt="pol_imp1" style="width:100%">
-  </div>
-</div>
+                        <p>If you are interested in learning more about the difference between first-visit and every-visit MC methods, you are encouraged to read Section 3 of [<a href="https://link.springer.com/article/10.1007/BF00114726">this</a> <a href="https://link.springer.com/content/pdf/10.1007/BF00114726.pdf">paper</a>]
+                            <br
+                            /> Their results are summarized in Section 3.6. The authors showed:</p>
+                        <ul>
+                            <li>Every-visit MC is <a href="https://en.wikipedia.org/wiki/Bias_of_an_estimator" target="_blank">biased</a>, whereas first-visit MC is unbiased (see Theorems 6 and 7).</li>
+                            <li>Initially, every-visit MC has lower <a href="https://en.wikipedia.org/wiki/Mean_squared_error" target="_blank">mean squared error (MSE)</a>, but as more episodes are collected, first-visit MC attains better MSE (see Corollary
+                                9a and 10a, and Figure 4).</li>
+                        </ul>
+                        <p>Both the first-visit and every-visit method are <strong>guaranteed to converge</strong> to the true value function, as the number of visits to each state approaches infinity. (<em>So, in other words, as long as the agent gets enough experience with each state, the value function estimate will be pretty close to the true value.</em>)
+                            In the case of first-visit MC, convergence follows from the <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank">Law of Large Numbers</a>, and the details are covered in section 5.1 of the <a href="http://go.udacity.com/rl-textbook"
+                            target="_blank">textbook</a>.</p>
+                        <figure class="figure">
+                            <img src="img/mc11.png" alt="" style="width:80%" class="img img-fluid">
+                            <figcaption class="figure-caption">
 
-<div class="row">
-    <div class="column">
-      <img src="img/pol_imp11.png" alt="pol_imp11" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="img/pol_imp12.png" alt="pol_imp12" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="img/pol_imp2.png" alt="pol_imp2" style="width:100%">
-    </div>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-mc-prediction-action-values">MC Prediction: Action Values</h2> In the <strong>Dynamic Programming</strong> case, we used the state value function to obtain an action value function, as given below:
+                            <br />
+                            <br /><span class="mathquill ud-math">q_\pi(s,a) = \sum_{s'\in\mathcal{S}, r\in\mathcal{R}}p(s',r|s,a)(r+\gamma v_\pi(s'))</span>
+                            <br />
+                            <br /> Can we follow the same procedure here (in <strong>Monte Carlo</strong> case)?
+                            <br />
+                            <br />
+                            <strong>Unfortunately, no!</strong> Remember, <span class="mathquill ud-math">p(s',r|s,a)</span> encodes the one-step dynamics of the environement. This was known to the agent in the DP setting but in the RL setting, the agent
+                            doesn't know these dynamics. So, we can't apply above equation as before. Instead to get the action values, we would make a small modification to the prediction algorithm.
+                            <br />
+                            <br />
+                            <ul>
+                                <li>Each occurrence of the state-action pair <span class="mathquill ud-math">s,a</span> (<span class="mathquill ud-math">s\in\mathcal{S},a\in\mathcal{A}</span>) in an episode is called a <strong>visit to <span class="mathquill ud-math">s,a</span></strong>.</li>
+                                <li>There are two types of MC prediction methods (for estimating <span class="mathquill ud-math">q_\pi</span>):
+                                    <ul>
+                                        <li><strong>First-visit MC</strong> estimates <span class="mathquill ud-math">q_\pi(s,a)</span> as the average of the returns following <em>only first</em> visits to <span class="mathquill ud-math">s,a</span> (that
+                                            is, it ignores returns that are associated to later visits).</li>
+                                        <li><strong>Every-visit MC</strong> estimates <span class="mathquill ud-math">q_\pi(s,a)</span> as the average of the returns following <em>all</em> visits to <span class="mathquill ud-math">s,a</span>.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
 
-</div><br />
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/mca1.png" alt="mca1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca2.png" alt="mca2" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca3.png" alt="mca3" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca4.png" alt="mca4" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca5.png" alt="mca5" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca6.png" alt="mca6" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca7.png" alt="mca7" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/mca8.png" alt="mca8" style="width:100%">
+                            </div>
+                        </div>
+                        <figure class="figure">
+                            <img src="img/mc-pred-action.png" alt="" style="width:60%" class="img img-fluid">
+                            <figcaption class="figure-caption">
 
-Say we are an agent and we have two door infront of us, we need to decide which has more value. At the beginning we have no reason to favour any door over the other, so let's say we initialize the estimate for the value of each door to 0. And, in order to figure out which door to open, let's flip a coin and it comes up tail, so we open door B. When we do that we receive a reward of 0. Let's say for simplicity that an episode finishes after single door is open. In other words, after opening door B, we receive a return of 0. That doesn't change the estimate of the value function, so it makes sense to pick a door randomly again. So we flip a coin, it comes head this time and we open door A. When we do this, we get a reward of 1. This update the estimate for the value of door A to 1. Now if we act greedily with respect to the value function, then we open door A again. Say this time we get a reward of 3. This updates the value of door A to 2. So, at the next point in time, the greedy policy picked door A again. Say everytime we do that we get some positive rewards and it's always either 1 or 3. So for all time we are opening the same door. There is a big problem with this. We never got chance to truly explore what's behind the second door. For instance, consider the case that the mechanism behind the door A is what you would expect - it yields a reward of 1 or 3 where both are equally likely. But, the mechanism behind door B gives 0 or 100, this information we would have liked to discover but following the greedy policy has prevented us. So the point is we may got to a situation early in our investigation where door A seemed more favourable than door B, we really need more time to making sure of that because our early preceptions were incorrect.<br /><br />
+                            </figcaption>
+                        </figure>
+                        <div>
+                            <p>Both the first-visit and every-visit methods are <strong>guaranteed to converge</strong> to the true value function, as the number of visits to each state-action pair approaches infinity. (<em>So, in other words, as long as the agent gets enough experience with each state-action pair, the value function estimate will be pretty close to the true value.</em>)</p>
+                            <p><strong>We won't use MC prediction to estimate the action-values corresponding to a deterministic policy</strong>; this is because many state-action pairs will <em>never</em> be visited (since a deterministic policy always
+                                chooses the <em>same</em> action from each state). Instead, so that convergence is guaranteed, we will only estimate action-value functions corresponding to policies where each action has a non-zero probability of being
+                                selected from each state.</p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-generalized-policy-iteration">Generalized Policy Iteration</h2>
+                            <ul>
+                                <li>Algorithms designed to solve the <strong>control problem</strong> determine the optimal policy <span class="mathquill ud-math">\pi_*</span> from interaction with the environment.</li>
+                                <li><strong>Generalized policy iteration (GPI)</strong> refers to the general method of using alternating rounds of policy evaluation and improvement in the search for an optimal policy. (All of the reinforcement learning algorithms
+                                    we examine in this course can be classified as GPI)</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/gpi1.png" alt="gpi1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_val_iter.png" alt="pol_val_iter" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/gpi2.png" alt="gpi2" style="width:100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-mc-control-incremental-mean">MC Control: Incremental Mean</h2>
+                            <ul>
+                                <li>In this concept, we derived an algorithm that keeps a running average of a sequence of numbers.</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/im1.png" alt="im1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/im2.png" alt="im2" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/im3.png" alt="im3" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/im4.png" alt="im4" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/im5.png" alt="im5" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/im6.png" alt="im6" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/im7.png" alt="im7" style="width:100%">
+                            </div>
+                        </div>
+                        <p>In this, we learned about an algorithm that can keep a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>. The algorithm looked at each number in the sequence in
+                            order, and successively updated the mean <span class="mathquill ud-math">\mu</span>.</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-mc-control-policy-evaluation">MC Control: Policy Evaluation</h2>
+                            <ul>
+                                <li>In this concept, we amended the policy evaluation step to update the value function after every episode of interaction.</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/im1.png" alt="im1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_eval1.png" alt="pol_eval1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_eval2.png" alt="pol_eval2" style="width:100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-mc-control-policy-improvement">MC Control: Policy Improvement</h2>
+                            <ul>
+                                <li>A policy is <strong>greedy</strong> with respect to an action-value function estimate <span class="mathquill ud-math">Q</span> if for every state <span class="mathquill ud-math">s\in\mathcal{S}</span>, it is guaranteed
+                                    to select an action <span class="mathquill ud-math">a\in\mathcal{A}(s)</span> such that <span class="mathquill ud-math">a = \arg\max_{a\in\mathcal{A}(s)}Q(s,a)</span>. (It is common to refer to the selected action as
+                                    the <strong>greedy action</strong>.)</li>
+                                <li>A policy is <strong><span class="mathquill ud-math">\epsilon</span>-greedy</strong> with respect to an action-value function estimate <span class="mathquill ud-math">Q</span> if for every state <span class="mathquill ud-math">s\in\mathcal{S}</span>,
+                                    <ul>
+                                        <li>with probability <span class="mathquill ud-math">1-\epsilon</span>, the agent selects the greedy action, and</li>
+                                        <li>with probability <span class="mathquill ud-math">\epsilon</span>, the agent selects an action (uniformly) at random.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/pol_imp1.png" alt="pol_imp1" style="width:100%">
+                            </div>
+                        </div>
 
-So, instead of constructing that greedy policy, a better policy would have been a stochastic one that picked door A with 95% probability and door B with 5% probability (let's say). And that still pretty close to the greedy policy - so we are acting pretty optimally. But there is an added value that if we continued to select door B with some small probability, then at some point we are going to see that return of 100.<br /><br />
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/pol_imp11.png" alt="pol_imp11" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_imp12.png" alt="pol_imp12" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_imp2.png" alt="pol_imp2" style="width:100%">
+                            </div>
 
-Above example motivates how we will define the Monte Carlo version of policy improvement.
-<br /><br />
+                        </div>
+                        <br /> Say we are an agent and we have two door infront of us, we need to decide which has more value. At the beginning we have no reason to favour any door over the other, so let's say we initialize the estimate for the value of each
+                        door to 0. And, in order to figure out which door to open, let's flip a coin and it comes up tail, so we open door B. When we do that we receive a reward of 0. Let's say for simplicity that an episode finishes after single door
+                        is open. In other words, after opening door B, we receive a return of 0. That doesn't change the estimate of the value function, so it makes sense to pick a door randomly again. So we flip a coin, it comes head this time and we
+                        open door A. When we do this, we get a reward of 1. This update the estimate for the value of door A to 1. Now if we act greedily with respect to the value function, then we open door A again. Say this time we get a reward of 3.
+                        This updates the value of door A to 2. So, at the next point in time, the greedy policy picked door A again. Say everytime we do that we get some positive rewards and it's always either 1 or 3. So for all time we are opening the
+                        same door. There is a big problem with this. We never got chance to truly explore what's behind the second door. For instance, consider the case that the mechanism behind the door A is what you would expect - it yields a reward
+                        of 1 or 3 where both are equally likely. But, the mechanism behind door B gives 0 or 100, this information we would have liked to discover but following the greedy policy has prevented us. So the point is we may got to a situation
+                        early in our investigation where door A seemed more favourable than door B, we really need more time to making sure of that because our early preceptions were incorrect.
+                        <br />
+                        <br /> So, instead of constructing that greedy policy, a better policy would have been a stochastic one that picked door A with 95% probability and door B with 5% probability (let's say). And that still pretty close to the greedy policy
+                        - so we are acting pretty optimally. But there is an added value that if we continued to select door B with some small probability, then at some point we are going to see that return of 100.
+                        <br />
+                        <br /> Above example motivates how we will define the Monte Carlo version of policy improvement.
+                        <br />
+                        <br />
 
-<div class="row">
-  <div class="column">
-    <img src="img/pol_imp3.png" alt="pol_imp3" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/pol_imp4.png" alt="pol_imp4" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/pol_imp5.png" alt="pol_imp5" style="width:100%">
-  </div>
-</div>
-<br /><br />
-Instead of always constructing a greedy policy, what we will do instead is construct a stochastic policy that's most likely to pick the greedy action but with a small and non-zero probability picks one of the non-greedy actions instead.<br /><br />
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/pol_imp3.png" alt="pol_imp3" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_imp4.png" alt="pol_imp4" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/pol_imp5.png" alt="pol_imp5" style="width:100%">
+                            </div>
+                        </div>
+                        <br />
+                        <br /> Instead of always constructing a greedy policy, what we will do instead is construct a stochastic policy that's most likely to pick the greedy action but with a small and non-zero probability picks one of the non-greedy actions
+                        instead.
+                        <br />
+                        <br /> In this case, we will set some small positive number <strong>Є</strong>, where the larger it is the more likely we are to pick one of the non-greedy actions. We call this an <strong>Epsilon-Greedy policy</strong>.
+                        <br />
+                        <br /> As long as the <strong>Є</strong> is set to a small number, we have a method for constructing a policy that is very close to the greedy policy with the added benefit that it doesn't prevent the agent from continuing to explore
+                        the range of posibilities.
+                        <br />
+                        <br />
 
-In this case, we will set some small positive number <strong>Є</strong>, where the larger it is the more likely we are to pick one of the non-greedy actions. We call this an <strong>Epsilon-Greedy policy</strong>.<br /><br />
+                        <ul>
+                            <li><strong>Є = 0</strong> yields an epsilon-greedy policy that is guaranteed to always select the greedy action.</li>
+                            <li>The values for epsilon yields an epsilon-greedy policy where the agent has the possibility of selecting a greedy action, but might select a non-greedy action instead. In other words, how might you guarantee that the agent selects
+                                each of the available (greedy and non-greedy) actions with nonzero probability.
+                                <ul>
+                                    <li><strong>Є = 0.3</strong></li>
+                                    <li><strong>Є = 0.5</strong></li>
+                                    <li><strong>Є = 1.0</strong></li>
+                                </ul>
+                            </li>
+                            <li><strong>Є = 1</strong> yields an epsilon-greedy policy that is equivalent to the equiprobable random policy (where, from each state, each action is equally likely to be selected).</li>
+                        </ul>
+                    </div>
 
-As long as the <strong>Є</strong> is set to a small number, we have a method for constructing a policy that is very close to the greedy policy with the added benefit that it doesn't prevent the agent from continuing to explore the range of posibilities.<br /><br />
+                    <div>
+                        <h1 id="quiz-epsilon-greedy-policies">Epsilon-Greedy Policies</h1>
+                    </div>
 
-<ul>
-  <li><strong>Є = 0</strong> yields an epsilon-greedy policy that is guaranteed to always select the greedy action.</li>
-  <li>The values for epsilon yields an epsilon-greedy policy where the agent has the possibility of selecting a greedy action, but might select a non-greedy action instead. In other words, how might you guarantee that the agent selects each of the available (greedy and non-greedy) actions with nonzero probability.
-    <ul>
-      <li><strong>Є = 0.3</strong></li>
-      <li><strong>Є = 0.5</strong></li>
-      <li><strong>Є = 1.0</strong></li>
-    </ul>
-  </li>
-  <li><strong>Є = 1</strong> yields an epsilon-greedy policy that is equivalent to the equiprobable random policy (where, from each state, each action is equally likely to be selected).</li>
-</ul>
-</div>
+                </div>
+                <!-- <div class="divider"></div> -->
+                <div class="ud-atom">
+                    <h3></h3>
+                    <div>
+                        <p>You can think of the agent who follows an <span class="mathquill ud-math">\epsilon</span>-greedy policy as always having a (potentially unfair) coin at its disposal, with probability <span class="mathquill ud-math">\epsilon</span>                            of landing heads. After observing a state, the agent flips the coin.</p>
+                        <ul>
+                            <li>If the coin lands tails (so, with probability <span class="mathquill ud-math">1-\epsilon</span>), the agent selects the greedy action.</li>
+                            <li>If the coin lands heads (so, with probability <span class="mathquill ud-math">\epsilon</span>), the agent selects an action <em>uniformly</em> at random from the set of available (non-greedy <strong>AND</strong> greedy) actions.</li>
+                        </ul>
+                        <p>In order to construct a policy <span class="mathquill ud-math">\pi</span> that is <span class="mathquill ud-math">\epsilon</span>-greedy with respect to the current action-value function estimate <span class="mathquill ud-math">Q</span>,
+                            we need only set</p>
+                    </div>
 
-<div>
-  <h1 id="quiz-epsilon-greedy-policies">Epsilon-Greedy Policies</h1>
-</div>
+                </div>
+                <!-- <div class="divider"></div> -->
+                <div class="ud-atom">
+                    <h3></h3>
+                    <div>
+                        <figure class="figure">
+                            <img src="img/screen-shot-2017-10-04-at-2.46.11-pm.png" alt="" style="width:80%" class="img img-fluid">
+                            <figcaption class="figure-caption">
 
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-<p>You can think of the agent who follows an <span class="mathquill ud-math">\epsilon</span>-greedy policy as always having a (potentially unfair) coin at its disposal, with probability <span class="mathquill ud-math">\epsilon</span> of landing heads.  After observing a state, the agent flips the coin.</p>
-<ul>
-<li>If the coin lands tails (so, with probability <span class="mathquill ud-math">1-\epsilon</span>), the agent selects the greedy action.</li>
-<li>If the coin lands heads (so, with probability <span class="mathquill ud-math">\epsilon</span>), the agent selects an action <em>uniformly</em> at random from the set of available (non-greedy <strong>AND</strong> greedy) actions.</li>
-</ul>
-<p>In order to construct a policy <span class="mathquill ud-math">\pi</span> that is <span class="mathquill ud-math">\epsilon</span>-greedy with respect to the current action-value function estimate <span class="mathquill ud-math">Q</span>, we need only set</p>
-</div>
-
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <figure class="figure">
-    <img src="img/screen-shot-2017-10-04-at-2.46.11-pm.png" alt="" style="width:80%" class="img img-fluid">
-    <figcaption class="figure-caption">
-      
-    </figcaption>
-  </figure>
-</div>
-
-
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <p>for each <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>.  Note that <span class="mathquill ud-math">\epsilon</span> must always be a value between 0 and 1, inclusive (that is, <span class="mathquill ud-math">\epsilon \in [0,1]</span>).</p>
-</div>
-
-<div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-exploration-vs-exploitation">Exploration vs. Exploitation</h2>
-<ul>
-<li>All reinforcement learning agents face the <strong>Exploration-Exploitation Dilemma</strong>, where they must find a way to balance the drive to behave optimally based on their current knowledge (<strong>exploitation</strong>) and the need to acquire knowledge to attain better judgment (<strong>exploration</strong>).</li>
-<li>In order for MC control to converge to the optimal policy, the <strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong> conditions must be met:<ul>
-<li>every state-action pair <span class="mathquill ud-math">s, a</span> (for all <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>) is visited infinitely many times, and </li>
-<li>the policy converges to a policy that is greedy with respect to the action-value function estimate <span class="mathquill ud-math">Q</span>.</li></ul></li>
-</ul>
-</div>
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <figure class="figure">
-    <img src="img/mc-control-glie.png" alt="" style="width:70%" class="img img-fluid">
-    <figcaption class="figure-caption">  
-    </figcaption>
-  </figure>
-</div>
-<div>
-<p>Recall that the environment's dynamics are initially unknown to the agent.  Towards maximizing return, the agent must learn about the environment through interaction.</p>
-<p>At every time step, when the agent selects an action, it bases its decision on past experience with the environment.  And, towards minimizing the number of episodes needed to solve environments in OpenAI Gym, our first instinct could be to devise a strategy where the agent always selects the action that it believes (<em>based on its past experience</em>) will maximize return.  With this in mind, the agent could follow the policy that is greedy with respect to the action-value function estimate.  We examined this approach in previous section and saw that it can easily lead to convergence to a sub-optimal policy.</p>
-<p>To see why this is the case, note that in early episodes, the agent's knowledge is quite limited (and potentially flawed).  So, it is highly likely that actions <em>estimated</em> to be non-greedy by the agent are in fact better than the <em>estimated</em> greedy action.</p>
-<p>With this in mind, a successful RL agent cannot act greedily at every time step (<em>that is</em>, it cannot always <strong>exploit</strong> its knowledge); instead, in order to discover the optimal policy, it has to continue to refine the estimated return for all state-action pairs (<em>in other words</em>, it has to continue to <strong>explore</strong> the range of possibilities by visiting every state-action pair).  That said, the agent should always act <em>somewhat greedily</em>, towards its goal of maximizing return <em>as quickly as possible</em>.  This motivated the idea of an <span class="mathquill ud-math">\epsilon</span>-greedy policy.</p>
-<p>We refer to the need to balance these two competing requirements as the <strong>Exploration-Exploitation Dilemma</strong>.  One potential solution to this dilemma is implemented by gradually modifying the value of <span class="mathquill ud-math">\epsilon</span> when constructing <span class="mathquill ud-math">\epsilon</span>-greedy policies.</p>
-<h2 id="-setting-the-value-of-span-classmathquill-ud-mathepsilonspan-in-theory">Setting the Value of <span class="mathquill ud-math">\epsilon</span>, in Theory</h2>
-<p>It makes sense for the agent to begin its interaction with the environment by favoring <strong>exploration</strong> over <strong>exploitation</strong>.  After all, when the agent knows relatively little about the environment's dynamics, it should distrust its limited knowledge and <strong>explore</strong>, or try out various strategies for maximizing return.  With this in mind, the best starting policy is the equiprobable random policy, as it is equally likely to explore all possible actions from each state.  You discovered in the previous quiz that setting <span class="mathquill ud-math">\epsilon = 1</span> yields an <span class="mathquill ud-math">\epsilon</span>-greedy policy that is equivalent to the equiprobable random policy.</p>
-<p>At later time steps, it makes sense to favor <strong>exploitation</strong> over <strong>exploration</strong>, where the policy gradually becomes more greedy with respect to the action-value function estimate.  After all, the more the agent interacts with the environment, the more it can trust its estimated action-value function.  You discovered in the previous quiz that setting <span class="mathquill ud-math">\epsilon = 0</span> yields the greedy policy (or, the policy that most favors exploitation over exploration). </p>
-<p>Thankfully, this strategy (of initially favoring exploration over exploitation, and then gradually preferring exploitation over exploration) can be demonstrated to be optimal. </p>
-<h2 id="-greedy-in-the-limit-with-infinite-exploration-glie">Greedy in the Limit with Infinite Exploration (GLIE)</h2>
-<p>In order to guarantee that MC control converges to the optimal policy <span class="mathquill ud-math">\pi_*</span>, we need to ensure that two conditions are met.  We refer to these conditions as <strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong>.  In particular, if:</p>
-<ul>
-<li>every state-action pair <span class="mathquill ud-math">s, a</span> (for all <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>) is visited infinitely many times, and </li>
-<li>the policy converges to a policy that is greedy with respect to the action-value function estimate <span class="mathquill ud-math">Q</span>,</li>
-</ul>
-<p>then MC control is guaranteed to converge to the optimal policy (in the limit as the algorithm is run for infinitely many episodes).  These conditions ensure that:</p>
-<ul>
-<li>the agent continues to explore for all time steps, and</li>
-<li>the agent gradually exploits more (and explores less).</li>
-</ul>
-<p>One way to satisfy these conditions  is to modify the value of <span class="mathquill ud-math">\epsilon</span> when specifying an <span class="mathquill ud-math">\epsilon</span>-greedy policy.  In particular, let <span class="mathquill ud-math">\epsilon_i</span> correspond to the <span class="mathquill ud-math">i</span>-th time step.  Then, both of these conditions are met if:</p>
-<ul>
-<li><span class="mathquill ud-math">\epsilon_i > 0</span> for all time steps <span class="mathquill ud-math">i</span>, and </li>
-<li><span class="mathquill ud-math">\epsilon_i</span> decays to zero in the limit as the time step <span class="mathquill ud-math">i</span> approaches infinity (that is, <span class="mathquill ud-math">\lim_{i\to\infty} \epsilon_i = 0</span>).</li>
-</ul>
-<p>For example, to ensure convergence to the optimal policy, we could set <span class="mathquill ud-math">\epsilon_i = \frac{1}{i}</span>.  (You are encouraged to verify that <span class="mathquill ud-math">\epsilon_i > 0</span> for all <span class="mathquill ud-math">i</span>, and <span class="mathquill ud-math">\lim_{i\to\infty} \epsilon_i = 0</span>.)</p>
-</div>
-<div>
-  <h2 id="-setting-the-value-of-span-classmathquill-ud-mathepsilonspan-in-practice">Setting the Value of <span class="mathquill ud-math">\epsilon</span>, in Practice</h2>
-<p>As you read in the above section, in order to guarantee convergence, we must let <span class="mathquill ud-math">\epsilon_i</span> decay in accordance with the GLIE conditions.  But sometimes "guaranteed convergence" <em>isn't good enough</em> in practice, since this really doesn't tell you how long you have to wait!  It is possible that you could need trillions of episodes to recover the optimal policy, for instance, and the "guaranteed convergence" would still be accurate! </p>
-<blockquote>
-  <p>Even though convergence is <strong>not</strong> guaranteed by the mathematics, you can often get better results by either:</p>
-  <ul>
-  <li>using fixed <span class="mathquill ud-math">\epsilon</span>, or</li>
-  <li>letting <span class="mathquill ud-math">\epsilon_i</span> decay to a small positive number, like 0.1.  </li>
-  </ul>
-</blockquote>
-<p>This is because one has to be very careful with setting the decay rate for <span class="mathquill ud-math">\epsilon</span>; letting it get too small too fast can be disastrous.  If you get late in training and <span class="mathquill ud-math">\epsilon</span> is really small, you pretty much want the agent to have already converged to the optimal policy, as it will take way too long otherwise for it to test out new actions!</p>
-<p>As a famous example in practice, you can read more about how the value of <span class="mathquill ud-math">\epsilon</span> was set in the famous DQN algorithm by reading the Methods section of <a href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf" target="_blank">the research paper</a>: </p>
-<blockquote>
-  <p><em>The behavior policy during training was epsilon-greedy with epsilon annealed linearly from 1.0 to 0.1 over the first million frames, and fixed at 0.1 thereafter.</em></p>
-</blockquote>
-</div>
-
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="-mc-control-constant-alpha">MC Control: Constant-alpha</h2>
-<ul>
-<li>(In this concept, we derived the algorithm for <strong>constant-<span class="mathquill ud-math">\alpha</span> MC control</strong>, which uses a constant step-size parameter <span class="mathquill ud-math">\alpha</span>.)</li>
-<li>The step-size parameter <span class="mathquill ud-math">\alpha</span> must satisfy <span class="mathquill ud-math">0 < \alpha \leq 1</span>.  Higher values of <span class="mathquill ud-math">\alpha</span> will result in faster learning, but values of <span class="mathquill ud-math">\alpha</span> that are too high can prevent MC control from converging to <span class="mathquill ud-math">\pi_*</span>.</li>
-</ul>
-</div>
-<div class="row">
-  <div class="column">
-    <img src="img/calpha1.png" alt="calpha1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/calpha2.png" alt="calpha2" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/calpha3.png" alt="calpha3" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/calpha4.png" alt="calpha4" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/calpha5.png" alt="calpha5" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="img/calpha6.png" alt="calpha6" style="width:100%">
-  </div>
-</div>
-<div>
-  <p>In <strong>Incremental Mean</strong>, we have seen an algorithm that maintains a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>.</p>
-  <img src="img/Incremental.png" alt="" style="width:40%" class="img img-fluid">
-  <p>When we adapted Incremental Mean algorithm (an algorithm that maintains a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>) for Monte Carlo control in the following concept (<strong>MC Control: Policy Evaluation</strong>), the sequence <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span> corresponded to returns obtained after visiting the <em>same</em> state-action pair. </p>
-<p>That said, the sampled returns (for the <em>same</em> state-action pair) likely corresponds to many <em>different</em> policies.  This is because the control algorithm proceeds as a sequence of alternating evaluation and improvement steps, where the policy is improved after every episode of interaction.  In particular, we discussed that returns sampled at later time steps likely correspond to policies that are more optimal.  </p>
-<p>With this in mind, it made sense to amend the policy evaluation step to instead use a constant step size, which we denoted by <span class="mathquill ud-math">\alpha</span>.  This ensures that the agent primarily considers the most recently sampled returns when estimating the action-values and gradually forgets about returns in the distant past.</p>
-<p>The analogous pseudocode (for taking a <em>forgetful</em> mean of a sequence <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>) can be found below.</p>
-</div>
-</div>
-<img src="img/Constant-alpha.png" alt="" style="width:40%" class="img img-fluid">
-<div class="ud-atom">
-  <h3></h3>
-  <div>
-  <h2 id="setting-the-value-of-span-classmathquill-ud-mathalphaspan">Setting the Value of <span class="mathquill ud-math">\alpha</span></h2>
-<p>You can find the associated pseudocode below.</p>
-</div>
-
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <figure class="figure">
-    <img src="img/screen-shot-2017-10-12-at-5.47.45-pm.png" alt="" style="width:70%" class="img img-fluid">
-    <figcaption class="figure-caption">
-      
-    </figcaption>
-  </figure>
-</div>
+                            </figcaption>
+                        </figure>
+                    </div>
 
 
-</div>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <p>How to set the value of <span class="mathquill ud-math">\alpha</span> when implementing constant-<span class="mathquill ud-math">\alpha</span> MC control?</p>
-<ul>
-<li><p>You should always set the value for <span class="mathquill ud-math">\alpha</span> to a number greater than zero and less than (or equal to) one.  </p>
-<ul>
-<li>If <span class="mathquill ud-math">\alpha=0</span>, then the action-value function estimate is never updated by the agent.</li>
-<li>If <span class="mathquill ud-math">\alpha = 1</span>, then the final value estimate for each state-action pair is always equal to the last return that was experienced by the agent (after visiting the pair).</li></ul></li>
-<li><p>Smaller values for <span class="mathquill ud-math">\alpha</span> encourage the agent to consider a longer history of returns when calculating the action-value function estimate.  Increasing the value of <span class="mathquill ud-math">\alpha</span> ensures that the agent focuses more on the most recently sampled returns.</p></li>
-</ul>
-<p>Note that it is also possible to verify the above facts by slightly rewriting the update step as follows:</p>
-<p><span class="mathquill ud-math">Q(S_t,A_t) \leftarrow (1-\alpha)Q(S_t,A_t) + \alpha G_t</span></p>
-<p>where it is now more obvious that <span class="mathquill ud-math">\alpha</span> controls how much the agent trusts the most recent return <span class="mathquill ud-math">G_t</span> over the estimate <span class="mathquill ud-math">Q(S_t,A_t)</span> constructed by considering all past returns.</p>
-<p><strong>IMPORTANT NOTE</strong>: It is important to mention that when implementing constant-<span class="mathquill ud-math">\alpha</span> MC control, you must be careful to not set the value of <span class="mathquill ud-math">\alpha</span> too close to 1.  This is because very large values can keep the algorithm from converging to the optimal policy <span class="mathquill ud-math">\pi_*</span>.  However, you must also be careful to not set the value of <span class="mathquill ud-math">\alpha</span> too low, as this can result in an agent who learns too slowly.  The best value of <span class="mathquill ud-math">\alpha</span> for your implementation will greatly depend on your environment and is best gauged through trial-and-error.</p>
-</div>
-</div>
-<p>The pseudocode for (first-visit) constant-<span class="mathquill ud-math">\alpha</span> MC control can be found below.  (<em>Feel free to implement either the first-visit or every-visit MC method.  In the game of Blackjack, both the first-visit and every-visit methods return identical results.</em>)</p>
-<!-- <div class="divider"></div> --><div class="ud-atom">
-  <h3></h3>
-  <div>
-  <figure class="figure">
-    <img src="img/mc-control-constant-a.png" alt="" style="width:60%" class="img img-fluid">
-    <figcaption class="figure-caption">
-      
-    </figcaption>
-  </figure>
-</div>
-</div>
+                </div>
+                <!-- <div class="divider"></div> -->
+                <div class="ud-atom">
+                    <h3></h3>
+                    <div>
+                        <p>for each <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>. Note that <span class="mathquill ud-math">\epsilon</span> must always be a value between 0 and 1, inclusive
+                            (that is, <span class="mathquill ud-math">\epsilon \in [0,1]</span>).</p>
+                    </div>
+
+                    <div class="divider"></div>
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-exploration-vs-exploitation">Exploration vs. Exploitation</h2>
+                            <ul>
+                                <li>All reinforcement learning agents face the <strong>Exploration-Exploitation Dilemma</strong>, where they must find a way to balance the drive to behave optimally based on their current knowledge (<strong>exploitation</strong>)
+                                    and the need to acquire knowledge to attain better judgment (<strong>exploration</strong>).</li>
+                                <li>In order for MC control to converge to the optimal policy, the <strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong> conditions must be met:
+                                    <ul>
+                                        <li>every state-action pair <span class="mathquill ud-math">s, a</span> (for all <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>) is visited infinitely
+                                            many times, and </li>
+                                        <li>the policy converges to a policy that is greedy with respect to the action-value function estimate <span class="mathquill ud-math">Q</span>.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <div class="divider"></div> -->
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <figure class="figure">
+                                <img src="img/mc-control-glie.png" alt="" style="width:70%" class="img img-fluid">
+                                <figcaption class="figure-caption">
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div>
+                            <p>Recall that the environment's dynamics are initially unknown to the agent. Towards maximizing return, the agent must learn about the environment through interaction.</p>
+                            <p>At every time step, when the agent selects an action, it bases its decision on past experience with the environment. And, towards minimizing the number of episodes needed to solve environments in OpenAI Gym, our first instinct
+                                could be to devise a strategy where the agent always selects the action that it believes (<em>based on its past experience</em>) will maximize return. With this in mind, the agent could follow the policy that is greedy
+                                with respect to the action-value function estimate. We examined this approach in previous section and saw that it can easily lead to convergence to a sub-optimal policy.</p>
+                            <p>To see why this is the case, note that in early episodes, the agent's knowledge is quite limited (and potentially flawed). So, it is highly likely that actions <em>estimated</em> to be non-greedy by the agent are in fact better
+                                than the <em>estimated</em> greedy action.</p>
+                            <p>With this in mind, a successful RL agent cannot act greedily at every time step (<em>that is</em>, it cannot always <strong>exploit</strong> its knowledge); instead, in order to discover the optimal policy, it has to continue
+                                to refine the estimated return for all state-action pairs (<em>in other words</em>, it has to continue to <strong>explore</strong> the range of possibilities by visiting every state-action pair). That said, the agent should
+                                always act <em>somewhat greedily</em>, towards its goal of maximizing return <em>as quickly as possible</em>. This motivated the idea of an <span class="mathquill ud-math">\epsilon</span>-greedy policy.</p>
+                            <p>We refer to the need to balance these two competing requirements as the <strong>Exploration-Exploitation Dilemma</strong>. One potential solution to this dilemma is implemented by gradually modifying the value of <span class="mathquill ud-math">\epsilon</span>                                when constructing <span class="mathquill ud-math">\epsilon</span>-greedy policies.</p>
+                            <h2 id="-setting-the-value-of-span-classmathquill-ud-mathepsilonspan-in-theory">Setting the Value of <span class="mathquill ud-math">\epsilon</span>, in Theory</h2>
+                            <p>It makes sense for the agent to begin its interaction with the environment by favoring <strong>exploration</strong> over <strong>exploitation</strong>. After all, when the agent knows relatively little about the environment's
+                                dynamics, it should distrust its limited knowledge and <strong>explore</strong>, or try out various strategies for maximizing return. With this in mind, the best starting policy is the equiprobable random policy, as it
+                                is equally likely to explore all possible actions from each state. You discovered in the previous quiz that setting <span class="mathquill ud-math">\epsilon = 1</span> yields an <span class="mathquill ud-math">\epsilon</span>-greedy
+                                policy that is equivalent to the equiprobable random policy.</p>
+                            <p>At later time steps, it makes sense to favor <strong>exploitation</strong> over <strong>exploration</strong>, where the policy gradually becomes more greedy with respect to the action-value function estimate. After all, the
+                                more the agent interacts with the environment, the more it can trust its estimated action-value function. You discovered in the previous quiz that setting <span class="mathquill ud-math">\epsilon = 0</span> yields the greedy
+                                policy (or, the policy that most favors exploitation over exploration). </p>
+                            <p>Thankfully, this strategy (of initially favoring exploration over exploitation, and then gradually preferring exploitation over exploration) can be demonstrated to be optimal. </p>
+                            <h2 id="-greedy-in-the-limit-with-infinite-exploration-glie">Greedy in the Limit with Infinite Exploration (GLIE)</h2>
+                            <p>In order to guarantee that MC control converges to the optimal policy <span class="mathquill ud-math">\pi_*</span>, we need to ensure that two conditions are met. We refer to these conditions as <strong>Greedy in the Limit with Infinite Exploration (GLIE)</strong>.
+                                In particular, if:</p>
+                            <ul>
+                                <li>every state-action pair <span class="mathquill ud-math">s, a</span> (for all <span class="mathquill ud-math">s\in\mathcal{S}</span> and <span class="mathquill ud-math">a\in\mathcal{A}(s)</span>) is visited infinitely many
+                                    times, and </li>
+                                <li>the policy converges to a policy that is greedy with respect to the action-value function estimate <span class="mathquill ud-math">Q</span>,</li>
+                            </ul>
+                            <p>then MC control is guaranteed to converge to the optimal policy (in the limit as the algorithm is run for infinitely many episodes). These conditions ensure that:</p>
+                            <ul>
+                                <li>the agent continues to explore for all time steps, and</li>
+                                <li>the agent gradually exploits more (and explores less).</li>
+                            </ul>
+                            <p>One way to satisfy these conditions is to modify the value of <span class="mathquill ud-math">\epsilon</span> when specifying an <span class="mathquill ud-math">\epsilon</span>-greedy policy. In particular, let <span class="mathquill ud-math">\epsilon_i</span>                                correspond to the <span class="mathquill ud-math">i</span>-th time step. Then, both of these conditions are met if:</p>
+                            <ul>
+                                <li><span class="mathquill ud-math">\epsilon_i > 0</span> for all time steps <span class="mathquill ud-math">i</span>, and </li>
+                                <li><span class="mathquill ud-math">\epsilon_i</span> decays to zero in the limit as the time step <span class="mathquill ud-math">i</span> approaches infinity (that is, <span class="mathquill ud-math">\lim_{i\to\infty} \epsilon_i = 0</span>).</li>
+                            </ul>
+                            <p>For example, to ensure convergence to the optimal policy, we could set <span class="mathquill ud-math">\epsilon_i = \frac{1}{i}</span>. (You are encouraged to verify that <span class="mathquill ud-math">\epsilon_i > 0</span>                                for all <span class="mathquill ud-math">i</span>, and <span class="mathquill ud-math">\lim_{i\to\infty} \epsilon_i = 0</span>.)</p>
+                        </div>
+                        <div>
+                            <h2 id="-setting-the-value-of-span-classmathquill-ud-mathepsilonspan-in-practice">Setting the Value of <span class="mathquill ud-math">\epsilon</span>, in Practice</h2>
+                            <p>As you read in the above section, in order to guarantee convergence, we must let <span class="mathquill ud-math">\epsilon_i</span> decay in accordance with the GLIE conditions. But sometimes "guaranteed convergence" <em>isn't good enough</em>                                in practice, since this really doesn't tell you how long you have to wait! It is possible that you could need trillions of episodes to recover the optimal policy, for instance, and the "guaranteed convergence" would still
+                                be accurate! </p>
+                            <blockquote>
+                                <p>Even though convergence is <strong>not</strong> guaranteed by the mathematics, you can often get better results by either:</p>
+                                <ul>
+                                    <li>using fixed <span class="mathquill ud-math">\epsilon</span>, or</li>
+                                    <li>letting <span class="mathquill ud-math">\epsilon_i</span> decay to a small positive number, like 0.1. </li>
+                                </ul>
+                            </blockquote>
+                            <p>This is because one has to be very careful with setting the decay rate for <span class="mathquill ud-math">\epsilon</span>; letting it get too small too fast can be disastrous. If you get late in training and <span class="mathquill ud-math">\epsilon</span>                                is really small, you pretty much want the agent to have already converged to the optimal policy, as it will take way too long otherwise for it to test out new actions!</p>
+                            <p>As a famous example in practice, you can read more about how the value of <span class="mathquill ud-math">\epsilon</span> was set in the famous DQN algorithm by reading the Methods section of <a href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf"
+                                target="_blank">the research paper</a>: </p>
+                            <blockquote>
+                                <p><em>The behavior policy during training was epsilon-greedy with epsilon annealed linearly from 1.0 to 0.1 over the first million frames, and fixed at 0.1 thereafter.</em></p>
+                            </blockquote>
+                        </div>
+
+                    </div>
+                    <!-- <div class="divider"></div> -->
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="-mc-control-constant-alpha">MC Control: Constant-alpha</h2>
+                            <ul>
+                                <li>(In this concept, we derived the algorithm for <strong>constant-<span class="mathquill ud-math">\alpha</span> MC control</strong>, which uses a constant step-size parameter <span class="mathquill ud-math">\alpha</span>.)</li>
+                                <li>The step-size parameter <span class="mathquill ud-math">\alpha</span> must satisfy <span class="mathquill ud-math">0 < \alpha \leq 1</span>. Higher values of <span class="mathquill ud-math">\alpha</span> will result in
+                                    faster learning, but values of <span class="mathquill ud-math">\alpha</span> that are too high can prevent MC control from converging to <span class="mathquill ud-math">\pi_*</span>.</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/calpha1.png" alt="calpha1" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/calpha2.png" alt="calpha2" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/calpha3.png" alt="calpha3" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/calpha4.png" alt="calpha4" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/calpha5.png" alt="calpha5" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/calpha6.png" alt="calpha6" style="width:100%">
+                            </div>
+                        </div>
+                        <div>
+                            <p>In <strong>Incremental Mean</strong>, we have seen an algorithm that maintains a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>.</p>
+                            <img src="img/Incremental.png" alt="" style="width:40%" class="img img-fluid">
+                            <p>When we adapted Incremental Mean algorithm (an algorithm that maintains a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>) for Monte Carlo control in the
+                                following concept (<strong>MC Control: Policy Evaluation</strong>), the sequence <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span> corresponded to returns obtained after visiting the <em>same</em> state-action
+                                pair. </p>
+                            <p>That said, the sampled returns (for the <em>same</em> state-action pair) likely corresponds to many <em>different</em> policies. This is because the control algorithm proceeds as a sequence of alternating evaluation and improvement
+                                steps, where the policy is improved after every episode of interaction. In particular, we discussed that returns sampled at later time steps likely correspond to policies that are more optimal. </p>
+                            <p>With this in mind, it made sense to amend the policy evaluation step to instead use a constant step size, which we denoted by <span class="mathquill ud-math">\alpha</span>. This ensures that the agent primarily considers the
+                                most recently sampled returns when estimating the action-values and gradually forgets about returns in the distant past.</p>
+                            <p>The analogous pseudocode (for taking a <em>forgetful</em> mean of a sequence <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>) can be found below.</p>
+                        </div>
+                    </div>
+                    <img src="img/Constant-alpha.png" alt="" style="width:40%" class="img img-fluid">
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <h2 id="setting-the-value-of-span-classmathquill-ud-mathalphaspan">Setting the Value of <span class="mathquill ud-math">\alpha</span></h2>
+                            <p>You can find the associated pseudocode below.</p>
+                        </div>
+
+                    </div>
+                    <!-- <div class="divider"></div> -->
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <figure class="figure">
+                                <img src="img/screen-shot-2017-10-12-at-5.47.45-pm.png" alt="" style="width:70%" class="img img-fluid">
+                                <figcaption class="figure-caption">
+
+                                </figcaption>
+                            </figure>
+                        </div>
 
 
-<div class="divider"></div>
+                    </div>
+                    <!-- <div class="divider"></div> -->
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <p>How to set the value of <span class="mathquill ud-math">\alpha</span> when implementing constant-<span class="mathquill ud-math">\alpha</span> MC control?</p>
+                            <ul>
+                                <li>
+                                    <p>You should always set the value for <span class="mathquill ud-math">\alpha</span> to a number greater than zero and less than (or equal to) one. </p>
+                                    <ul>
+                                        <li>If <span class="mathquill ud-math">\alpha=0</span>, then the action-value function estimate is never updated by the agent.</li>
+                                        <li>If <span class="mathquill ud-math">\alpha = 1</span>, then the final value estimate for each state-action pair is always equal to the last return that was experienced by the agent (after visiting the pair).</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p>Smaller values for <span class="mathquill ud-math">\alpha</span> encourage the agent to consider a longer history of returns when calculating the action-value function estimate. Increasing the value of <span class="mathquill ud-math">\alpha</span>                                        ensures that the agent focuses more on the most recently sampled returns.</p>
+                                </li>
+                            </ul>
+                            <p>Note that it is also possible to verify the above facts by slightly rewriting the update step as follows:</p>
+                            <p><span class="mathquill ud-math">Q(S_t,A_t) \leftarrow (1-\alpha)Q(S_t,A_t) + \alpha G_t</span></p>
+                            <p>where it is now more obvious that <span class="mathquill ud-math">\alpha</span> controls how much the agent trusts the most recent return <span class="mathquill ud-math">G_t</span> over the estimate <span class="mathquill ud-math">Q(S_t,A_t)</span>                                constructed by considering all past returns.</p>
+                            <p><strong>IMPORTANT NOTE</strong>: It is important to mention that when implementing constant-<span class="mathquill ud-math">\alpha</span> MC control, you must be careful to not set the value of <span class="mathquill ud-math">\alpha</span>                                too close to 1. This is because very large values can keep the algorithm from converging to the optimal policy <span class="mathquill ud-math">\pi_*</span>. However, you must also be careful to not set the value of
+                                <span
+                                class="mathquill ud-math">\alpha</span> too low, as this can result in an agent who learns too slowly. The best value of <span class="mathquill ud-math">\alpha</span> for your implementation will greatly depend on your environment and is best gauged
+                                    through trial-and-error.</p>
+                        </div>
+                    </div>
+                    <p>The pseudocode for (first-visit) constant-<span class="mathquill ud-math">\alpha</span> MC control can be found below. (<em>Feel free to implement either the first-visit or every-visit MC method.  In the game of Blackjack, both the first-visit and every-visit methods return identical results.</em>)</p>
+                    <!-- <div class="divider"></div> -->
+                    <div class="ud-atom">
+                        <h3></h3>
+                        <div>
+                            <figure class="figure">
+                                <img src="img/mc-control-constant-a.png" alt="" style="width:60%" class="img img-fluid">
+                                <figcaption class="figure-caption">
 
-</div>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <p class="text-center">
-          <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
 
 
-  <script src="../../assets/js/jquery-3.3.1.min.js"></script>
-  <script src="../../assets/js/plyr.polyfilled.min.js"></script>
-  <script src="../../assets/js/bootstrap.min.js"></script>
-  <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="../../assets/js/katex.min.js"></script>
-  <script>
-    // Initialize Plyr video players
-    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+                    <div class="divider"></div>
 
-    // render math equations
-    let elMath = document.getElementsByClassName('mathquill');
-    for (let i = 0, len = elMath.length; i < len; i += 1) {
-      const el = elMath[i];
+                </div>
+            </main>
 
-      katex.render(el.textContent, el, {
-        throwOnError: false
-      });
-    }
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="text-center">
+                                <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
-    // this hack will make sure Bootstrap tabs work when using Handlebars
-    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
-      $("#question-tabs a.nav-link").on('click', function () {
-        $("#question-tab-contents .tab-pane").hide();
-        $($(this).attr("href")).show();
-      });
-      $("#user-answer-tabs a.nav-link").on('click', function () {
-        $("#user-answer-tab-contents .tab-pane").hide();
-        $($(this).attr("href")).show();
-      });
-    } else {
-      $("a.nav-link").on('click', function () {
-        $(".tab-pane").hide();
-        $($(this).attr("href")).show();
-      });
-    }
 
-    // side bar events
-    $(document).ready(function () {
-      $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-      });
-
-      $('#sidebarCollapse').on('click', function () {
-        $('#sidebar, #content').toggleClass('active');
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-      });
-    });
-  </script>
+            <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+            <script src="../../assets/js/plyr.polyfilled.min.js"></script>
+            <script src="../../assets/js/bootstrap.min.js"></script>
+            <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+            <script src="../../assets/js/katex.min.js"></script>
+            <script>
+                // Initialize Plyr video players
+                const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+            
+                // render math equations
+                let elMath = document.getElementsByClassName('mathquill');
+                for (let i = 0, len = elMath.length; i < len; i += 1) {
+                  const el = elMath[i];
+            
+                  katex.render(el.textContent, el, {
+                    throwOnError: false
+                  });
+                }
+            
+                // this hack will make sure Bootstrap tabs work when using Handlebars
+                if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+                  $("#question-tabs a.nav-link").on('click', function () {
+                    $("#question-tab-contents .tab-pane").hide();
+                    $($(this).attr("href")).show();
+                  });
+                  $("#user-answer-tabs a.nav-link").on('click', function () {
+                    $("#user-answer-tab-contents .tab-pane").hide();
+                    $($(this).attr("href")).show();
+                  });
+                } else {
+                  $("a.nav-link").on('click', function () {
+                    $(".tab-pane").hide();
+                    $($(this).attr("href")).show();
+                  });
+                }
+            
+                // side bar events
+                $(document).ready(function () {
+                  $("#sidebar").mCustomScrollbar({
+                    theme: "minimal"
+                  });
+            
+                  $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar, #content').toggleClass('active');
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                  });
+                });
+            </script>
 </body>
 
 </html>
