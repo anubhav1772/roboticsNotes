@@ -345,23 +345,39 @@
                   <img src="img/dql33.png" alt="dql33" style="width:100%">
                </div>
                <div class="column">
+                  <img src="img/dql33-1.png" alt="dql33-1" style="width:100%">
+               </div>
+            </div>
+            <p>Experience Replay helps us address one type of correlation, i.e., between consecutive experience tuples. There is another kind of correlation that Q-Learning is susceptible to. Q-Learning is a form of TD Learning. Here, <span class="mathquill ud-math">R+\gamma \max_{a} \hat{q}(S', a, w)</span> (<span class="mathquill ud-math">\max_{a} \hat{q}= </span>maximum possible value from the next state) is called the TD Target and our goal is to reduce the difference between this target and the currently predicted Q-value. This difference is the TD Error. The TD Target here is supposed to be a replacement for the true value function <span class="mathquill ud-math">q_{\pi}(S, A)</span> which is unknown to us.</p>
+            <p>We originally used to <span class="mathquill ud-math">q_{\pi}</span> to define a squared error loss and differentiated that w.r.t. w to get our gradient descent update rule. Now <span class="mathquill ud-math">q_{\pi}</span> is not dependent on our function approximation or its parameters, thus resulting in a simple derivative and update rule. But, our TD Target is dependent on these parameters which means simply replacing the true value <span class="mathquill ud-math">q_{\pi}</span> with a target like this is mathematically incorrect.</p>
+            <p>We can get away with it in practice because every update results in a small change to the parameters which is generally in the right direction. If we set <span class="mathquill ud-math">\alpha = 1</span> and leap towards the target, then we would likely overshoot and land in the wrong place. Also this is less of a concern when we use a lookup table or dictionary since Q-values are stored separately for each (state, action) pair. But it can affect learning significantly when we use function approximation where all the Q-values are intrinsically tied together through the function parameters. <em>Doesn't experience replay take care of this problem?</em> Well, it addresses a similar but a slightly different issue. There we broke the correlation between consecutive experience tuples by sampling them randomly out of order. Here the correlation is between the target and the parameters we are changing. This is like chasing a moving target. Literally!</p>
+            <p>It's like trying to train a donkey to walk straight by sitting on it and dangling a carrot in front. Yes, the donkey might step forward and the carrot usually gets further away, always staying a little out of reach. But, contrary to popular belief this doesn't quite work as we would expect. The carrot is much more likely to bounce around randomly throwing the donkey off with every jerky step. Each action affects the next position of the target in a very complicated and unpredictable manner. We shouldn't be surprised if the donkey gets frustrated jumping around the spot and gives up. Instead we should get off the donkey, stand in one place and dangle the carrot from there. Once the donkey reaches that spot, move a few steps ahead dangle another carror and repeat. What we are essentially doing is decoupling the target position from the donkey's actions giving a more stable learning environment.</p>
+            <div class="row">
+               <div class="column">
                   <img src="img/dql34.png" alt="dql34" style="width:100%">
                </div>
                <div class="column">
                   <img src="img/dql35.png" alt="dql35" style="width:100%">
                </div>
             </div>
+            <p>We can do pretty much the same thing in Q-Learning by fixing the function parameters used to generate our target. The fixed parameters indicated by <span class="mathquill ud-math">w^{-}</span> are basically a copy of w that we don't change during the learning step. In practice, we copy <span class="mathquill ud-math">w</span> into <span class="mathquill ud-math">w^{-}</span>, use it generate the target while changing <span class="mathquill ud-math">w</span> for a certain number of learning steps. Then we update <span class="mathquill ud-math">w^{-}</span> with the latest <span class="mathquill ud-math">w</span>, again learn for a number of steps and so on. This decouples the target from the parameters, makes the learning algorithm much more stable and less likely to diverge or fall into oscillations. </p>
          </div>
          <div class="divider"></div>
          <div class="ud-atom">
             <div>
                <h2 id="-td-prediction-action-values">Deep Q-Learning Algorithm</h2>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                <div class="column">
-                  <img src="img/dql36.png" alt="dql36" style="width:100%">
+                 <img src="img/dql36.png" alt="dql36" style="width:100%">
                </div>
-            </div>
+               </div> -->
+            <img src="img/dql36.png" style="width:60%" alt="" class="img img-fluid" /></br>
+            <p>There are two main processes that are interleaved in this algorithm, one is where we sample the environment by performing actions and store away the observed experience tuples in the replay memory. The other is where we select a small batch of tuples from this memory randomly and then learn from that batch using a gradient descent update step.</p>
+            <p>These two processes are not directly dependent on each other, so we could perform multiple sampling steps, then one learning step or even multiple learning steps with different random batches. The rest of the algorithm is designed to support these steps.</p>
+            <p>In the bginning, we need to initialize an empty replay memory D. Note that the memory is finite, so we may want to use something like a circular queue that retains the n most recent experience tuples. Then we also need to initialize the parameters and weights of our neural network. There are certain best practices that we can use, for instance, sample the weights randomly from a normal distribution with variance equal to 2/(number of inputs to each neuron). These initialization methods are typically available in modern DL libraries like tensorflow, pytorch, keras, etc. so we won't need to implement them ourself.</p>
+            <p>To use the Fixed Q-Targets technique, we need a second set of parameters <span class="mathquill ud-math">w^{-}</span> which we can initialize to <span class="mathquill ud-math">w</span>. Now remember this specific algorithm was designed to work with video games, so for each episode and each time step t within that episode we observe a raw screen image or input frame <span class="mathquill ud-math">x_{t}</span> which we need to convert to grayscale, crop to square size, etc. Also, in order to capture temporal relationship, we can stack a few input frames to build each state vector. Let's denote this preprocessing and stacking operation by function <span class="mathquill ud-math">\phi</span> which takes a sequence of frames and produce some combined representation. Note that if we want to stack, let's say 4 frames, then we would have to something special for the first three time steps. For instance, we can treat those missing frames as blank or just use copies of the first frame or we can just skit storing the experience tuples till we get a complete sequence. In practice, we won't be able to run the learning step immediately. We will need to wait till we have sufficient number of experience tuples in memory. Note that we don't clear out the memory after each episode. This enables us to recall and build batches of experiences from across episodes.</p>
+            <p>There are many other techniques and optimizations that are used in DQN papers such as reward clipping, error clipping, storing past actions as part of the state vectors, dealing with terminal states, decaying <span class="mathquill ud-math">\epsilon</span> over time, etc. We may need to choose which technique we apply and adapt them different types of environment!</p>
             <p><strong>Readings</strong></p>
             <ul>
                <li>Mnih et al., 2015. <a href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf" target="_blank">Human-level control through deep reinforcement learning</a>. (DQN paper)</li>
@@ -373,29 +389,65 @@
             <div>
                <h2 id="-td-prediction-action-values">DQN Improvements</h2>
             </div>
-            <div class="row">
+            <p>Several improvements to the original deep Q-Learning algorithm have been suggested. We will look at three of the most prominent ones.</p>
+            <ul>
+               <li>Double DQNs</li>
+               <li>Prioritized Replay</li>
+               <li>Dueling Networks</li>
+            </ul>
+            <!-- <div class="row">
                <div class="column">
-                  <img src="img/dql37.png" alt="dql37" style="width:100%">
+                 <img src="img/dql37.png" alt="dql37" style="width:100%">
                </div>
+               </div> -->
+            <div class="row">
                <div class="column">
                   <img src="img/dql38.png" alt="dql38" style="width:100%">
                </div>
                <div class="column">
                   <img src="img/dql39.png" alt="dql39" style="width:100%">
                </div>
+            </div>
+            <p>The first problem we are going to address is the overestimation of action values that Q-Learning is proned to. Let's look back at the update rule for Q-Learning with function approximation and focus on the TD Target. Here the max operation is necessary to find the best possible value we could get from the next state.</p>
+            <p>To understand this better let's rewrite the target and expand the max operation. It's just a more efficient way of saying that we want to obtain the Q-value for the state <span class="mathquill ud-math">S^{′}</span> and the action that results in the maximum Q-value among all possible actions from that state. When we write it this way, we can see that it's possible for the argmax operation to make a mistake, especially in the early stages. <em>Why?</em> Because the Q-value is still evolving and we may not have gathered enough information to figure out the best action. The accuracy of our Q-values depends a lot on what actions have been tried and what neighboring states have been explored. In fact, it has been shown that this results in an overestimation of Q-values since we always pick the maximum among a set of noisy numbers. So, may be we shouldn't blindly trust these values. <em>What can we do to make our estimation robust?</em></p>
+            <div class="row">
                <div class="column">
                   <img src="img/dql40.png" alt="dql40" style="width:100%">
                </div>
                <div class="column">
                   <img src="img/dql41.png" alt="dql41" style="width:100%">
                </div>
+            </div>
+            <p>One idea that has been shown to work very well in practice is called <strong>Double Q-Learning</strong> where we select the best action using one set of parameters <span class="mathquill ud-math">w</span> but evaluate it using a different set of parameters <span class="mathquill ud-math">w^{′}</span>. It's basically like having two separate function approximators that must agree on the best action. If <span class="mathquill ud-math">w</span> picks an action that is not the best according to <span class="mathquill ud-math">w^{′}</span>, then the Q-value returned is not that high. In the long run, this prevents the algorithm from propagating incidental high rewards that may have obtained by chance and don't reflect long term returns. <em>Where do we get the second set of parameters from?</em></p>
+            <p>In the original formulation of Double Q-Learning, we would basically maintain two value functions and randomly choose one of them to update at each step, using other only for evaluating actions. </p>
+            <p>But when using <strong>DQNs with Fixed Q Targets</strong>, we already have an alternate set of parameters. Remember <span class="mathquill ud-math">w^{-}</span>! It turns out that since <span class="mathquill ud-math">w^{-}</span> is kept frozen for a while, it is different enough from <span class="mathquill ud-math">w</span> that it can be reused for this purpose.</p>
+            <p>This simple modification keeps Q-value in check preventing them from exploding in early stages of learning or fluctuating later on. The resulting polciies have also been shown to perform significantly better than vanilla DQNs. </p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/dql44.png" alt="dql44" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/dql45.png" alt="dql45" style="width:100%">
+               </div>
                <div class="column">
                   <img src="img/dql42.png" alt="dql42" style="width:100%">
                </div>
+            </div>
+            <p>The next issue we look at is related to experience replay. Recall the basic idea behind it.</p>
+            <p>We interact with the environment to collect experience tuples, save them in a buffer and later we randomly sample a batch to learn from. This helps us break the correlation between consecutive experiences and stabilizes our learning algorithm. But, some of these experiences may be more important for learning than others. Moreover, these important experiences might occur infrequently. If we sample the batches uniformly, then these experiences have a very small chance of getting selected and since buffers are practically limited in capacity, older important experiences may get lost. This is where the idea of <strong>Prioritized Experience Replay</strong> comes in. <em>But what criteria should we used to assign priorities to each tuple?</em> </p>
+            <p>One approach is to use <strong>TD Error</strong>, <span class="mathquill ud-math">\delta</span>. <U>The bigger the error, the more we expect to learn from that tuple.</U> So, let's take the magnitude of this error as a measure of priority and store it along with each corresponding tuple in the replay buffer. When creating batches we can use this value to compute a <strong>sampling probability</strong>. Select any tuple <span class="mathquill ud-math">i</span> with a probability equal to its priority value <span class="mathquill ud-math">p_{i}</span> normalised by the sum of all priority values in the replay buffer. And when a tuple is picked we can update its priority with a newly computed TD Error using the latest Q-values. This seems to work fairly well and has been shown to reduce the number of batch updates needed to learn a value function. </p>
+            <p>There are a coouple of things we can improve. First, note that if the TD Error is 0, then the priority value of the tuple and hence its probability of being picked will also be 0. Zero or a very low TD Error doesn't necessarily mean we have nothing more to learn from such a tuple. It might be the case that our estimate was close due to the limited samples we visited till that point. So, to prevent such tuples from being starved for selection, we can add a small constant <span class="mathquill ud-math">e</span> to every priority value.</p>
+            <p>Another issue along simila lines is that greedily using these priority values may lead to a small subset of experiences being replayed over and over, resulting in a sort of overfitting to that subset. To avoid this, we can reintroduce some element of uniform random sampling. This adds another hyperparameter <span class="mathquill ud-math">a</span> which we use to redefine the sampling probability as <span class="mathquill ud-math">p_{i}^{a}</span> divided by the sum of all priorities <span class="mathquill ud-math">p_{k}</span> each raised to the power <span class="mathquill ud-math">a</span> (i.e., <span class="mathquill ud-math">p_{k}^{a}</span>). We can control how much we want to use priorities versus randomness by varying this parameter where <span class="mathquill ud-math">a = 0</span> corresponds to pure uniform randomness and <span class="mathquill ud-math">a = 1</span> only uses priorities.</p>
+            <p>When we use prioritized experience replay we have to make one adjustment to our update rule. Remember that our original Q-Learning update is derived from an expectation over all experiences. When using a stochastic update rule, the way we sample these experiences mus match the underlying distribution they came from. This is preserved when we sample experience tuples uniformly from the replay buffer. But, this assumption is violated when we use a non-uniform sampling, for example using priorities. The Q-value we leran will be biased according to these priority values which we only wanted to use for sampling. To correct for this bias, we need to introduce an <strong>importance-sampling weight</strong>. We can add another hyperparameter <span class="mathquill ud-math">b</span> and raise each importance-sampling weight to <span class="mathquill ud-math">b</span> to control how much these weights affect learning. In fact, these weights are more improtant towards the end of learning when our Q-values begin to converge. So, we can increase <span class="mathquill ud-math">b</span> from a low value to 1 over time.</p>
+            <!-- <div class="row">
                <div class="column">
                   <img src="img/dql43.png" alt="dql43" style="width:100%">
                </div>
-            </div>
+            </div> -->
+            <img src="img/dql43.png" style="width:60%" alt="" class="img img-fluid" /></br>
+            <p>A sequence of convolution layers followed by a couple of fully connected layers that produce Q-values. <U>The core of dueling networks is to use two streams, one that estimates the state value functions and one that estimates the advantage for each action.</U> These streams may share some layers in the beginning such as convolutional layers, then branch off with their own fully connected layers. And, finally the desired Q-values are obtained by combining the state and advantage values.</p>
+            <p>The intuition behind this is that the value of most states don't vary a lot across actions. So, it makes sense to try and directly estimate them. But, we still need to captute the difference actions make in each state. This is where the advantage function comes in.</p>
+            <p>Some necessary modifications are necessary to adapt Q-Learning to this architecture. Along with double DQNs and priortized replay, this technique has resukted in significant improvements over vanilla DQNs.</p>
             <p><strong>Readings</strong></p>
             <ul>
                <li>Thrun &amp; Schwartz, 1993. <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.73.3097" target="_blank">Issues in Using Function Approximation for Reinforcement Learning</a>. (overestimation of Q-values)</li>
@@ -405,20 +457,18 @@
                <li>Hausknecht &amp; Stone, 2015. <a href="https://arxiv.org/abs/1507.06527" target="_blank">Deep Recurrent Q-Learning for Partially Observable MDPs</a>.</li>
             </ul>
          </div>
-
          <footer class="footer">
-           <div class="container">
-              <div class="row">
-                 <div class="col-12">
-                    <p class="text-center">
-                       <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
-                    </p>
-                 </div>
-              </div>
-           </div>
-        </footer>
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <p class="text-center">
+                        <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </footer>
       </div>
-      
       <script src="../../assets/js/jquery-3.3.1.min.js"></script>
       <script src="../../assets/js/plyr.polyfilled.min.js"></script>
       <script src="../../assets/js/bootstrap.min.js"></script>
