@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../assets/css/katex.min.css">
     <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">    <!-- Creative Commons Icons -->
     <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
     <style type="text/css">
         /* Three image containers (use 25% for four, and 50% for two, etc) */
@@ -74,7 +75,10 @@
 
             <ul class="sidebar-list list-unstyled CTAs">
                 <li>
-                    <a href="../../index.html" class="article">Back to Home</a>
+                   <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+                <li>
+                   <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" class="article"><i class="cc cc-SIX cc-4"></i></a>
                 </li>
             </ul>
         </nav>
@@ -459,7 +463,7 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="text-center">
-                                <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+                                Copyright &copy 2024. This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
                             </p>
                         </div>
                     </div>
@@ -468,16 +472,13 @@
         </div>
     </div>
 
-
     <script src="../../assets/js/jquery-3.3.1.min.js"></script>
     <script src="../../assets/js/plyr.polyfilled.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="../../assets/js/katex.min.js"></script>
     <script>
-        // Initialize Plyr video players
-        const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
-    
+
         // render math equations
         let elMath = document.getElementsByClassName('mathquill');
         for (let i = 0, len = elMath.length; i < len; i += 1) {

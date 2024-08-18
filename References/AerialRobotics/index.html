@@ -36,7 +36,6 @@
             <div class="sidebar-header">
                 <h3>Study materials</h3>
             </div>
-
             <ul class="sidebar-list list-unstyled CTAs">
                 <li>
                    <a href="../../index.html" class="article">Back to Home</a>
@@ -59,7 +58,7 @@
                                     <div></div>
                                 </button>
 
-                                <h1 style="display: inline-block">Exoskeleton Systems</h1>
+                                <h1 style="display: inline-block">Aerial Robotics</h1>
                             </div>
                         </div>
                     </div>
@@ -70,14 +69,6 @@
                 <div class="ud-atom">
                     <div>
                         <h2 id="review">Table of Contents:</h2>
-
-                        <ul>
-                            <li><b>Miscellaneous Readings:</b>
-                                <ul>
-                                    <li>https://www.umass.edu/robotics/mrrl/research/exoskeletons</li>
-                                </ul>
-                            </li>
-                        </ul>
 
 
                     </div>
@@ -101,7 +92,9 @@
             <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
             <script src="../../assets/js/katex.min.js"></script>
             <script>
-
+                // Initialize Plyr video players
+                const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+            
                 // render math equations
                 let elMath = document.getElementsByClassName('mathquill');
                 for (let i = 0, len = elMath.length; i < len; i += 1) {

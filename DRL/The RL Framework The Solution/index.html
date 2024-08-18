@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../assets/css/katex.min.css">
     <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">    <!-- Creative Commons Icons -->
     <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
     <style type="text/css">
         /* Three image containers (use 25% for four, and 50% for two, etc) */
@@ -68,7 +69,10 @@
 
             <ul class="sidebar-list list-unstyled CTAs">
                 <li>
-                    <a href="../../index.html" class="article">Back to Home</a>
+                   <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+                <li>
+                   <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" class="article"><i class="cc cc-SIX cc-4"></i></a>
                 </li>
             </ul>
         </nav>
@@ -316,17 +320,6 @@
                                         <img src="img/multi_optimal_policies.png" alt="multi_optimal_policies" style="width:100%">
                                     </div>
                                 </div>
-                                <!--   <div>
-  <figure class="figure">
-    <img src="img/optimality.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-  <figure class="figure">
-    <img src="img/optimal_policy.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-  <figure class="figure">
-    <img src="img/multi_optimal_policies.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-</div> -->
                                 <ul>
                                     <li>A policy <span class="mathquill ud-math">\pi'</span> is defined to be better than or equal to a policy <span class="mathquill ud-math">\pi</span> if and only if <span class="mathquill ud-math">v_{\pi'}(s) \geq v_\pi(s)</span>                                        (state value function of policy <span class="mathquill ud-math">\pi'</span> is greater than or equal to state value function of policy <span class="mathquill ud-math">\pi</span>) for all <span class="mathquill ud-math">s\in\mathcal{S}</span>.</li>
                                     (NOTE: It is often possible to find two policies that cannot be compared.)
@@ -342,21 +335,6 @@
                             <h3></h3>
                             <div>
                                 <h2 id="-action-value-functions">Action-Value Functions</h2>
-                                <!--   <div>
-  <figure class="figure">
-    <img src="img/stateval_actionval.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-  <figure class="figure">
-    <img src="img/state-action-val.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-  <figure class="figure">
-    <img src="img/action-val-fun.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-  <figure class="figure">
-    <img src="img/state-action.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-</div> -->
-
                                 <div class="row">
                                     <div class="column">
                                         <img src="img/stateval_actionval.png" alt="stateval_actionval" style="width:100%">
@@ -393,14 +371,6 @@
                         <div class="ud-atom">
                             <div>
                                 <h2 id="-optimal-policies">Optimal Policies</h2>
-                                <!--   <div>
-<figure class="figure">
-    <img src="img/optimal-policy.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-  <figure class="figure">
-    <img src="img/one-of-optimal-policy.png" width="50%" height="50%" alt="gridworld" class="img img-fluid">
-  </figure>
-</div> -->
                                 <div class="row">
                                     <div class="column">
                                         <img src="img/optimal-policy.png" alt="optimal-policy" style="width:100%">
@@ -435,7 +405,7 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="text-center">
-                                <a href="#" target="_blank">&copy 2024 <strong>Anubhav Singh</strong></a>
+                                Copyright &copy 2024. This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
                             </p>
                         </div>
                     </div>
@@ -451,9 +421,7 @@
     <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="../../assets/js/katex.min.js"></script>
     <script>
-        // Initialize Plyr video players
-        const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
-    
+
         // render math equations
         let elMath = document.getElementsByClassName('mathquill');
         for (let i = 0, len = elMath.length; i < len; i += 1) {
