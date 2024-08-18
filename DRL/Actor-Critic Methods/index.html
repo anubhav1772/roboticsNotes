@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Actor-Critic Methods</title>
+      <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../assets/css/plyr.css">
+      <link rel="stylesheet" href="../../assets/css/katex.min.css">
+      <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="../../assets/css/styles.css">
+      <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">    <!-- Creative Commons Icons -->
+      <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+      <style type="text/css">
+         /* Three image containers (use 25% for four, and 50% for two, etc) */
+         .column {
+         float: left;
+         width: 33.33%;
+         padding: 5px;
+         }
+         /* Clear floats after image containers */
+         .row::after {
+         content: "";
+         clear: both;
+         display: table;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="wrapper">
+      <nav id="sidebar">
+         <div class="sidebar-header">
+            <h3>Actor-Critic Methods</h3>
+         </div>
+         <ul class="sidebar-list list-unstyled CTAs">
+            <li>
+               <a href="../../index.html" class="article">Back to Home</a>
+            </li>
+         </ul>
+         <ul class="sidebar-list list-unstyled components">
+            <li class="">
+               <a href="#">01. Intro to Actor-Critic Methods</a>
+            </li>
+            <li class="">
+               <a href="#">02. A Better Score Function</a>
+            </li>
+            <li class="">
+               <a href="#">03. Two Function Approximators</a>
+            </li>
+            <li class="">
+               <a href="#">04. The Actor and The Critic</a>
+            </li>
+            <li class="">
+               <a href="#">05. Advantage Function</a>
+            </li>
+            <li class="">
+               <a href="#">06. Actor-Critic with Advantage</a>
+            </li>
+         </ul>
+         <ul class="sidebar-list list-unstyled CTAs">
+             <li>
+               <a href="../../index.html" class="article">Back to Home</a>
+             </li>
+             <li>
+               <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" class="article"><i class="cc cc-SIX cc-4"></i></a>
+             </li>
+         </ul>
+      </nav>
+      <div id="content">
+      <header class="container-fluild header">
+         <div class="container">
+            <div class="row">
+               <div class="col-12">
+                  <div class="align-items-middle">
+                     <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                     </button>
+                     <h1 style="display: inline-block">Actor-Critic Methods</h1>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+      <div class="ud-atom">
+         <div>
+            <h2 id="-td-prediction-td0">Intro to Actor-Critic Methods</h2>
+            <p>RL problems can be solved using two broad categories of methods.</p>
+            <ul>
+               <li>
+                  In Value-Based methods like Monte-Carlo learning or Q-Learning, we try to represent the value of each state or state-action pair. Then, given any state, we try to pick the action with the best value. This works well when we have a finite number of actions.
+               </li>
+               <li>
+                  Policy-Based methods, on the other hand, encode the mapping from states to actions without worrying about value representations and try to directly optimize the policy. This is especially useful when our action space is continuous or when we need a stochastic policies.
+               </li>
+            </ul>
+            <p>The main challenge with Policy-Based methods is that it is hard to compute how good a policy is. This is where we bring in the idea of value function back into the picture.</p>
+            <p>Instead of calculating the policy objective from rewards or returns, what if we keep track of state or state-action values and use those to compute the objective. That's exactly what <strong>Actor-Critic</strong> methods are all about.</p>
+         </div>
+      </div>
+      <div class="divider"></div>
+      <div class="ud-atom">
+         <div>
+            <h2 id="-td-prediction-action-values">A Better Score Function</h2>
+         </div>
+         <div class="row">
+            <div class="column">
+               <img src="img/acm2.png" alt="acm2" style="width:100%">
+            </div>
+            <div class="column">
+               <img src="img/acm3.png" alt="acm3" style="width:100%">
+            </div>
+         </div>
+         <p>Recall the score function used in a typical policy gradient's update rule. For an episodic task where each instance has a clear beginning and end, we can use the episode's return <span class="mathquill ud-math">G_{t}</span> as the value of the score function. It is equal to the discounted sum of all rewards obtained in the remainder of the episode. This forms the basis of Monte-Carlo approaches such as the Reinforce algorithm that performs updates at the end of each episode.</p>
+         <div class="row">
+            <div class="column">
+               <img src="img/acm4.png" alt="acm4" style="width:100%">
+            </div>
+         </div>
+         <p><em>But what would we do if our task is not episodic?</em> If we don't have a clear termination point, we won't be able to calculate discounted returns. Worse, when would we perform policy updates? Clearly, we need a better score function, something that can be computed online as we interact with the environment. Something that is not dependent on an entire episode being played out.</p>
+         <div class="row">
+            <div class="column">
+               <img src="img/acm5.png" alt="acm5" style="width:100%">
+            </div>
+            <div class="column">
+               <img src="img/acm6.png" alt="acm6" style="width:100%">
+            </div>
+         </div>
+         <p>Let's replace the episode's return in the update rule with the action value of the current state-action pair. Yes! The same action value we were trying to estimate in the value-Based methods. <em>Where can we find these action values?</em></p>
+         <p>We can use a TD mechanism to iteratively update these action values. Note that this process can run in parallel with our policy updates and doesn't need an entire episode to be played out. For this reason, it can be used with non-episodic or continuing tasks. In fact, we can pick any suitable representation to store these Q-values and an appropriate algorithm to update them. Note that <span class="mathquill ud-math">\beta</span> here is another learning rate or step-size parameter just like <span class="mathquill ud-math">\alpha</span> but for value updates, but they are similar in the sense that each approximates a function. </p>
+      </div>
+      <div class="divider"></div>
+      <div class="ud-atom">
+         <div>
+            <h2 id="-td-prediction-action-values">Two Function Approximators</h2>
+         </div>
+         </br>
+         <img src="img/acm7.png" style="width:45%" alt="" class="img img-fluid" /></br>
+         <p>For most complex problems, we will need to deal with continuous state and action spaces. Let's apply Q-Learning with function approximation to estimate the action values.</p>
+         <img src="img/acm8.png" style="width:45%" alt="" class="img img-fluid" /></br>
+         <p>Above is the corresponding update rule for the action value function expressed as a change in weights <span class="mathquill ud-math">Δw</span>. Note that <span class="mathquill ud-math">\theta</span> and <span class="mathquill ud-math">w</span> are different parameter vectors. <span class="mathquill ud-math">\theta</span> characterizes the policy <span class="mathquill ud-math">\pi</span>, the probability of taking an action from a given state and <span class="mathquill ud-math">w</span> encodes the value <span class="mathquill ud-math">\hat{q}</span> of taking that action from that state. </p>
+         <img src="img/acm9.png" style="width:45%" alt="" class="img img-fluid" /></br>
+         <p>Let's forget about the update rules and focus on the two functions. <span class="mathquill ud-math">\pi</span> controls how our RL agent behaves or acts. Think of <span class="mathquill ud-math">\pi</span> as a puppeteer controlling a pupper performing on stage. <span class="mathquill ud-math">\hat{q}</span> measures how good those actions are, i.e., it critics those actions. These are our two function approximators: <strong>policy/actor</strong> and <strong>value/critic</strong>. We can design them separately, perhaps using two neural nets and we can train them using separate processes as well.   </p>
+      </div>
+      <div class="divider"></div>
+      <div class="ud-atom">
+         <div>
+            <h2 id="-td-prediction-action-values">The Actor and The Critic</h2>
+         </div>
+         <div class="row">
+            <div class="column">
+               <img src="img/acm10.png" alt="acm10" style="width:100%">
+            </div>
+         </div>
+         <p>Initially the Actor follows some random policy and behave pretty badly. The Critic observes this behaviour and provides feedback, letting the Actor knows how bad it was. Learning from this, the Actor updates its policy <span class="mathquill ud-math">\pi</span> and performs again and the Critic continues to provide more feedbacks. The Critic also updates its own value function so that it can provide better feedback.This process can go on till the actor reaches some predetermined threshold of performance or when not much improvement is seen. Note that all along the Critic has also been learning to give better and better feedback by observing the states and rewards obtained from the environment.</p>
+         <img src="img/acm11.png" style="width:45%" alt="" class="img img-fluid" /></br>
+         <p>Now that we have a complete picture of how different components interact, let's reintroduce the math behind each component. The policy approximator <span class="mathquill ud-math">\pi_{\theta}</span> is parametrized by <span class="mathquill ud-math">\theta</span>. The value function approximator <span class="mathquill ud-math">\hat{q}_{w}</span> is parametrized by <span class="mathquill ud-math">w</span>. At each time step <span class="mathquill ud-math">t</span>, we sample the current state of the environment <span class="mathquill ud-math">S_t</span>. Using this as an imput, the policy produces an action <span class="mathquill ud-math">A_t</span>. The Actor takes this action in the environment producing the next state <span class="mathquill ud-math">S_{t+1}</span> as well as the reward <span class="mathquill ud-math">R_{t+1}</span>. Now the Critic computes the value of taking an action <span class="mathquill ud-math">A_t</span> in state <span class="mathquill ud-math">S_t</span> using the value function <span class="mathquill ud-math">\hat{q}</span> and the Actor updates its policy parameters <span class="mathquill ud-math">\theta</span> using this Q-value. Using these updated parameters, the Actor produces the next action <span class="mathquill ud-math">A_{t+1}</span>.</p>
+         <img src="img/acm12.png" style="width:45%" alt="" class="img img-fluid" /></br>
+         <p>Finally, the Critic updates its own value function. This process is repeated at each time step, not just at the end of episodes. So, both the ACtor and the Critic can make more efficient use of the interactions with the environment.</p>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <div>
+               <h2 id="-td-prediction-action-values">Advantage Function</h2>
+            </div>
+            <div class="row">
+               <div class="column">
+                  <img src="img/acm13.png" alt="acm13" style="width:100%">
+               </div>
+            </div>
+            <p>Let's take a closer look at our update mechanism to see if we can improve things. <em>Remember where does this policy update rule come from?</em> It is based on the policy gradients method where we change the policy parameters by a small fraction <span class="mathquill ud-math">\alpha</span> os the gradient of the objective function <span class="mathquill ud-math">J(\theta)</span>. </p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/acm14.png" alt="acm14" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/acm15.png" alt="acm15" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/acm16.png" alt="acm16" style="width:100%">
+               </div>
+            </div>
+            <p>Now this gradient can be expressed as the expected value of the derivative of the log probabilities produced by the policy times some score function <span class="mathquill ud-math">R</span>. In this case, we are using the action value function <span class="mathquill ud-math">\hat{q}</span> as the score function. What makes this approach work is that we can make this we can compute the expectation iteratively by taking small steps defined by our learning rate <span class="mathquill ud-math">\alpha</span>. It is important to ensure that we are always taking small steps, we still want to move in the direction pointed to by the gradient but we want to avoid any giant leaps because we are ultimately sampling a stochastic process and individual samples may vary a lot.</p>
+            <p>Wherever there is an expected value, there is an associated variance and if we are trying to estimate this expected value, it would be nice to have low variance among the samples. That would make the process more stable. The magnitude of this variance is mainly affected by the score function (<span class="mathquill ud-math">\hat{q}</span>). At each time step, the value of <span class="mathquill ud-math">\hat{q}</span> can vary quite a bit since it is based on individual rewards. This can result in policy update steps of different sizes, a small step here, a giant leap there. <em>How could we reduce this variance?</em></p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/acm17.png" alt="acm17" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/acm18.png" alt="acm18" style="width:100%">
+               </div>
+            </div>
+            </br>
+            <p>Let's think of Q-values as being sampled from some distribution. Let's say it fits a normal or gaussian distribution. <em>What would be the mean of this distribution?</em> The mean is the expected value of <span class="mathquill ud-math">\hat{q}</span>. For a particular state <span class="mathquill ud-math">s</span>, this distribution is over the space of actions, so the expected value is essentially equal to the value of the state. If we subtract this mean from each Q-value and use that our new score function, that should bring the mean score value down to 0 and helps reduce the variance of update steps. This new score function is known as the <strong>Advantage Function</strong>. Intuitively, it makes a lot of sense. <U>A Q-value tells us how much reward we expect to get by taking action <span class="mathquill ud-math">a</span> in state <span class="mathquill ud-math">s</span> whereas the Advantage Value tells us how much more reward we expect beyond the expected value of the state, i.e., what are we gaining by taking this action instead of any action at random.</U> So, not only does the Advantage Function stabilize learning, it also provides a better way to differentiate between actions. </p>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <div>
+               <h2 id="-td-prediction-action-values">Actor-Critic with Advantage</h2>
+            </div>
+            <div class="row">
+               <div class="column">
+                  <img src="img/acm19.png" alt="acm19" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/acm20.png" alt="acm20" style="width:100%">
+               </div>
+            </div>
+            <p><em>How does the Advantage Function affect our Actor-Critic algorithm?</em> Let's start with the policy update rule. We want to replace the state-action value (see bounded rectangle above) with the advantage value. So, a natural approach is to define an additional state value function <span class="mathquill ud-math">\hat{v}</span> parametrized by <span class="mathquill ud-math">w^{′}</span> and subtracted from the Q-value. This means the Critic now has to keep track of two value functions, <span class="mathquill ud-math">\hat{q}</span> and <span class="mathquill ud-math">\hat{v}</span> and learn them over time. </p>
+            <img src="img/acm21.png" style="width:45%" alt="" class="img img-fluid" /></br>
+            <p>There is an easier way to do this. It turns out that the TD Error <span class="mathquill ud-math">\delta</span> is a good estimator of the Advantage Function. Using this method, the Critic now has to compute and learn a single value function <span class="mathquill ud-math">\hat{v}</span>.</p>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <div>
+               <h5 id="-td-prediction-action-values">Summary:</h5>
+               <ul>
+                  <li>The Actor-Critic approaches are a varient of Policy-Based methods that reuse the idea of Value functions.</li>
+                  <li>Remember the Actor encodes the policy and the Critic encodes the Value function, tells the Actor how good its policy is.</li>
+                  <li>Since we can choose to represent the Actor and the Critic separately, we suddenly have a lot more flexibility in designing out RL agents.</li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <footer class="footer">
+         <div class="container">
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-center">
+                     &copy 2024. This work is dedicated to the public domain under the <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</a>.
+                  </p>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+      <script src="../../assets/js/plyr.polyfilled.min.js"></script>
+      <script src="../../assets/js/bootstrap.min.js"></script>
+      <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="../../assets/js/katex.min.js"></script>
+      <script>
+         // render math equations
+         let elMath = document.getElementsByClassName('mathquill');
+         for (let i = 0, len = elMath.length; i < len; i += 1) {
+           const el = elMath[i];
+         
+           katex.render(el.textContent, el, {
+             throwOnError: false
+           });
+         }
+         
+         // this hack will make sure Bootstrap tabs work when using Handlebars
+         if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+           $("#question-tabs a.nav-link").on('click', function () {
+             $("#question-tab-contents .tab-pane").hide();
+             $($(this).attr("href")).show();
+           });
+           $("#user-answer-tabs a.nav-link").on('click', function () {
+             $("#user-answer-tab-contents .tab-pane").hide();
+             $($(this).attr("href")).show();
+           });
+         } else {
+           $("a.nav-link").on('click', function () {
+             $(".tab-pane").hide();
+             $($(this).attr("href")).show();
+           });
+         }
+         
+         // side bar events
+         $(document).ready(function () {
+           $("#sidebar").mCustomScrollbar({
+             theme: "minimal"
+           });
+         
+           $('#sidebarCollapse').on('click', function () {
+             $('#sidebar, #content').toggleClass('active');
+             $('.collapse.in').toggleClass('in');
+             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+           });
+         });
+      </script>
+   </body>
+</html>
