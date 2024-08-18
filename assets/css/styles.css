@@ -18,7 +18,8 @@ img {
   padding: 10px 0;
   margin-bottom: 40px;
   color: #fff;
-  background: #1c262f;
+  /*background: #1c262f;*/
+  background: #4682B4;
   box-shadow: 0 2px 4px -2px rgba(0,0,0,.5);
 }
 
@@ -28,7 +29,8 @@ img {
   width: 100%;
   height: 60px;
   line-height: 60px;
-  background: #1c262f;
+  /*background: #1c262f;*/
+  background: #4682B4;
   color: #fff;
   box-shadow: 0 2px 4px -2px rgba(0,0,0,.5);
 }
@@ -121,7 +123,8 @@ pre {
 }
 
 .btn-toggle-sidebar {
-  background: #1c262f;
+  /*background: #1c262f;*/
+  background: #4682B4;
   color: #fff;
   margin-right: 10px;
 }
@@ -140,7 +143,8 @@ pre {
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #2e3d49;
+  /*background: #2e3d49;*/
+  background: #4682B4;
   color: rgba(255, 255, 255, 0.5);
   transition: all 0.3s;
 }
@@ -150,8 +154,13 @@ pre {
 }
 
 #sidebar .sidebar-header {
-  padding: 20px;
-  background: #2e3d49;
+  padding: 30px;
+  /*background: #2e3d49;*/
+  background: #4682B4;
+  background-image: url("../../assets/img/robo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;  /*Or 'cover' depending on how you want it to fit */
   color: #fff;
 }
 
