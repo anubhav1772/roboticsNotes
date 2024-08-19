@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Summary</title>
+      <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../../assets/css/plyr.css">
+      <link rel="stylesheet" href="../../assets/css/katex.min.css">
+      <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="../../assets/css/styles.css">
+      <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">
+      <!-- Creative Commons Icons -->
+      <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+      <style type="text/css">
+         /* Three image containers (use 25% for four, and 50% for two, etc) */
+         .column {
+         float: left;
+         width: 33.33%;
+         padding: 5px;
+         }
+         /* Clear floats after image containers */
+         .row::after {
+         content: "";
+         clear: both;
+         display: table;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="wrapper">
+      <nav id="sidebar">
+         <div class="sidebar-header">
+            <h3>
+               <!-- Actor-Critic Methods -->
+            </h3>
+            </br></br></br>
+         </div>
+         <ul class="sidebar-list list-unstyled CTAs">
+            <li>
+               <a href="../../index.html" class="article">Back to Home</a>
+            </li>
+         </ul>
+         <ul class="sidebar-list list-unstyled components">
+            <li class="">
+               <a href="01. Policy-Based Methods.html">01. Policy-Based Methods</a>
+            </li>
+            <li class="">
+               <a href="02. Why Policy-Based Methods.html">02. Why Policy-Based Methods?</a>
+            </li>
+            <li class="">
+               <a href="03. Policy Function Approximation.html">03. Policy Function Approximation</a>
+            </li>
+            <li class="">
+               <a href="04. Stochastic Policy Search.html">04. Stochastic Policy Search</a>
+            </li>
+            <li class="">
+               <a href="05. Policy Gradients.html">05. Policy Gradients</a>
+            </li>
+            <li class="">
+               <a href="06. Monte Carlo Policy Gradients.html">06. Monte Carlo Policy Gradients</a>
+            </li>
+            <li class="">
+               <a href="07. Constrained Policy Gradients.html">07. Constrained Policy Gradients</a>
+            </li>
+         </ul>
+         <ul class="sidebar-list list-unstyled CTAs">
+            <li>
+               <a href="../../index.html" class="article">Back to Home</a>
+            </li>
+            <li>
+               <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" class="article"><i class="cc cc-SIX cc-4"></i></a>
+            </li>
+         </ul>
+      </nav>
+      <div id="content">
+         <header class="container-fluild header">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="align-items-middle">
+                        <button type="button" id="sidebarCollapse" class="btn btn-toggle-sidebar">
+                           <div></div>
+                           <div></div>
+                           <div></div>
+                        </button>
+                        <h1 style="display: inline-block">Policy-Based Methods</h1>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </header>
+         <div class="ud-atom">
+            <h3></h3>
+            <div>
+               <h2 id="-td-prediction-td0">Intro to Policy-Based Methods</h2>
+            </div>
+            <!-- <div class="row">
+               <div class="column">
+                 <img src="img/pbm1.png" alt="pbm1" style="width:100%">
+               </div>
+               </div> -->
+            <p>RL is ultimately about learning an optimal policy. So far we have been looking at Value-Based methods where we tried to find the optimal value function and our policies implicitly defined by that value function. Fo example, using <span class="mathquill ud-math">\epsilon</span>-Greedy action selection. But, can we directly find optimal policy without worrying about value function at all? That's what Policy-Based methods do! A combination of these two approaches is known as Actor-Critic method.</p>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <h3></h3>
+            <div>
+               <h2 id="-td-prediction-action-values">Why Policy-Based Methods?</h2>
+            </div>
+            <p>Why do we need to find optimal policies directly when Value-Based methods seem to work well? There are 3 arguments we will consider, namely </p>
+            <ul>
+               <li>Simplicity</li>
+               <li>Stochastic Policies</li>
+               <li>Continuous Action Space</li>
+            </ul>
+            <h5 id="-simplicity">Simplicity</h5>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm3.png" alt="pbm3" style="width:100%">
+               </div>
+            </div>
+            <p>Remember that in Value-Based methods like Q-Learning we invented this idea of a value function as an intermediate step towards finding an optimal policy. It helps us rephrase the problem in terms of something that is easier to understand and learn.</p>
+            <p>But, if our ultimate goal is to find that optimal policy then do we really need this value function? Can we directly estimate the optimal policy? What would such a policy look like?</p>
+            <h5 id="-policy">Policy</h5>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm4.png" alt="pbm4" style="width:100%">
+               </div>
+            </div>
+            If we go with a deterministic approach, then the policy simply needs to be mapping or function from states to actions. In the stochastic case, this would be the conditional probability of each action given a certain state. We would then choose an action based on this probability distribution. This is simpler in the sense that we are directly getting to the problem at hand but it also avoids having to store a bunch of additional data that may or maynot always be useful. For example, large portions of the state space may have the same value. Formulating the policy in this manner allows us to make such generalization where possible and focus more on the complicated regions of the state space.
+            <h5 id="-stochastic-policy">Stochastic Policies</h5>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm5.png" alt="pbm5" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm6.png" alt="pbm6" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm7.png" alt="pbm7" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm8.png" alt="pbm8" style="width:100%">
+               </div>
+            </div>
+            <p>One of the advantages of Policy-Based methods over Value-Based methods is that they can learn true stochastic policies. This is like picking a random number from a special type of machine, where the chances of each number being selected depends on some state variables that can be changed. In contrast, when we apply <span class="mathquill ud-math">\epsilon</span>-Greedy action selection to a value function, that does adds some randomness but it's a hack. Flip a coin, if it's head, follow a deterministic policy, else pick an action at random. The underlying value function can still drive us towards certain actions more than others. Let's see how this can be problematic!</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm9.png" alt="pbm9" style="width:100%">
+               </div>
+               <!-- <div class="column">
+                  <img src="img/pbm10.png" alt="pbm10" style="width:100%">
+                  </div> -->
+            </div>
+            <p>Say we are learning to play rock-paper-scissor. Scissor cuts paper, paper covers rock and rock breaks scissor. Our opponents reveals their move at the same time as us. So, we can't really use that to decide what to pick. In fact it turns out that the optimal policy here is to choose an action uniformly at random. Anything else like a deteministic policy or even a stochastic policy with some non-uniformity can be expoited by the opponent.</p>
+            <h5 id="-aliased-state">Aliased States</h5>
+            <p>Another situation where stochastic policy helps is when we have aliased states, i.e, two or more states that we perceive to be identical but are actually different. In this sense, the environment is partially observable. But, such situation can arise more often than we think. </p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm11.png" alt="pbm11" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm12.png" alt="pbm12" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm13.png" alt="pbm13" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm14.png" alt="pbm14" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm15.png" alt="pbm15" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm16.png" alt="pbm16" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm17.png" alt="pbm17" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm18.png" alt="pbm18" style="width:100%">
+               </div>
+            </div>
+            <p>Consider above grid world for instance, which consists of smooth white and rough gray cells. There is a banana in the bottom middle cell and a chilly each in the bottom left and right corners. The monkey(agent) need to find a reliable policy to get to the banana and avoid landing on the chillies, no matter what cells he starts in. But, here is a catch. All he can sense is whether the current cell is smooth or rough and whether it has a wall on each side. Think of these as the only observations or features that are available from the environment. He can't sense anything about neighboring cells either. When the monkey is in top middle ceel, he can sense it smooth and only has a single wall to the north, so he can reliably take a step downwards and reach the banana. When he is either of the top left or right cells, he can sense the side walls, so he can recognize which os the two extreme cells he is in and can learn to reliably step way from the chillies and towards the center. The trouble is when he is in one of the gray cells, he can't tell which one he is in. All the features are identical. If he is using a value function representation, then the value of these cells is equal since they both map to the same state and the corresponding best action must also be identical. So, depending on his experiences the monkey might learn to either go right or left from both these cells, resulting in an overall policy as shown above which is fine, expect for highlighed region. The monkey will keep oscillating between these two cells and never get out. With a small <span class="mathquill ud-math">\epsilon</span>-Greedy policy, the monekey might come out by chance but that's very inefficient and could take indefinitely long. And if he kept a high <span class="mathquill ud-math">\epsilon</span>, then that might result in bad actions in other states. We can clearly see that the other Value-Based policies would not be ideal either. The best he can do is to assign equal probability to moving left or right from these aliased states. He is much more likely to get out of the trap soon.</p>
+            <p>A Value-Based approach tends to learn a deterministic or near deterministic policy whereas a Policy-Based approach in this situation can learn the desired stochastic policy. </p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm19.png" alt="pbm19" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm20.png" alt="pbm20" style="width:100%">
+               </div>
+            </div>
+            <p>Our final reason for exploring Policy-Based methods is that they are <strong>well-suited for continuous action spaces</strong>. When we use a Value-Based method even with a function approximator, our output consists of a value for each action. If the action space is discrete and there are a finite number of actions, we can easily pick an action with the maximum value. But, if the action space is continuous, then this max operation turns into an optimization problem itself. It's like trying to find the global maximum of a continuous function which is non-trivial, especially if the function is not convex. </p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm21.png" alt="pbm21" style="width:100%">
+               </div>
+            </div>
+            <p>A similar issue exists in high-dimensional action spaces. Lots of possible actions to evaluate. It would be nice if we could map a given state to an action directly. Even if the resulting policy is a bit more complex, it would significantly reduce the computation time needed to act and that something that a Policy-Based method can enable. </p>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <div>
+               <h2 id="-td-prediction-action-values">Policy Function Approximation</h2>
+            </div>
+            <p>We can extend Policy-Based methods to cover large and continuous state spaces by using a function to approximate the policy just like value function approximation.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm22.png" alt="pbm22" style="width:100%">
+               </div>
+            </div>
+            <p>To do this wee parametrize the policy with <span class="mathquill ud-math">\theta</span> which can be the weights of the neural network or some other model. Our goal then would be to optimize these parameters to find the best policy.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm22.png" alt="pbm22" style="width:100%">
+               </div>
+            </div>
+            <p>One simple approximation function is the Linear combination of features. But since we want our ultimate output to be a probability distribution that we can sample actions from, we need to use some transformation. For example, we can apply the Softmax function which exponentiates the linear combination result and then normalizes it by dividing by the sum of exponentials for all actions. This produces a set of action probability values that sum to 1. Note that this only works for a discrete set of actions.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm24.png" alt="pbm24" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm25.png" alt="pbm25" style="width:100%">
+               </div>
+            </div>
+            <p>For example, the mountain car environment in openai has two continuous state variables (position and velocity) and a discrete action space with three actions (0 to push left, 1 for no push and 2 to push right). We can model the car's behavious with a softmax policy and learn to optimize it. But, there is also a version with a single continuous action variable that can take negative values to push left, zero for push or positive to push right. This is more realistic and it affords greater flexibity in taking actions. But, it is also more challenging because of the continuous action space.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm26.png" alt="pbm26" style="width:100%">
+               </div>
+            </div>
+            <p>When we have an environment with continuous action space, we can use a gaussian policy, that is we sample actions from a gaussian or normal distribution where the parameters of the distribution are determined by our features. For example, the mean <span class="mathquill ud-math">\mu</span> can be our simple linear combination of features and the variance <span class="mathquill ud-math">\sigma^2</span> can be fixed or parameterized in a similar way. We can apply the same trick to any approximation function that produces some values and turn them into probabilities that represent stochastic policy.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm27.png" alt="pbm27" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm28.png" alt="pbm28" style="width:100%">
+               </div>
+            </div>
+            <p><em>How do we decide which policy is the best?</em> We need some objective measure that tells us how good a policy is and it needs to be a function of the policy parameters. Intuitively, this needs to capture the expected value of rewards obtained under that policy. Let's introduce the idea of a trajectory <span class="mathquill ud-math">\tau</span> which we can think of as a complete or partial episode. Thus, the expected value can be computed by sampling over multiple trajectories.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm28.png" alt="pbm28" style="width:100%">
+               </div>
+            </div>
+            <p>Now if we have an episodic task at hand, then one option is to use the mean of the return from the first time step <span class="mathquill ud-math">G_{1}</span>, i.e., the cummulative discounted rewards for the entire episode. This is equivalent to the value of the starting state. In continuing environments, we can't rely on a specific start state, so it's better to tie the objective to a measure that is not dependent on that. One such measure is the <strong>avergage or expected state value</strong>. Intuitively, we want to prefer a policy that leads to a higher average but some states may occur more often than other. So, each state value now needs to be weighted by the probability of the occurrence of the respective state, i.e., its stationary probability. We can calculate this by dividing the number of occurrences of the state by the total number of occurrences of all states.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm29.png" alt="pbm29" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm30.png" alt="pbm30" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm31.png" alt="pbm31" style="width:100%">
+               </div>
+            </div>
+            <p>A related measure is the <strong>average action value</strong> or <strong>Q-value</strong>, calculated in a similar way. But, remember that the goal of encoding the policy directly is so that we don't have to keep track of state values or action values. So, a measure that we can compute directly is the <strong>average reward</strong> at each time step.</p>
+            <p>The interesting thing is that all these formulations seem to work equally well for optimizing policies. Which objective we choose depends on the nature of the problem or environment. Pick whichever is the most convenient to compute and best reflects the true objective we are aiming for!</p>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <div>
+               <h2 id="-td-prediction-action-values">Stochastic Policy Search</h2>
+            </div>
+            <p>With an objective function in hand, we can now think about finding a policy that maximizes it.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm32.png" alt="pbm32" style="width:100%">
+               </div>
+            </div>
+            <p>An objective function can be quite complex. Think of it as a surface with many peaks and valleys. Here it's a function with two parameters with the height indicating the policy's objective value <span class="mathquill ud-math">J(\theta)</span> but the same idea extends to more than two parameters.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm32.png" alt="pbm32" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm33.png" alt="pbm33" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm34.png" alt="pbm34" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm35.png" alt="pbm35" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm36.png" alt="pbm36" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm37.png" alt="pbm37" style="width:100%">
+               </div>
+            </div>
+            <p>We don't know anything about the surface, so do we find the spot where the objective value is at its maximum. Our first approach is to search for the best policy by repeatedly nudging it around. Let's start with some arbitrary policy <span class="mathquill ud-math">\pi</span> defined by its parameters <span class="mathquill ud-math">\pi</span> and evaluate it by applying that policy in the environment. This gives us an objective value. So, we can imagine the policy lying somewhere on the objective function surface. We can change the policy parameters slightly so that the objective value also changes. This can be achieved by adding some small gaussian noise to the parameters. If the new policy value is better than our best value so far, we can set this policy to be our new best policy and iterate. This general approach is known as <strong>Hill Climbing</strong>. We literally walk the objective function surface till we reach the top os a hill. The best part is we can use any policy function. It doesn't need to be differentiable or even continuous. But because we are taking random step, this mayn't result in the most efficient path up the hill. One small improvement to this approach is to choose a small number of neighboring policies at each iteration and pick the best among them. </p>
+            <p>It's easier to see this by looking at a contour plot.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm38.png" alt="pbm38" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm39.png" alt="pbm39" style="width:100%">
+               </div>
+            </div>
+            <p>Starting with an arbitrary policy, evaluate it to find out where it lies. Generate a few candidate policies by purturbing the parameters randomly and evaluate each policy by interacting with the environment. This gives us an idea of the neighbourhood of the current policy. Now pick the candidate policy that looks most promising and iterate. This variation is known as <strong>Steepest Ascent Hill Climbing</strong> and it helps reduce the risk of selecting a next policy that may lead to a sub-optimal solution. We could still get stuck in a local optima but there are some modifications that can help mitigate that, for example by using random re-start or <strong>simulated annealing</strong>.</p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm40.png" alt="pbm40" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm41.png" alt="pbm41" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm42.png" alt="pbm42" style="width:100%">
+               </div>
+            </div>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm43.png" alt="pbm43" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm44.png" alt="pbm44" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm45.png" alt="pbm45" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm46.png" alt="pbm46" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm47.png" alt="pbm47" style="width:100%">
+               </div>
+            </div>
+            <p>Simulated Annealing uses a predefined schedule to control how the policy space is explored. Starting with a large noise parameter that is a broad neighbourhood to explore, we gradually reduce the noise or radius as we get closer and closer to the optimal solution. This is somewhat like annealing an iron by heating it up and then letting it cool down gradually. It allows iron molecules to settle into an optimal arrangement resulting in a hardened metal, hence the name.</p>
+            <p>We can also make our approach more adaptive to the changes in policy values being observed. Here is the intuition. Whenever we find a better policy as before, we are likely getting closer to the optimal policy. So, it makes sense to reduce our search radius for generating the next policy. This translates to reducing or decaying the variance of the gaussian noise we add. So far it's just like simulated annealing. But if we don't find a better policy, it's probably a good idea to increase our search radius and continue exploring from the current best policy. This small tweak to stochastic policy search makes it much less likely to get stuck, especially in domains with the complicated objective function.</p>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <h3></h3>
+            <div>
+               <h2 id="-td-prediction-action-values">Policy Gradients</h2>
+            </div>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm48.png" alt="pbm48" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm49.png" alt="pbm49" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm50.png" alt="pbm50" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm51.png" alt="pbm51" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm52.png" alt="pbm52" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm53.png" alt="pbm53" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm54.png" alt="pbm54" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm55.png" alt="pbm55" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm56.png" alt="pbm56" style="width:100%">
+               </div>
+            </div>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <h3></h3>
+            <div>
+               <h2 id="-td-prediction-action-values">Monte-Carlo Policy Gradients</h2>
+            </div>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm57.png" alt="pbm57" style="width:100%">
+               </div>
+            </div>
+         </div>
+         <div class="divider"></div>
+         <div class="ud-atom">
+            <h3></h3>
+            <div>
+               <h2 id="-td-prediction-action-values">Constrained Policy Gradients</h2>
+               <ul>
+                  <li>
+                     So far we have looked at Policy-Based methods that only use the goodness of a policy as the objective function, i.e. how much reward we expect to get out of it?
+                  </li>
+                  <li>What this means is that we are not bothered with what actions the policy takes, what state it visits, how frequently, etc. All we care about the overall expected reward. </li>
+                  <li>This can result in two policies that are close to each other in the objective function space but wildly different in the way they behave.</li>
+               </ul>
+            </div>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm58.png" alt="pbm58" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm59.png" alt="pbm59" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm60.png" alt="pbm60" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm61.png" alt="pbm61" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm62.png" alt="pbm62" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm63.png" alt="pbm63" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm64.png" alt="pbm64" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm65.png" alt="pbm65" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm66.png" alt="pbm66" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm67.png" alt="pbm67" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm68.png" alt="pbm68" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm69.png" alt="pbm69" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm70.png" alt="pbm70" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm71.png" alt="pbm71" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm72.png" alt="pbm72" style="width:100%">
+               </div>
+               <div class="column">
+                  <img src="img/pbm73.png" alt="pbm73" style="width:100%">
+               </div>
+            </div>
+         </div>
+         <footer class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                     <p class="text-center">
+                        Copyright &copy 2024. This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 </a>License.
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </div>
+      <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+      <script src="../../assets/js/plyr.polyfilled.min.js"></script>
+      <script src="../../assets/js/bootstrap.min.js"></script>
+      <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="../../assets/js/katex.min.js"></script>
+      <script>
+         // render math equations
+         let elMath = document.getElementsByClassName('mathquill');
+         for (let i = 0, len = elMath.length; i < len; i += 1) {
+           const el = elMath[i];
+         
+           katex.render(el.textContent, el, {
+             throwOnError: false
+           });
+         }
+         
+         // this hack will make sure Bootstrap tabs work when using Handlebars
+         if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+           $("#question-tabs a.nav-link").on('click', function () {
+             $("#question-tab-contents .tab-pane").hide();
+             $($(this).attr("href")).show();
+           });
+           $("#user-answer-tabs a.nav-link").on('click', function () {
+             $("#user-answer-tab-contents .tab-pane").hide();
+             $($(this).attr("href")).show();
+           });
+         } else {
+           $("a.nav-link").on('click', function () {
+             $(".tab-pane").hide();
+             $($(this).attr("href")).show();
+           });
+         }
+         
+         // side bar events
+         $(document).ready(function () {
+           $("#sidebar").mCustomScrollbar({
+             theme: "minimal"
+           });
+         
+           $('#sidebarCollapse').on('click', function () {
+             $('#sidebar, #content').toggleClass('active');
+             $('.collapse.in').toggleClass('in');
+             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+           });
+         });
+      </script>
+   </body>
+</html>
