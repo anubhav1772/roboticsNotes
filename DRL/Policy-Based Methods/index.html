@@ -339,65 +339,84 @@
          </div>
          <div class="divider"></div>
          <div class="ud-atom">
-            <h3></h3>
             <div>
                <h2 id="-td-prediction-action-values">Policy Gradients</h2>
             </div>
+            <p>Stochastic Policy Search may or mayn't always work as expected. It is sensitive to the choice of individual samples and may get in local optima or take a long time to converge.</p>
             <div class="row">
-               <div class="column">
-                  <img src="img/pbm48.png" alt="pbm48" style="width:100%">
-               </div>
                <div class="column">
                   <img src="img/pbm49.png" alt="pbm49" style="width:100%">
                </div>
                <div class="column">
+                  <img src="img/pbm49-1.png" alt="pbm49-1" style="width:100%">
+               </div>
+            </div>
+            <p>One of the main reasons to use such a randomized approach is that we don't need to know anything about the objective function, the underlying policy or its gradient. We can treat it like a black-box.</p>
+            <p>Send in a set of parameters, run the policy in the environment and get an objective value. But, if we knew more about the policy and the objective function and if we could compute the gradient of the objective function w.r.t. policy parameters, that would allow us take efficient steps. </p>
+            <div class="row">
+               <div class="column">
+                  <img src="img/pbm49-2.png" alt="pbm49-2" style="width:100%">
+               </div>
+               <div class="column">
                   <img src="img/pbm50.png" alt="pbm50" style="width:100%">
                </div>
+            </div>
+            <p>The gradient always points towards a direction of maximum change. So, instead of having to evaluate a bunch of random candidates in the current policy's neighbourhood, we can directly compute the next set of policy parameters that seem most promising. This is the basis of <strong>Policy Gradients</strong>.</p>
+            <p>The general layout of such an approach would be to find the gradient for the current policy parameters, update them in the direction of increasing gradient and iterate. Note that we still want to be cautious and take small steps defined by our step size <span class="mathquill ud-math">\alpha</span>. This is because both our policy and environment are most likely stochastic.</p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm51.png" alt="pbm51" style="width:100%">
                </div>
                <div class="column">
                   <img src="img/pbm52.png" alt="pbm52" style="width:100%">
                </div>
+            </div>
+            <p>Each policy evaluation may not produce consistent results. This is one reason to evaluate a policy over multiple episodes. If our objective function is not differentiable which is possible if the underlying policy is complicated, we won't be able to find the gradient directly. In that case, we can estimate the gradient using <strong>finite differences</strong>.</p>
+            <!-- <div class="row">
                <div class="column">
                   <img src="img/pbm53.png" alt="pbm53" style="width:100%">
                </div>
+            </div> -->
+            <img src="img/pbm53.png" alt="" style="width:50%" class="img img-fluid"/></br>
+            <p>Given any policy <span class="mathquill ud-math">\pi</span> that is defined by an n-dimensional parameter vector <span class="mathquill ud-math">\theta</span>, find the partial derivative of the objective function with respect to each dimension <span class="mathquill ud-math">k</span> by adding a tiny value to that particular dimension and computing the difference between the resulting policy value and the current one. Collect all the partial derivatives into a single vector to get the combined derivative.</p>
+            <p>Note that each of these policy evaluations may require atleast one full episode of interaction in the environment and we are doing one evaluation for every parameter dimension at every iteration. This procedure can take a long time!</p>
+            <!-- <div class="row">
                <div class="column">
                   <img src="img/pbm54.png" alt="pbm54" style="width:100%">
                </div>
+            </div> -->
+            <img src="img/pbm54.png" alt="" style="width:50%" class="img img-fluid"/></br>
+            <p>If we do have access to the underlying policy function (since we designed it), then it is more efficient to try and compute the gradients analytically. But this means we need to compute the gradient of the expected value of some function. This is a fairly well studied problem. The reward function we have here is generally referred to as a score function and we can manipulate this expression to estimate the gradient of the score function more easily. Let's see how!</p>
+            <!-- <div class="row">
                <div class="column">
                   <img src="img/pbm55.png" alt="pbm55" style="width:100%">
                </div>
+            </div> -->
+            <img src="img/pbm55.png" alt="" style="width:50%" class="img img-fluid"/></br>
+            <p>To simplify things we will consider some arbitrary score function <span class="mathquill ud-math">f</span> that is dependent on <span class="mathquill ud-math">x</span>. The values of <span class="mathquill ud-math">x</span> are drwan from a probability distribution, determined by parameters <span class="mathquill ud-math">\theta</span>. This means we can expand the expectation into an integral or summation of a prabability of <span class="mathquill ud-math">x|\theta</span> (<span class="mathquill ud-math">x</span> given <span class="mathquill ud-math">\theta</span>) times the score function. Note that here the gradient can be moved into the summation (for simplification). Now we can use something called the <strong>Likelihood Ratio</strong> trick. First we multiply the denominator and numerator by <span class="mathquill ud-math">P(x|\theta)</span> and replace the resulting fraction by the derivative of the log probability. Finally, we can convert the summation back to the expectation. Now, we only need to compute the derivative of the log probabilities (not the score function) since it doesn't directly depend on <span class="mathquill ud-math">\theta</span>.</p>
+            <!-- <div class="row">
                <div class="column">
                   <img src="img/pbm56.png" alt="pbm56" style="width:100%">
                </div>
-            </div>
+            </div> -->
+            <img src="img/pbm56.png" alt="" style="width:50%" class="img img-fluid"/></br>
+            <p>Back in RL land! Above is how the gradient expression looks like. With the policy function <span class="mathquill ud-math">\pi</span> in place of the probability distribution and our own score function <span class="mathquill ud-math">R</span> which can be the sum of all rewards, discounted rewards or some other value-Based functions. We can compute this score function by interacting with the environment and summing up the rewards we get. If we have the policy function implemented using some approximators like a neural net, then we can compute the log of the output probabilities and their derivative. Finally, we can compute the expecation stochastically by taking a bunch of different samples. Using this gradient, we can update policy parameters to improve the objective function iteratively. So, we can actually build a concrete algorithm around this.</p>
          </div>
          <div class="divider"></div>
          <div class="ud-atom">
-            <h3></h3>
             <div>
                <h2 id="-td-prediction-action-values">Monte-Carlo Policy Gradients</h2>
             </div>
-            <div class="row">
-               <div class="column">
-                  <img src="img/pbm57.png" alt="pbm57" style="width:100%">
-               </div>
-            </div>
+            <img src="img/pbm57.png" alt="" style="width:50%" class="img img-fluid"/></br>
+            <p>The first approach we will use to design a policy gradient algorithm is <strong>Monte-Carlo Sampling</strong>. We can apply this to taks that can be split into distinct episodes.</p>
+            <p>For each episode or trajectory <span class="mathquill ud-math">\tau</span> generated by interacting with the policy <span class="mathquill ud-math">\pi</span> at each time step <span class="mathquill ud-math">t</span> within that episode, we first compute the gradient of the log probabilities produced by our policy function multiply that by the returns from the rest of the episode (this is our score function) and finally update the weights with some small learning rate <span class="mathquill ud-math">\alpha</span>. This is called the <strong>Reinforce</strong> algorithm. </p>
          </div>
          <div class="divider"></div>
          <div class="ud-atom">
-            <h3></h3>
             <div>
                <h2 id="-td-prediction-action-values">Constrained Policy Gradients</h2>
-               <ul>
-                  <li>
-                     So far we have looked at Policy-Based methods that only use the goodness of a policy as the objective function, i.e. how much reward we expect to get out of it?
-                  </li>
-                  <li>What this means is that we are not bothered with what actions the policy takes, what state it visits, how frequently, etc. All we care about the overall expected reward. </li>
-                  <li>This can result in two policies that are close to each other in the objective function space but wildly different in the way they behave.</li>
-               </ul>
             </div>
+            <p>So far we have looked at Policy-Based methods that only use the goodness of a policy as the objective function, i.e. how much reward we expect to get out of it? What this means is that we are not bothered with what actions the policy takes, what state it visits, how frequently, etc. All we care about the overall expected reward. This can result in two policies that are close to each other in the objective function space but wildly different in the way they behave.</p>
             <div class="row">
                <div class="column">
                   <img src="img/pbm58.png" alt="pbm58" style="width:100%">
