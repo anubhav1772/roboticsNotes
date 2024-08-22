@@ -59,7 +59,7 @@
                <a href="05. Policy Gradients.html">05. Policy Gradients</a>
             </li>
             <li class="">
-               <a href="06. Monte Carlo Policy Gradients.html">06. Monte Carlo Policy Gradients</a>
+               <a href="06. Monte-Carlo Policy Gradients.html">06. Monte Carlo Policy Gradients</a>
             </li>
             <li class="">
                <a href="07. Constrained Policy Gradients.html">07. Constrained Policy Gradients</a>
@@ -376,7 +376,7 @@
                <div class="column">
                   <img src="img/pbm53.png" alt="pbm53" style="width:100%">
                </div>
-            </div> -->
+               </div> -->
             <img src="img/pbm53.png" alt="" style="width:50%" class="img img-fluid"/></br>
             <p>Given any policy <span class="mathquill ud-math">\pi</span> that is defined by an n-dimensional parameter vector <span class="mathquill ud-math">\theta</span>, find the partial derivative of the objective function with respect to each dimension <span class="mathquill ud-math">k</span> by adding a tiny value to that particular dimension and computing the difference between the resulting policy value and the current one. Collect all the partial derivatives into a single vector to get the combined derivative.</p>
             <p>Note that each of these policy evaluations may require atleast one full episode of interaction in the environment and we are doing one evaluation for every parameter dimension at every iteration. This procedure can take a long time!</p>
@@ -384,21 +384,21 @@
                <div class="column">
                   <img src="img/pbm54.png" alt="pbm54" style="width:100%">
                </div>
-            </div> -->
+               </div> -->
             <img src="img/pbm54.png" alt="" style="width:50%" class="img img-fluid"/></br>
             <p>If we do have access to the underlying policy function (since we designed it), then it is more efficient to try and compute the gradients analytically. But this means we need to compute the gradient of the expected value of some function. This is a fairly well studied problem. The reward function we have here is generally referred to as a score function and we can manipulate this expression to estimate the gradient of the score function more easily. Let's see how!</p>
             <!-- <div class="row">
                <div class="column">
                   <img src="img/pbm55.png" alt="pbm55" style="width:100%">
                </div>
-            </div> -->
+               </div> -->
             <img src="img/pbm55.png" alt="" style="width:50%" class="img img-fluid"/></br>
             <p>To simplify things we will consider some arbitrary score function <span class="mathquill ud-math">f</span> that is dependent on <span class="mathquill ud-math">x</span>. The values of <span class="mathquill ud-math">x</span> are drwan from a probability distribution, determined by parameters <span class="mathquill ud-math">\theta</span>. This means we can expand the expectation into an integral or summation of a prabability of <span class="mathquill ud-math">x|\theta</span> (<span class="mathquill ud-math">x</span> given <span class="mathquill ud-math">\theta</span>) times the score function. Note that here the gradient can be moved into the summation (for simplification). Now we can use something called the <strong>Likelihood Ratio</strong> trick. First we multiply the denominator and numerator by <span class="mathquill ud-math">P(x|\theta)</span> and replace the resulting fraction by the derivative of the log probability. Finally, we can convert the summation back to the expectation. Now, we only need to compute the derivative of the log probabilities (not the score function) since it doesn't directly depend on <span class="mathquill ud-math">\theta</span>.</p>
             <!-- <div class="row">
                <div class="column">
                   <img src="img/pbm56.png" alt="pbm56" style="width:100%">
                </div>
-            </div> -->
+               </div> -->
             <img src="img/pbm56.png" alt="" style="width:50%" class="img img-fluid"/></br>
             <p>Back in RL land! Above is how the gradient expression looks like. With the policy function <span class="mathquill ud-math">\pi</span> in place of the probability distribution and our own score function <span class="mathquill ud-math">R</span> which can be the sum of all rewards, discounted rewards or some other value-Based functions. We can compute this score function by interacting with the environment and summing up the rewards we get. If we have the policy function implemented using some approximators like a neural net, then we can compute the log of the output probabilities and their derivative. Finally, we can compute the expecation stochastically by taking a bunch of different samples. Using this gradient, we can update policy parameters to improve the objective function iteratively. So, we can actually build a concrete algorithm around this.</p>
          </div>
@@ -424,18 +424,33 @@
                <div class="column">
                   <img src="img/pbm59.png" alt="pbm59" style="width:100%">
                </div>
+            </div>
+            <p>Let's take a 4-legged walking robot as an example. One policy might make the robot walk in a particlular way while another policy might make the robot walk with a completely different gait. Both policies are reasonable solutions. Let's assume Policy A as our current policy and Policy B is the direction that our objective gradient points toward, a better policy.</p>
+            <p>Our optimization algorithm will try to update the parameters to move from A towards B but not all the way since we use a learning step <span class="mathquill ud-math">\alpha</span>. So we land up with some intermediate set of policy parameters but these may result in very poor performance. This is very common in complex control tasks like walking where the coordination and timing between different actions is very important. The algorithm may still learn to improve the policy and arrive at something reasonable but the learning process itself can be very unstable and inefficient.</p>
+            <p>Moreover, in certain applications like robotics where we are dealing with electro-mechanical components, drastic change in policy patameters may literally break things.</p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm60.png" alt="pbm60" style="width:100%">
                </div>
+            </div>
+            <p>For these reasons, we should pay attention to the policy parameters in addition to the objective function. In fact, we might want to place some constraints on the policy parameters that we are only allowed to change the parameters in a certain way or by a certain amount. This can be implemented in our gradient-based algorithms by adding a <strong>constraints</strong> that the difference between two policies is atmost some threshold <span class="mathquill ud-math">\delta</span>.</p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm61.png" alt="pbm61" style="width:100%">
                </div>
+            </div>
+            <p>Another way to introduce this constraint is to add a <strong>penalty term</strong> to the objective function that is some multiple of this difference. If we try to optimize for this combined objective function then we will be driven towards policies that are better but not too different at each step. This helps stabilize the learning algorithm and is kind of like adding regularization to ML algorithms.</p>
+            <p>But in both these approaches whether we add a constraint or a penalty, we need some way to quantify the difference between two policies.</p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm62.png" alt="pbm62" style="width:100%">
                </div>
                <div class="column">
                   <img src="img/pbm63.png" alt="pbm63" style="width:100%">
                </div>
+            </div>
+            <p>A naive way to compute the different between two policies is to use the difference betweeb their parameter vectors and take the norm of the difference, say Euclidean norm. If our policies are some complex function of the parameters which is indeed the case when using deep neural networks or other ML models, then the parameter difference may not accurately reflect the difference between how the policies behave, what actions they ultimately produced.</p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm64.png" alt="pbm64" style="width:100%">
                </div>
@@ -445,6 +460,11 @@
                <div class="column">
                   <img src="img/pbm66.png" alt="pbm66" style="width:100%">
                </div>
+            </div>
+            <p>In order to come up with the better distance measure, we need to think about a <strong>policy as a probability distribution over actions</strong>. This perspective is especially useful when we have a continuous action space.</p>
+            <p>Consider the continuous version of the cart-pole problem where we no longer have binary actions for left and right. Instead, we can apply any amount of force between -1 and +1 like -0.5 or +0.8. Our policy is the probability distribution over this range of actions. Note that the distribution can be different from state to state. If we have continuous space, we can unify these into a single continuous distribution over the combined range of states and actions. </p>
+            <p>Consider that we have two such policies. Each is a distribution over states and actions. How do we compare these distributions? One statistical we can use is the <strong>Kullback–Leibler divergence (KL-Divergence)</strong></p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm67.png" alt="pbm67" style="width:100%">
                </div>
@@ -460,6 +480,10 @@
                <div class="column">
                   <img src="img/pbm71.png" alt="pbm71" style="width:100%">
                </div>
+            </div>
+            <p><span style="background-color: #FFC0CB">The KL-Divergence of p w.r.t. q is defined as the integral of <span class="mathquill ud-math">p(x)</span> times the <span class="mathquill ud-math">\log(p(x)/q(x))</span>.</span> We can re-wtite <span class="mathquill ud-math">\log(p(x)/q(x))</span> as <span class="mathquill ud-math">\log(p(x)) - \log(q(x))</span> which might make it easier to understand.</p>
+            <p>Shown above are the original distributions, <span class="mathquill ud-math">p(x)</span> and <span class="mathquill ud-math">p(x)</span>. we take the log of the two probabilities and then at each point <span class="mathquill ud-math">x</span>, we take the difference between these log probabilities. Finally, we scale the difference by one of the probability values and sum that up over the entire range of <span class="mathquill ud-math">x</span>. Intuitively, this is the area of non-overlapping region between the two log probability distributions but summed up at each location <span class="mathquill ud-math">x</span> using one of the probabilities as a reference, which means <span style="background-color: #FFFF00">the KL-Divergence of <span class="mathquill ud-math">p</span> w.r.t. <span class="mathquill ud-math">q</span> is not equal to that of <span class="mathquill ud-math">q</span> to <span class="mathquill ud-math">p</span></span>. It is <span style="background-color: #FFC0CB">an asymmetric distance measure.</span></p>
+            <div class="row">
                <div class="column">
                   <img src="img/pbm72.png" alt="pbm72" style="width:100%">
                </div>
@@ -467,6 +491,8 @@
                   <img src="img/pbm73.png" alt="pbm73" style="width:100%">
                </div>
             </div>
+            <p><span style="background-color: #FFFF00">The way we apply KL-Divergence to policy gradients is we compute the KL-Divergence between the current policy <span class="mathquill ud-math">\theta</span> and any new candidate policy <span class="mathquill ud-math">\theta^{′}</span> and then we use this difference term as the constraint part of our objective function. This term punishes new policies that change the behaviour too much so the new policy has to produce that much more value to be considered better. In the context of the overall policy gardients algorithm, this helps create a more stable learning process where the policy is not jumping around as much.</span></p>
+            <p>Several varients of constraint policy gradients have been developed including the popular <strong>Trust Region Policy Optimization (TRPO)</strong> algorithm and more recently <strong>Proximal Policy Optimization (PPO)</strong>. The ability to play with objective function allows us to build several kind of constraints, including additional losses that can further guide our agent's learning.</p>
          </div>
          <footer class="footer">
             <div class="container">
