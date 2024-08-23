@@ -705,9 +705,55 @@
                             </div>
                         </div>
 
-                        <!-- <div class="divider"></div> -->
                         <div class="divider"></div>
-
+                        <div class="ud-atom">
+                          <div>
+                            <h2 id="-Extended-KF">Extended Kalman Filter</h2>
+                            <p>Assumptions under which the Kalman Filter operates:</p>
+                            <ul>
+                              <li>Motion and measurement models are linear.</li>
+                              <li>State space can be represented by a unimodal Gaussian distribution.</li>
+                            </ul>
+                            <p>It turns out that above assumptions are very limiting. It will only suffice for primitive robots. Most mobile robots will execute non-linear motions. For example, moving in a circle or following a curve. So, <em>what can we do if our kalman filter ca't be applied to most robotics problems?</em> Let's take a look at why we can't apply the kalman filter!</p>
+                            <img src="img/loc35.png" alt="loc35" style="width:50%" class="img img-fluid" /></br>
+                            <p>Above is a prior distribution, a unimodal gaussian distribution with a mean of <span class="mathquill ud-math">\mu</span> and a variance of <span class="mathquill ud-math">\sigma^{2}</span>. When this distribution undergoes a linear transformation, for instance the function <span class="mathquill ud-math">y = ax + b</span>, the resulting distribution looks like as shown above. This posterior distribution is a gaussian with a mean of <span class="mathquill ud-math">a\mu + b</span> and variance <span class="mathquill ud-math">a^{2}\sigma^{2}</span>. This is precisely what can happen in a state prediction.</p>
+                            <p>The important thing to note is that a linear transformation that takes a gaussian distribution as an input will always have a gaussian distribution as an output.</p>
+                            <p>Now <em>what happens if the transformation is non-linear?</em> Let's look at another example!</p>
+                            <img src="img/loc37.png" alt="loc37" style="width:50%" class="img img-fluid" /></br>
+                            <p>Once again the prior distribution is a unimodal gaussian distribution with a mean of <span class="mathquill ud-math">\mu</span> and a variance of <span class="mathquill ud-math">\sigma^{2}</span>. But now the function <span class="mathquill ud-math">f(x)</span> is clearly non-linear. The resultant distribution is no longer a gaussian. In fact, the distribution cannot be computed in closed form, meaning in a finite number of operations. Instead, to model this distribution many thousands of samples must be collected according to the prior distribution and pass through the function <span class="mathquill ud-math">f(x)</span> to create this posterior distribution.</p>
+                            <p> What used to be simple algebra or matrix manipulation has become much more computaionally intensive which is not the responsiveness that the kalman filter is known for. <em>What can we do?</em></p>
+                            <div class="row">
+                              <div class="column">
+                                  <img src="img/loc35-1.png" alt="loc35-1" style="width:100%">
+                              </div>
+                              <div class="column">
+                                  <img src="img/loc36.png" alt="loc36" style="width:100%">
+                              </div>
+                            </div>
+                            <p>If we look closely we may notice that for very short intervals, the function <span class="mathquill ud-math">f(x)</span> may be approximated by a linear function. This will allow us to use the kalman filter on this non-linear problem. The linear estimate is only good for a small section of the function but if it is centered on the best estimate, the mean which is updated with every step, it turns out that it can produce sufficiently accurate results. </p>
+                            <!-- <p>The mean can continue to be updated with the non-linear function.</p> -->
+                            <!-- <div class="mathquill ud-math">\mu → f(x) → \mu^{′}</div> -->
+                            <!-- <div class="mathquill"> \mu \xrightarrow{f(x)} \mu'</div> -->
+                            <!-- <div class="mathquill ud-math">P → F → P^{′}</div> -->
+                            <!-- <div class="mathquill"> P \xrightarrow{F} P'</div> -->
+                            <!-- <p>But, the covariance must be updated by a linearization of function <span class="mathquill ud-math">f(x)</span>.</p> -->
+                            <p>A nonlinear function can be used to update the mean of a function, 
+                            <span class="mathquill"> \mu \xrightarrow{f(x)} \mu'</span>
+                            but not the variance, as this would result in a non-Gaussian distribution which is <em>much</em> more computationally expensive to work with.</p> 
+                            <p>To update the variance, the Extended Kalman Filter linearizes the nonlinear function <span class="mathquill">f(x)</span> over a small section and calls it <span class="mathquill">F</span>. This linearization, <span class="mathquill">F</span>, is then used to update the state's variance.</p>
+                            <div class="mathquill"> P \xrightarrow{F} P'</div>
+                            <p>To calculate a local linear approximation, a Taylor Series can be of help.</p>
+                            <!-- <img src="img/taylor-series.png" alt="taylor-series" style="width:60%" class="img img-fluid" /></br> -->
+                            <div class="mathquill ud-math" style="margin: 0; width: 50%; padding: 7px; border: 2px solid red;">T(x) = f(a) + \frac{f^{′}(a)}{1!} (x - a) + \frac{f^{′′}(a)}{2!} (x - a)^{2} + \frac{f^{′′′}(a)}{3!} (x - a)^{3} +...</div></br>
+                            <p>An approximation can be obtained by using just few of the terms and a <U>linear approximation</U> can be obtained by using just the first two terms of the Taylor Series.</p>
+                            <div class="mathquill ud-math">T(x) = f(a) + \frac{f^{′}(a)}{1!} (x - a)</div>
+                            <p>This linear approximation centered around the mean <span class="mathquill ud-math">\pi [i.e., T(x) = f(\mu) + \frac{f^{′}(\mu)}{1!} (x - \mu), </span> where <span class="mathquill ud-math">f^{′}(\mu) = \frac{\delta f(\mu)}{\delta x}]</span> will be used to update the covariance matrix of the prior state gaussian.</p>
+                            <img src="img/loc38.png" alt="loc38" style="width:50%" class="img img-fluid" /></br>
+                            <p>Let's take a look back at our non-linear example and apply the linearization. The Taylor series can be simplified to a linear equation, one of the form <span class="mathquill ud-math">y = ax + b</span> and the transformation can be applied to the prior. The result is precisely what we wanted, a gaussian. It will inevitably have an error. We can see that the posterior gaussian distribution is quite different from the distribution we saw before. However, the tradeoff is in its simplicity and speed of the calculation.</p>
+                            <p><strong>How is EKF different from KF?</strong> Either the state transformation function, measurement function or both are non-linear. These non-linear functions can be used to update the mean but not the variance as this would result in a non-gaussian distribution. For this reason, locally linear approximations are calculated and used to update the variance. </p>
+                          </div>
+                        </div>
+                        <!-- ---------^^--------- -->
                     </div>
             </main>
 
