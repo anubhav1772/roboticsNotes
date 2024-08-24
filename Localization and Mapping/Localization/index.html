@@ -42,13 +42,16 @@
          </ul>
          <ul class="sidebar-list list-unstyled components">
             <li class="">
-               <a href="">01. Introduction to Localization</a>
+               <a href="#localization">01. Introduction to Localization</a>
+            </li>
+            <li>
+               <a href="#kalman">02. Kalman Filter</a>
             </li>
             <li class="">
-               <a href="">02. Kalman Filters</a>
+               <a href="#ekf">03. Extended Kalman Filter</a>
             </li>
             <li class="">
-               <a href="">03. Monte Carlo Localization</a>
+               <a href="#">04. Monte-Carlo Localization</a>
             </li>
          </ul>
          </ul>
@@ -81,6 +84,7 @@
       <main class="container">
          <div class="ud-atom">
             <div>
+                <p><a name="localization"></a></p>
                <h2 id="review">Introduction to Localization</h2>
                Localization is the challenge of determining robot's pose in a mapped environment. We do this by implementing a probabilistic algorithm to filter noisy sensor measurement and track robot's position and orientation.
                <div class="row">
@@ -159,6 +163,7 @@
             <div class="divider"></div>
             <div class="ud-atom">
                <div>
+                  <p><a name="kalman"></a></p>
                   <h2 id="-td-prediction-td0">Kalman Filters</h2>
                   Kalman Filter is an estimation algorithm, used to estimate the value of variable in real time as the data is being collected.
                   <p>The reason why KF is noteworthy is that it can take data with a lots of uncertainties or noise in the measurement and provides very accurate estimate of the real values.</p>
@@ -700,6 +705,7 @@
             <div class="divider"></div>
             <div class="divider"></div>
             <div class="ud-atom">
+                <p><a name="ekf"></a></p>
                <h2 id="-Extended-KF">Extended Kalman Filters</h2>
                <p>Assumptions under which the Kalman Filter operates:</p>
                <ul>
