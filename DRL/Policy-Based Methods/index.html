@@ -44,25 +44,25 @@
          </ul>
          <ul class="sidebar-list list-unstyled components">
             <li class="">
-               <a href="#">01. Policy-Based Methods</a>
+               <a href="#into-to-policy-based-methods">01. Intro to Policy-Based Methods</a>
             </li>
             <li class="">
-               <a href="#">02. Why Policy-Based Methods?</a>
+               <a href="#why-policy-based-methods">02. Why Policy-Based Methods?</a>
             </li>
             <li class="">
-               <a href="#">03. Policy Function Approximation</a>
+               <a href="#policy-function-approximation">03. Policy Function Approximation</a>
             </li>
             <li class="">
-               <a href="#">04. Stochastic Policy Search</a>
+               <a href="#stochastic-policy-search">04. Stochastic Policy Search</a>
             </li>
             <li class="">
-               <a href="#">05. Policy Gradients</a>
+               <a href="#policy-gradients">05. Policy Gradients</a>
             </li>
             <li class="">
-               <a href="#">06. Monte Carlo Policy Gradients</a>
+               <a href="#mc-policy-gradients">06. Monte Carlo Policy Gradients</a>
             </li>
             <li class="">
-               <a href="#">07. Constrained Policy Gradients</a>
+               <a href="#constrained-policy-gradients">07. Constrained Policy Gradients</a>
             </li>
          </ul>
          <ul class="sidebar-list list-unstyled CTAs">
@@ -92,9 +92,9 @@
             </div>
          </header>
          <div class="ud-atom">
-            <h3></h3>
             <div>
-               <h2 id="-td-prediction-td0">Intro to Policy-Based Methods</h2>
+               <p><a name="into-to-policy-based-methods"></a></p>
+               <h2 id="-into-to-policy-based-methods">Intro to Policy-Based Methods</h2>
             </div>
             <!-- <div class="row">
                <div class="column">
@@ -105,9 +105,9 @@
          </div>
          <div class="divider"></div>
          <div class="ud-atom">
-            <h3></h3>
             <div>
-               <h2 id="-td-prediction-action-values">Why Policy-Based Methods?</h2>
+               <p><a name="why-policy-based-methods"></a></p>
+               <h2 id="-why-policy-based-methods">Why Policy-Based Methods?</h2>
             </div>
             <p>Why do we need to find optimal policies directly when Value-Based methods seem to work well? There are 3 arguments we will consider, namely </p>
             <ul>
@@ -204,7 +204,8 @@
          <div class="divider"></div>
          <div class="ud-atom">
             <div>
-               <h2 id="-td-prediction-action-values">Policy Function Approximation</h2>
+               <p><a name="policy-function-approximation"></a></p>
+               <h2 id="-policy-function-approximation">Policy Function Approximation</h2>
             </div>
             <p>We can extend Policy-Based methods to cover large and continuous state spaces by using a function to approximate the policy just like value function approximation.</p>
             <div class="row">
@@ -266,7 +267,8 @@
          <div class="divider"></div>
          <div class="ud-atom">
             <div>
-               <h2 id="-td-prediction-action-values">Stochastic Policy Search</h2>
+               <p><a name="stochastic-policy-search"></a></p>
+               <h2 id="-stochastic-policy-search">Stochastic Policy Search</h2>
             </div>
             <p>With an objective function in hand, we can now think about finding a policy that maximizes it.</p>
             <div class="row">
@@ -340,7 +342,8 @@
          <div class="divider"></div>
          <div class="ud-atom">
             <div>
-               <h2 id="-td-prediction-action-values">Policy Gradients</h2>
+               <p><a name="policy-gradients"></a></p>
+               <h2 id="-policy-gradients">Policy Gradients</h2>
             </div>
             <p>Stochastic Policy Search may or mayn't always work as expected. It is sensitive to the choice of individual samples and may get in local optima or take a long time to converge.</p>
             <div class="row">
@@ -405,16 +408,18 @@
          <div class="divider"></div>
          <div class="ud-atom">
             <div>
-               <h2 id="-td-prediction-action-values">Monte-Carlo Policy Gradients</h2>
+               <p><a name="mc-policy-gradients"></a></p>
+               <h2 id="-mc-policy-gradients">Monte Carlo Policy Gradients</h2>
             </div>
             <img src="img/pbm57.png" alt="" style="width:50%" class="img img-fluid"/></br>
-            <p>The first approach we will use to design a policy gradient algorithm is <strong>Monte-Carlo Sampling</strong>. We can apply this to taks that can be split into distinct episodes.</p>
+            <p>The first approach we will use to design a policy gradient algorithm is <strong>Monte Carlo Sampling</strong>. We can apply this to taks that can be split into distinct episodes.</p>
             <p>For each episode or trajectory <span class="mathquill ud-math">\tau</span> generated by interacting with the policy <span class="mathquill ud-math">\pi</span> at each time step <span class="mathquill ud-math">t</span> within that episode, we first compute the gradient of the log probabilities produced by our policy function multiply that by the returns from the rest of the episode (this is our score function) and finally update the weights with some small learning rate <span class="mathquill ud-math">\alpha</span>. This is called the <strong>Reinforce</strong> algorithm. </p>
          </div>
          <div class="divider"></div>
          <div class="ud-atom">
             <div>
-               <h2 id="-td-prediction-action-values">Constrained Policy Gradients</h2>
+               <p><a name="constrained-policy-gradients"></a></p>
+               <h2 id="-constrained-policy-gradients">Constrained Policy Gradients</h2>
             </div>
             <p>So far we have looked at Policy-Based methods that only use the goodness of a policy as the objective function, i.e. how much reward we expect to get out of it? What this means is that we are not bothered with what actions the policy takes, what state it visits, how frequently, etc. All we care about the overall expected reward. This can result in two policies that are close to each other in the objective function space but wildly different in the way they behave.</p>
             <div class="row">
