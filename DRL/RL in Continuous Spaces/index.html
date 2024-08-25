@@ -46,31 +46,31 @@
 
             <ul class="sidebar-list list-unstyled components">
                 <li class="">
-                    <a href="#">01. Reinforcement Learning : Review</a>
+                    <a href="#rl-review">01. Reinforcement Learning : Review</a>
                 </li>
                 <li class="">
-                    <a href="#">02. Discrete vs. Continuous Spaces</a>
+                    <a href="#discrete-vs-continuous-spaces">02. Discrete vs. Continuous Spaces</a>
                 </li>
                 <li class="">
-                    <a href="#">03. Discretization</a>
+                    <a href="#discretization">03. Discretization</a>
                 </li>
                 <li class="">
-                    <a href="#">04. Tile Coding</a>
+                    <a href="#tile-coding">04. Tile Coding</a>
                 </li>
                 <li class="">
-                    <a href="#">05. Coarse Coding</a>
+                    <a href="#coarse-coding">05. Coarse Coding</a>
                 </li>
                 <li class="">
-                    <a href="#">06. Function Approximation</a>
+                    <a href="#function-approximation">06. Function Approximation</a>
                 </li>
                 <li class="">
-                    <a href="#">07. Linear Function Approximation</a>
+                    <a href="#linear-function-approximation">07. Linear Function Approximation</a>
                 </li>
                 <li class="">
-                    <a href="#">08. Kernel Functions</a>
+                    <a href="#kernel-functions">08. Kernel Functions</a>
                 </li>
                 <li class="">
-                    <a href="#">09. Non-Linear Function Approximation</a>
+                    <a href="#non-linear-function-approximation">09. Non-Linear Function Approximation</a>
                 </li>
 
 
@@ -106,9 +106,9 @@
             </header>
 
             <div class="ud-atom">
-                <h3></h3>
                 <div>
-                    <h2 id="-td-prediction-td0">Reinforcement Learning : Review</h2>
+                    <p><a name="rl-review"></a></p>
+                    <h2 id="-rl-review">Reinforcement Learning : Review</h2>
                 </div>
                 <div class="row">
                     <div class="column">
@@ -170,18 +170,18 @@
                 </ul>
 
                 <!-- <div class="row">
-  <div class="column">
-    <div class="column">
-    <img src="img/drl4.png" alt="drl4" style="width:100%">
-  </div> 
-  </div>
-</div> -->
+                      <div class="column">
+                        <div class="column">
+                        <img src="img/drl4.png" alt="drl4" style="width:100%">
+                      </div> 
+                      </div>
+                    </div> -->
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Discrete vs. Continuous Spaces</h2>
+                        <p><a name="discrete-vs-continuous-spaces"></a></p>
+                        <h2 id="-discrete-vs-continuous-spaces">Discrete vs. Continuous Spaces</h2>
 
                         <div class="row">
                             <div class="column">
@@ -249,9 +249,9 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Discretization</h2>
+                        <p><a name="discretization"></a></p>
+                        <h2 id="-discretization">Discretization</h2>
                         <ul>
                             <li>Discretization is basically converting a continuous space into a discrete one.</li>
                         </ul>
@@ -316,9 +316,9 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Tile Coding</h2>
+                        <p><a name="tile-coding"></a></p>
+                        <h2 id="-tile-coding">Tile Coding</h2>
                     </div>
                     <p>If we have prior knowledge about the state space, we can manually design an appropriate discretization scheme. Like in our gear switching example, we knew the relationship between fuel consumption and speed. But, in order to function
                         in an arbitrary environments, we need a more generic method. One elegant approach for this is <strong>Tile Coding</strong>.</p>
@@ -355,9 +355,9 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Coarse Coding</h2>
+                        <p><a name="coarse-coding"></a></p>
+                        <h2 id="-coarse-coding">Coarse Coding</h2>
                         <p>Coarse Coding is just like tile coding but
                             <U>uses a sparser set of feature to encode the state space</U>.</p>
                         <div class="row">
@@ -393,9 +393,9 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Function Approximation</h2>
+                        <p><a name="function-approximation"></a></p>
+                        <h2 id="-function-approximation">Function Approximation</h2>
                         <ul>
                             <li>
                                 <p>Given a problem domain with continuous states <span class="mathquill ud-math">s \in \mathcal{S} = {\mathbb{R}^{n}}</span>, we wish to find a way to represent the value function <span class="mathquill ud-math">v_{\pi}(s)</span>                                    (for prediction) or <span class="mathquill ud-math">q_{\pi}(s, a)</span> (for control).</p>
@@ -463,9 +463,9 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Linear Function Approximation</h2>
+                        <p><a name="linear-function-approximation"></a></p>
+                        <h2 id="-linear-function-approximation">Linear Function Approximation</h2>
                         <p>How to estimate the parameter w?</p>
                         <div class="row">
                             <div class="column">
@@ -526,9 +526,8 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Kernel Functions</h2>
+                        <h2 id="-kernel-functions">Kernel Functions</h2>
                         <div class="row">
                             <div class="column">
                                 <img src="img/drl41.png" alt="drl41" style="width:100%">
@@ -558,9 +557,8 @@
 
                 <div class="divider"></div>
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
-                        <h2 id="-td-prediction-action-values">Non-Linear Function Approximation</h2>
+                        <h2 id="-non-linear-function-approximation">Non-Linear Function Approximation</h2>
                         <div class="row">
                             <div class="column">
                                 <img src="img/drl44.png" alt="drl44" style="width:100%">
@@ -597,8 +595,6 @@
 
         </div>
     </div>
-
-
 
     <script src="../../assets/js/jquery-3.3.1.min.js"></script>
     <script src="../../assets/js/plyr.polyfilled.min.js"></script>
