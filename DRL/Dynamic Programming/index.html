@@ -201,7 +201,7 @@
                         </div>
                         <div class="ud-atom">
                             <div>
-                                <h2 id="notes-on-solving-the-system-of-equations">Solving the System of Equations</h2>
+                                <h4 id="notes-on-solving-the-system-of-equations">Solving the System of Equations</h4>
                                 <p>In the previous section, we mentioned that you can directly solve the system of equations:</p>
                                 <p><span class="mathquill ud-math">v_\pi(s_1) = \frac{1}{2}(-1 + v_\pi(s_2)) + \frac{1}{2}(-3 + v_\pi(s_3))</span></p>
                                 <p><span class="mathquill ud-math">v_\pi(s_2) = \frac{1}{2}(-1 + v_\pi(s_1)) + \frac{1}{2}(5 + v_\pi(s_4))</span></p>
@@ -224,7 +224,7 @@
                             </div>
 
                             <div>
-                                <h2 id="-an-iterative-method-summary">An Iterative Method Summary</h2>
+                                <h4 id="-an-iterative-method-summary">An Iterative Method Summary</h4>
                                 <p>So far we have discussed how an agent might obtain the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>.</p>
                                 <p>In the dynamic programming setting, the agent has full knowledge of the Markov decision process (MDP). In this case, it's possible to use the one-step dynamics <span class="mathquill ud-math">p(s',r|s,a)</span> of the MDP
                                     to obtain a system of equations corresponding to the Bellman expectation equation for <span class="mathquill ud-math">v_\pi</span>.</p>
@@ -247,86 +247,82 @@
                         </div>
                     </div>
                     <div class="ud-atom">
-                        <div>
-                            <p><a name="iterative-policy-evaluation"></a></p>
-                            <h2 id="-iterative-policy-evaluation">Iterative Policy Evaluation</h2>
-                            <div class="row">
-                                <div class="column">
-                                    <img src="img/iter16.png" alt="iter16" style="width:100%">
-                                </div>
-                                <div class="column">
-                                    <img src="img/iter161.png" alt="iter17" style="width:100%">
-                                </div>
-                                <div class="column">
-                                    <img src="img/iter17.png" alt="iter17" style="width:100%">
-                                </div>
-                                <div class="column">
-                                    <img src="img/iter18.png" alt="iter18" style="width:100%">
-                                </div>
-                                <div class="column">
-                                    <img src="img/iter19.png" alt="iter19" style="width:100%">
-                                </div>
+                        <p><a name="iterative-policy-evaluation"></a></p>
+                        <h2 id="-iterative-policy-evaluation">Iterative Policy Evaluation</h2>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/iter16.png" alt="iter16" style="width:100%">
                             </div>
-                            <ul>
-                                <li><strong>Iterative policy evaluation</strong> assumes the agent already has full and perfect knowledge of the MDP that characterizes the environment.</li>
-                                <li>This algorithm was motivated by the Bellman Expectation Equation for the State-Value Function and this algorithm is really a system of equations since we have one equation for each environment state.</li>
-                                <li>Theoretically we have a system of equation with one equation for each unknown quantity, we could solve this system. But, there is an easier way where instead of solving the system exactly we will construct an iterative
-                                    algorithm where each step gets closer and closer to solving the system of equations. Specifically, our iterative algorithm will adapt this Bellman equation so that it could be used as an update rule.</li>
-                                <li>This algorithm is used in the dynamic programming setting to estimate the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>. In this approach,
-                                    a Bellman update is applied to the value function estimate until the changes to the estimate are nearly imperceptible.</li>
-                                <li> <strong>Stopping Criteria:</strong> In practice, when we implement this algorithm we will notice the first few times the update rule is applied there are big changes to the value function but eventually at a later time
-                                    point we will notice the updates are hardly noticeable and once we get to that point where applying the update rule doesnot chnage the estimate of the value function much then that's a strong indication that our algorithm
-                                    has got reasonably close to converging to the true value function. Inspired by this fact we can design a stopping criterion that terminates the algorithm whenever we have done a complete pass over all the states and
-                                    none of the values has changed much.</li>
-                            </ul>
-                            <ul>
-                                Note that policy evaluation is guaranteed to converge to the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>, as long as <span class="mathquill ud-math">v_\pi(s)</span>                                is finite for each state <span class="mathquill ud-math">s\in\mathcal{S}</span>. For a finite Markov decision process (MDP), this is guaranteed as long as either:
-                                <ul>
-                                    <li><span class="mathquill ud-math">\gamma < 1</span>, or</li>
-                                    <li>if the agent starts in any state <span class="mathquill ud-math">s\in\mathcal{S}</span>, it is guaranteed to eventually reach a terminal state if it follows policy <span class="mathquill ud-math">\pi</span>.</li>
-                                </ul>
-                            </ul>
-
+                            <div class="column">
+                                <img src="img/iter161.png" alt="iter17" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/iter17.png" alt="iter17" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/iter18.png" alt="iter18" style="width:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/iter19.png" alt="iter19" style="width:100%">
+                            </div>
                         </div>
+                        <ul>
+                            <li><strong>Iterative policy evaluation</strong> assumes the agent already has full and perfect knowledge of the MDP that characterizes the environment.</li>
+                            <li>This algorithm was motivated by the Bellman Expectation Equation for the State-Value Function and this algorithm is really a system of equations since we have one equation for each environment state.</li>
+                            <li>Theoretically we have a system of equation with one equation for each unknown quantity, we could solve this system. But, there is an easier way where instead of solving the system exactly we will construct an iterative
+                                algorithm where each step gets closer and closer to solving the system of equations. Specifically, our iterative algorithm will adapt this Bellman equation so that it could be used as an update rule.</li>
+                            <li>This algorithm is used in the dynamic programming setting to estimate the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>. In this approach,
+                                a Bellman update is applied to the value function estimate until the changes to the estimate are nearly imperceptible.</li>
+                            <li> <strong>Stopping Criteria:</strong> In practice, when we implement this algorithm we will notice the first few times the update rule is applied there are big changes to the value function but eventually at a later time
+                                point we will notice the updates are hardly noticeable and once we get to that point where applying the update rule doesnot chnage the estimate of the value function much then that's a strong indication that our algorithm
+                                has got reasonably close to converging to the true value function. Inspired by this fact we can design a stopping criterion that terminates the algorithm whenever we have done a complete pass over all the states and
+                                none of the values has changed much.</li>
+                        </ul>
+                        <ul>
+                            Note that policy evaluation is guaranteed to converge to the state-value function <span class="mathquill ud-math">v_\pi</span> corresponding to a policy <span class="mathquill ud-math">\pi</span>, as long as <span class="mathquill ud-math">v_\pi(s)</span>                                is finite for each state <span class="mathquill ud-math">s\in\mathcal{S}</span>. For a finite Markov decision process (MDP), this is guaranteed as long as either:
+                            <ul>
+                                <li><span class="mathquill ud-math">\gamma < 1</span>, or</li>
+                                <li>if the agent starts in any state <span class="mathquill ud-math">s\in\mathcal{S}</span>, it is guaranteed to eventually reach a terminal state if it follows policy <span class="mathquill ud-math">\pi</span>.</li>
+                            </ul>
+                        </ul>
+
                         <img src="img/screen-shot-2017-09-26-at-11.03.16-pm.png" style="width:60%" alt="" class="img img-fluid"/>
-                    </div>
-                    <div class="ud-atom">
-                        <h3 id="optional-additional-note-on-the-convergence-conditions">Additional Note on the Convergence Conditions</h3>
-                        <div>
-                            <p>To see intuitively <em>why</em> the conditions for convergence make sense, consider the case that neither of the conditions are satisfied, so:</p>
-                            <ul>
-                                <li><span class="mathquill ud-math">\gamma = 1</span>, and</li>
-                                <li>there is some state <span class="mathquill ud-math">s\in\mathcal{S}</span> where if the agent starts in that state, it will never encounter a terminal state if it follows policy <span class="mathquill ud-math">\pi</span>.</li>
-                            </ul>
-                            <p>In this case, </p>
-                            <ul>
-                                <li>reward is not discounted, and </li>
-                                <li>an episode may never finish. </li>
-                            </ul>
-                            <p>Then, it is possible that iterative policy evaluation will not converge, and this is because the state-value function may not be well-defined! To see this, note that in this case, calculating a state value could involve adding
-                                up an infinite number of (expected) rewards, where the sum may not <a href="https://en.wikipedia.org/wiki/Convergent_series" target="_blank">converge</a>.</p>
-                            <p>In case it would help to see a concrete example, consider an MDP with:</p>
-                            <ul>
-                                <li>two states <span class="mathquill ud-math">s_1</span> and <span class="mathquill ud-math">s_2</span>, where <span class="mathquill ud-math">s_2</span> is a terminal state </li>
-                                <li>one action <span class="mathquill ud-math">a</span> (<em>Note: An MDP with only one action can also be referred to as a <a href="https://goo.gl/BNi4qu" target="_blank">Markov Reward Process (MRP)</a>.</em>)</li>
-                                <li><span class="mathquill ud-math">p(s_1,1|s_1, a) = 1</span></li>
-                            </ul>
-                            <p>In this case, say the agent's policy <span class="mathquill ud-math">\pi</span> is to "select" the only action that's available, so <span class="mathquill ud-math">\pi(s_1) = a</span>. Say <span class="mathquill ud-math">\gamma = 1</span>.
-                                According to the one-step dynamics, if the agent starts in state <span class="mathquill ud-math">s_1</span>, it will stay in that state forever and never encounter the terminal state <span class="mathquill ud-math">s_2</span>.</p>
-                            <p>In this case, <strong><span class="mathquill ud-math">v_\pi(s_1)</span> is not well-defined</strong>. To see this, remember that <span class="mathquill ud-math">v_\pi(s_1)</span> is the (expected) return after visiting state
-                                <span class="mathquill ud-math">s_1</span>, and we have that </p>
-                            <p><span class="mathquill ud-math">v_\pi(s_1) = 1 + 1 + 1 + 1 + …</span> </p>
-                            <p>which <a href="https://en.wikipedia.org/wiki/Divergent_series" target="_blank">diverges</a> to infinity. (Take the time now to convince yourself that if either of the two convergence conditions were satisfied in this example,
-                                then <span class="mathquill ud-math">v_\pi(s_1)</span> would be well-defined. As a <strong>very optional</strong> next step, if you want to verify this mathematically, you may find it useful to review <a href="https://en.wikipedia.org/wiki/Geometric_series"
-                                target="_blank">geometric series</a> and the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution" target="_blank">negative binomial distribution</a>.)</p>
-                        </div>
+                        </br></br>
+                        <h4 id="-additional-note-on-the-convergence-conditions">Additional note on the Convergence Conditions</h4>
 
+                        <p>To see intuitively <em>why</em> the conditions for convergence make sense, consider the case that neither of the conditions are satisfied, so:</p>
+                        <ul>
+                            <li><span class="mathquill ud-math">\gamma = 1</span>, and</li>
+                            <li>there is some state <span class="mathquill ud-math">s\in\mathcal{S}</span> where if the agent starts in that state, it will never encounter a terminal state if it follows policy <span class="mathquill ud-math">\pi</span>.</li>
+                        </ul>
+                        <p>In this case, </p>
+                        <ul>
+                            <li>reward is not discounted, and </li>
+                            <li>an episode may never finish. </li>
+                        </ul>
+                        <p>Then, it is possible that iterative policy evaluation will not converge, and this is because the state-value function may not be well-defined! To see this, note that in this case, calculating a state value could involve adding
+                            up an infinite number of (expected) rewards, where the sum may not <a href="https://en.wikipedia.org/wiki/Convergent_series" target="_blank">converge</a>.</p>
+                        <p>In case it would help to see a concrete example, consider an MDP with:</p>
+                        <ul>
+                            <li>two states <span class="mathquill ud-math">s_1</span> and <span class="mathquill ud-math">s_2</span>, where <span class="mathquill ud-math">s_2</span> is a terminal state </li>
+                            <li>one action <span class="mathquill ud-math">a</span> (<em>Note: An MDP with only one action can also be referred to as a <a href="https://goo.gl/BNi4qu" target="_blank">Markov Reward Process (MRP)</a>.</em>)</li>
+                            <li><span class="mathquill ud-math">p(s_1,1|s_1, a) = 1</span></li>
+                        </ul>
+                        <p>In this case, say the agent's policy <span class="mathquill ud-math">\pi</span> is to "select" the only action that's available, so <span class="mathquill ud-math">\pi(s_1) = a</span>. Say <span class="mathquill ud-math">\gamma = 1</span>.
+                            According to the one-step dynamics, if the agent starts in state <span class="mathquill ud-math">s_1</span>, it will stay in that state forever and never encounter the terminal state <span class="mathquill ud-math">s_2</span>.</p>
+                        <p>In this case, <strong><span class="mathquill ud-math">v_\pi(s_1)</span> is not well-defined</strong>. To see this, remember that <span class="mathquill ud-math">v_\pi(s_1)</span> is the (expected) return after visiting state
+                            <span class="mathquill ud-math">s_1</span>, and we have that </p>
+                        <p><span class="mathquill ud-math">v_\pi(s_1) = 1 + 1 + 1 + 1 + …</span> </p>
+                        <p>which <a href="https://en.wikipedia.org/wiki/Divergent_series" target="_blank">diverges</a> to infinity. (Take the time now to convince yourself that if either of the two convergence conditions were satisfied in this example,
+                            then <span class="mathquill ud-math">v_\pi(s_1)</span> would be well-defined. As a <strong>very optional</strong> next step, if you want to verify this mathematically, you may find it useful to review <a href="https://en.wikipedia.org/wiki/Geometric_series"
+                            target="_blank">geometric series</a> and the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution" target="_blank">negative binomial distribution</a>.)</p>
                     </div>
+
                     <div class="divider"></div>
                     <div class="ud-atom">
                         <div>
-                            <p><a name="estimation-of-action-values"></a></p>
-                            <h2 id="-estimation-of-action-values">Estimation of Action Values</h2>
+                            <p><a name="action-values-estimation"></a></p>
+                            <h2 id="-estimation-of-action-values">Action Values Estimation</h2>
                             <ul>
                                 <li>In the dynamic programming setting, it is possible to quickly obtain the action-value function <span class="mathquill ud-math">q_\pi</span> from the state-value function <span class="mathquill ud-math">v_\pi</span> and
                                     the one-step dynamics of the MDP <span class="mathquill ud-math">p(s',r|s,a)</span> with the equation: <span class="mathquill ud-math">q_\pi(s,a) = \sum_{s'\in\mathcal{S}, r\in\mathcal{R}}p(s',r|s,a)(r+\gamma v_\pi(s'))</span>
