@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">    <!-- Creative Commons Icons -->
-    <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png">
     <style type="text/css">
         /* Three image containers (use 25% for four, and 50% for two, etc) */
         .column {
@@ -46,34 +46,34 @@
 
             <ul class="sidebar-list list-unstyled components">
                 <li class="">
-                    <a href="#">01. Introduction</a>
+                    <a href="#intro">01. Introduction</a>
                 </li>
                 <li class="">
-                    <a href="#">02. MC Prediction: State Values</a>
+                    <a href="#mc-prediction-state-values">02. MC Prediction: State Values</a>
                 </li>
                 <li class="">
-                    <a href="#">03. MC Prediction: Action Values</a>
+                    <a href="#mc-prediction-action-values">03. MC Prediction: Action Values</a>
                 </li>
                 <li class="">
-                    <a href="#">04. Generalized Policy Iteration</a>
+                    <a href="#generalized-policy-iteration">04. Generalized Policy Iteration</a>
                 </li>
                 <li class="">
-                    <a href="#">05. MC Control: Incremental Mean</a>
+                    <a href="#mc-control-incremental-mean">05. MC Control: Incremental Mean</a>
                 </li>
                 <li class="">
-                    <a href="#">06. MC Control: Policy Evaluation</a>
+                    <a href="#mc-control-policy-evaluation">06. MC Control: Policy Evaluation</a>
                 </li>
                 <li class="">
-                    <a href="#">07. MC Control: Policy Improvement</a>
+                    <a href="#mc-control-policy-improvement">07. MC Control: Policy Improvement</a>
                 </li>
                 <li class="">
-                    <a href="#">08. Epsilon-Greedy Policies</a>
+                    <a href="#epsilon-greedy-policies">08. Epsilon-Greedy Policies</a>
                 </li>
                 <li class="">
-                    <a href="#">09. Exploration vs. Exploitation</a>
+                    <a href="#exploration-vs-exploitation">09. Exploration vs. Exploitation</a>
                 </li>
                 <li class="">
-                    <a href="#">10. MC Control: Constant-alpha</a>
+                    <a href="#mc-control-constant-alpha">10. MC Control: Constant-alpha</a>
                 </li>
             </ul>
 
@@ -110,14 +110,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="ud-atom">
-                            <h3></h3>
-                            <!-- <div>
-  <h1 id="summary">Monte Carlo Methods</h1>
-</div> -->
-
+                            <div>
+                              <p><a name="intro"></a></p>
+                              <h1 id="summary">Introduction</h1>
+                            </div>
                         </div>
                         <!-- <div class="divider"></div><div class="ud-atom">
-  <h3></h3> -->
+                            <h3></h3> -->
                         RL problems where the agent is not given the full knowledge of how the environement operates and instead must learn from interaction. In other words, <strong>the environment is unknown to the agent</strong>.
                         <div>
                             <figure class="figure">
@@ -127,13 +126,12 @@
                                 </figcaption>
                             </figure>
                         </div>
-
-
                     </div>
+
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="mc-prediction-state-values"></a></p>
                             <h2 id="-mc-prediction-state-values">MC Prediction: State Values</h2>
                             <ul>
                                 <li>Algorithms that solve the <strong>prediction problem</strong> determine the value function <span class="mathquill ud-math">v_\pi</span> (or <span class="mathquill ud-math">q_\pi</span>) corresponding to a policy <span class="mathquill ud-math">\pi</span>.</li>
@@ -190,12 +188,7 @@
                                 <img src="img/mc10.png" alt="mc10" style="width:100%">
                             </div>
                         </div>
-                        <figure class="figure">
-                            <img src="img/mc-pred-state.png" alt="" style="width:60%" class="img img-fluid">
-                            <figcaption class="figure-caption">
-
-                            </figcaption>
-                        </figure>
+                        <img src="img/mc-pred-state.png" alt="" style="width:60%" class="img img-fluid">
 
                         <p>If you are interested in learning more about the difference between first-visit and every-visit MC methods, you are encouraged to read Section 3 of [<a href="https://link.springer.com/article/10.1007/BF00114726">this</a> <a href="https://link.springer.com/content/pdf/10.1007/BF00114726.pdf">paper</a>]
                             <br
@@ -208,17 +201,13 @@
                         <p>Both the first-visit and every-visit method are <strong>guaranteed to converge</strong> to the true value function, as the number of visits to each state approaches infinity. (<em>So, in other words, as long as the agent gets enough experience with each state, the value function estimate will be pretty close to the true value.</em>)
                             In the case of first-visit MC, convergence follows from the <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank">Law of Large Numbers</a>, and the details are covered in section 5.1 of the <a href="http://go.udacity.com/rl-textbook"
                             target="_blank">textbook</a>.</p>
-                        <figure class="figure">
-                            <img src="img/mc11.png" alt="" style="width:80%" class="img img-fluid">
-                            <figcaption class="figure-caption">
-
-                            </figcaption>
-                        </figure>
+                        <img src="img/mc11.png" alt="" style="width:80%" class="img img-fluid"/>
                     </div>
+
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="mc-prediction-action-values"></a></p>
                             <h2 id="-mc-prediction-action-values">MC Prediction: Action Values</h2> In the <strong>Dynamic Programming</strong> case, we used the state value function to obtain an action value function, as given below:
                             <br />
                             <br /><span class="mathquill ud-math">q_\pi(s,a) = \sum_{s'\in\mathcal{S}, r\in\mathcal{R}}p(s',r|s,a)(r+\gamma v_\pi(s'))</span>
@@ -271,7 +260,6 @@
                         <figure class="figure">
                             <img src="img/mc-pred-action.png" alt="" style="width:60%" class="img img-fluid">
                             <figcaption class="figure-caption">
-
                             </figcaption>
                         </figure>
                         <div>
@@ -281,10 +269,11 @@
                                 selected from each state.</p>
                         </div>
                     </div>
+
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="generalized-policy-iteration"></a></p>
                             <h2 id="-generalized-policy-iteration">Generalized Policy Iteration</h2>
                             <ul>
                                 <li>Algorithms designed to solve the <strong>control problem</strong> determine the optimal policy <span class="mathquill ud-math">\pi_*</span> from interaction with the environment.</li>
@@ -304,10 +293,11 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="mc-control-incremental-mean"></a></p>
                             <h2 id="-mc-control-incremental-mean">MC Control: Incremental Mean</h2>
                             <ul>
                                 <li>In this concept, we derived an algorithm that keeps a running average of a sequence of numbers.</li>
@@ -339,10 +329,11 @@
                         <p>In this, we learned about an algorithm that can keep a running estimate of the mean of a sequence of numbers <span class="mathquill ud-math">(x_1, x_2, \ldots, x_n)</span>. The algorithm looked at each number in the sequence in
                             order, and successively updated the mean <span class="mathquill ud-math">\mu</span>.</p>
                     </div>
+
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="mc-control-policy-evaluation"></a></p>
                             <h2 id="-mc-control-policy-evaluation">MC Control: Policy Evaluation</h2>
                             <ul>
                                 <li>In this concept, we amended the policy evaluation step to update the value function after every episode of interaction.</li>
@@ -362,8 +353,8 @@
                     </div>
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="mc-control-policy-improvement"></a></p>
                             <h2 id="-mc-control-policy-improvement">MC Control: Policy Improvement</h2>
                             <ul>
                                 <li>A policy is <strong>greedy</strong> with respect to an action-value function estimate <span class="mathquill ud-math">Q</span> if for every state <span class="mathquill ud-math">s\in\mathcal{S}</span>, it is guaranteed
@@ -448,13 +439,12 @@
                     </div>
 
                     <div>
-                        <h1 id="quiz-epsilon-greedy-policies">Epsilon-Greedy Policies</h1>
+                        <p><a name="epsilon-greedy-policies"></a></p>
+                        <h2 id="-epsilon-greedy-policies">Epsilon-Greedy Policies</h2>
                     </div>
-
                 </div>
                 <!-- <div class="divider"></div> -->
                 <div class="ud-atom">
-                    <h3></h3>
                     <div>
                         <p>You can think of the agent who follows an <span class="mathquill ud-math">\epsilon</span>-greedy policy as always having a (potentially unfair) coin at its disposal, with probability <span class="mathquill ud-math">\epsilon</span>                            of landing heads. After observing a state, the agent flips the coin.</p>
                         <ul>
@@ -464,7 +454,6 @@
                         <p>In order to construct a policy <span class="mathquill ud-math">\pi</span> that is <span class="mathquill ud-math">\epsilon</span>-greedy with respect to the current action-value function estimate <span class="mathquill ud-math">Q</span>,
                             we need only set</p>
                     </div>
-
                 </div>
                 <!-- <div class="divider"></div> -->
                 <div class="ud-atom">
@@ -477,8 +466,6 @@
                             </figcaption>
                         </figure>
                     </div>
-
-
                 </div>
                 <!-- <div class="divider"></div> -->
                 <div class="ud-atom">
@@ -490,8 +477,8 @@
 
                     <div class="divider"></div>
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="exploration-vs-exploitation"></a></p>
                             <h2 id="-exploration-vs-exploitation">Exploration vs. Exploitation</h2>
                             <ul>
                                 <li>All reinforcement learning agents face the <strong>Exploration-Exploitation Dilemma</strong>, where they must find a way to balance the drive to behave optimally based on their current knowledge (<strong>exploitation</strong>)
@@ -578,8 +565,8 @@
                     </div>
                     <!-- <div class="divider"></div> -->
                     <div class="ud-atom">
-                        <h3></h3>
                         <div>
+                            <p><a name="mc-control-constant-alpha"></a></p>
                             <h2 id="-mc-control-constant-alpha">MC Control: Constant-alpha</h2>
                             <ul>
                                 <li>(In this concept, we derived the algorithm for <strong>constant-<span class="mathquill ud-math">\alpha</span> MC control</strong>, which uses a constant step-size parameter <span class="mathquill ud-math">\alpha</span>.)</li>
@@ -640,8 +627,6 @@
                                 </figcaption>
                             </figure>
                         </div>
-
-
                     </div>
                     <!-- <div class="divider"></div> -->
                     <div class="ud-atom">
@@ -679,10 +664,7 @@
                             </figure>
                         </div>
                     </div>
-
-
                     <div class="divider"></div>
-
                 </div>
             </main>
 
@@ -697,7 +679,6 @@
                     </div>
                 </div>
             </footer>
-
 
             <script src="../../assets/js/jquery-3.3.1.min.js"></script>
             <script src="../../assets/js/plyr.polyfilled.min.js"></script>
