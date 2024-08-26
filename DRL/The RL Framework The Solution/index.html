@@ -46,25 +46,25 @@
 
             <ul class="sidebar-list list-unstyled components">
                 <li class="">
-                    <a href="#">01. Introduction</a>
+                    <a href="#introduction">01. Introduction</a>
                 </li>
                 <li class="">
-                    <a href="#">02. Policies</a>
+                    <a href="#policies">02. Policies</a>
                 </li>
                 <li class="">
-                    <a href="#">03. State-Value Functions</a>
+                    <a href="#state-value-functions">03. State-Value Functions</a>
                 </li>
                 <li class="">
-                    <a href="#">04. Bellman Equations</a>
+                    <a href="#bellman-equations">04. Bellman Equations</a>
                 </li>
                 <li class="">
-                    <a href="#">05. Optimality</a>
+                    <a href="#optimality">05. Optimality</a>
                 </li>
                 <li class="">
-                    <a href="#">06. Action-Value Functions</a>
+                    <a href="#action-value-functions">06. Action-Value Functions</a>
                 </li>
                 <li class="">
-                    <a href="#">07. Optimal Policies</a>
+                    <a href="#optimal-policies">07. Optimal Policies</a>
                 </li>
             </ul>
 
@@ -103,11 +103,12 @@
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
-                                <h5 id="summary">In reinforcement learning, agents learn to prioritize different decisions based on the rewards and punishments associated with different outcomes.</h5>
+                                <p><a name="introduction"></a></p>
+                                <h2 id="-introduction">Introduction</h2>
+                                <p>In reinforcement learning, agents learn to prioritize different decisions based on the rewards and punishments associated with different outcomes.</p>
                             </div>
-
                         </div>
-                        <div class="divider"></div>
+                        <!-- <div class="divider"></div> -->
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
@@ -125,6 +126,7 @@
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
+                                <p><a name="policies"></a></p>
                                 <h2 id="-policies">Policies</h2>
                                 <div class="row">
                                     <div class="column">
@@ -190,8 +192,8 @@
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
+                                <p><a name="state-value-functions"></a></p>
                                 <h2 id="-state-value-functions">State-Value Functions</h2>
-
                                 <!-- <div class="divider"></div> -->
                                 <div class="row">
                                     <div class="column">
@@ -236,8 +238,8 @@
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
+                                <p><a name="bellman-equations"></a></p>
                                 <h2 id="-bellman-equations">Bellman Equations</h2>
-
                                 <div class="row">
                                     <div class="column">
                                         <img src="img/rlfs11.png" alt="rlfs11" style="width:100%">
@@ -251,8 +253,8 @@
                                 </ul>
 
                                 <!-- <div class="divider"></div><div class="ud-atom">
-  <h3></h3>
-  <div> -->
+                                  <h3></h3>
+                                  <div> -->
                                 <p>In the gridworld example, once the agent selects an action, </p>
                                 <ul>
                                     <li>it always moves in the chosen direction (contrasting general MDPs where the agent doesn't always have complete control over what the next state will be), and </li>
@@ -266,11 +268,11 @@
                             </div>
 
                         </div>
-                        <div class="divider"></div>
+                        <!-- <div class="divider"></div> -->
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
-                                <h2 id="-calculating-the-expectation">Calculating the Expectation</h2>
+                                <h4 id="-calculating-the-expectation">Calculating the Expectation</h4>
                                 <p>In the event that the agent's policy <span class="mathquill ud-math">\pi</span> is <strong>deterministic</strong>, the agent selects action <span class="mathquill ud-math">\pi(s)</span> when in state <span class="mathquill ud-math">s</span>,
                                     and the Bellman Expectation Equation can be rewritten as the sum over two variables (<span class="mathquill ud-math">s'</span> and <span class="mathquill ud-math">r</span>):</p>
                                 <div class="mathquill">v_\pi(s) = \text{} \sum_{s'\in\mathcal{S}^+, r\in\mathcal{R}}p(s',r|s,\pi(s))(r+\gamma v_\pi(s'))</div>
@@ -280,13 +282,12 @@
                                 <div class="mathquill">v_\pi(s) = \text{} \sum_{s'\in\mathcal{S}^+, r\in\mathcal{R},a\in\mathcal{A}(s)}\pi(a|s)p(s',r|s,a)(r+\gamma v_\pi(s'))</div>
                                 <p>In this case, we multiply the sum of the reward and discounted value of the next state <span class="mathquill ud-math">(r+\gamma  v_\pi(s'))</span> by its corresponding probability <span class="mathquill ud-math">\pi(a|s)p(s',r|s,a)</span>                                    and sum over all possibilities to yield the expected value.</p>
                             </div>
-
                         </div>
-                        <div class="divider"></div>
+                        <!-- <div class="divider"></div> -->
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
-                                <h2 id="-there-are-3-more-bellman-equations">There are 3 more Bellman Equations!</h2>
+                                <h4 id="-there-are-3-more-bellman-equations">There are 3 more Bellman Equations!</h4>
                                 <p>Here we learned about one Bellman equation, but there are 3 more, for a total of 4 Bellman equations.</p>
                                 <blockquote>
                                     <p>All of the Bellman equations attest to the fact that value functions satisfy recursive relationships. </p>
@@ -294,47 +295,38 @@
                                 <p>For instance, the <strong>Bellman Expectation Equation (for <span class="mathquill ud-math">v_\pi</span>)</strong> shows that it is possible to relate the value of a state to the values of all of its possible successor
                                     states.</p>
                             </div>
-
                         </div>
-
-
-                        <!-- </div> -->
-
-                    </div>
-                    <div class="divider"></div>
-                    <div class="ud-atom">
-                        <h3></h3>
-                        <div>
+                        <div class="divider"></div>
+                        <div class="ud-atom">
+                            <p><a name="optimality"></a></p>
                             <h2 id="-optimality">Optimality</h2>
-                            <div class="ud-atom">
-                                <div class="row">
-                                    <div class="column">
-                                        <img src="img/optimality.png" alt="optimality" style="width:100%">
-                                    </div>
-                                    <div class="column">
-                                        <img src="img/optimal_policy.png" alt="optimal_policy" style="width:100%">
-                                    </div>
-                                    <div class="column">
-                                        <img src="img/rlfs13.png" alt="rlfs13" style="width:100%">
-                                    </div>
-                                    <div class="column">
-                                        <img src="img/multi_optimal_policies.png" alt="multi_optimal_policies" style="width:100%">
-                                    </div>
+                            <div class="row">
+                                <div class="column">
+                                    <img src="img/optimality.png" alt="optimality" style="width:100%">
                                 </div>
-                                <ul>
-                                    <li>A policy <span class="mathquill ud-math">\pi'</span> is defined to be better than or equal to a policy <span class="mathquill ud-math">\pi</span> if and only if <span class="mathquill ud-math">v_{\pi'}(s) \geq v_\pi(s)</span>                                        (state value function of policy <span class="mathquill ud-math">\pi'</span> is greater than or equal to state value function of policy <span class="mathquill ud-math">\pi</span>) for all <span class="mathquill ud-math">s\in\mathcal{S}</span>.</li>
-                                    (NOTE: It is often possible to find two policies that cannot be compared.)
-                                    <li>An <strong>optimal policy <span class="mathquill ud-math">\pi_*</span></strong> satisfies <span class="mathquill ud-math">\pi_* \geq \pi</span> for all policies <span class="mathquill ud-math">\pi</span>. An optimal
-                                        policy is guaranteed to exist but may not be unique.</li>
-                                    <li>All optimal policies have the same state-value function <span class="mathquill ud-math">v_*</span>, called the <strong>optimal state-value function</strong>.</li>
-                                </ul>
+                                <div class="column">
+                                    <img src="img/optimal_policy.png" alt="optimal_policy" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/rlfs13.png" alt="rlfs13" style="width:100%">
+                                </div>
+                                <div class="column">
+                                    <img src="img/multi_optimal_policies.png" alt="multi_optimal_policies" style="width:100%">
+                                </div>
                             </div>
-
+                            <ul>
+                                <li>A policy <span class="mathquill ud-math">\pi'</span> is defined to be better than or equal to a policy <span class="mathquill ud-math">\pi</span> if and only if <span class="mathquill ud-math">v_{\pi'}(s) \geq v_\pi(s)</span>                                        (state value function of policy <span class="mathquill ud-math">\pi'</span> is greater than or equal to state value function of policy <span class="mathquill ud-math">\pi</span>) for all <span class="mathquill ud-math">s\in\mathcal{S}</span>.</li>
+                                (NOTE: It is often possible to find two policies that cannot be compared.)
+                                <li>An <strong>optimal policy <span class="mathquill ud-math">\pi_*</span></strong> satisfies <span class="mathquill ud-math">\pi_* \geq \pi</span> for all policies <span class="mathquill ud-math">\pi</span>. An optimal
+                                    policy is guaranteed to exist but may not be unique.</li>
+                                <li>All optimal policies have the same state-value function <span class="mathquill ud-math">v_*</span>, called the <strong>optimal state-value function</strong>.</li>
+                            </ul>  
                         </div>
                         <div class="divider"></div>
                         <div class="ud-atom">
                             <h3></h3>
                             <div>
+                                <p><a name="action-value-functions"></a></p>
                                 <h2 id="-action-value-functions">Action-Value Functions</h2>
                                 <div class="row">
                                     <div class="column">
@@ -371,6 +363,7 @@
                         <div class="divider"></div>
                         <div class="ud-atom">
                             <div>
+                                <p><a name="optimal-policies"></a></p>
                                 <h2 id="-optimal-policies">Optimal Policies</h2>
                                 <div class="row">
                                     <div class="column">
@@ -393,10 +386,8 @@
 
                                 <img src="img/q_star.png" width="50%" height="50%" alt="gridworld" class="img img-fluid" />
                                 <p>Towards constructing the optimal policy, we can begin by selecting the entries that maximize the action-value function, for each row (or state).</p>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </main>

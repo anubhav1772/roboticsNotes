@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../assets/css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">    <!-- Creative Commons Icons -->
-    <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+    <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png">
     <style type="text/css">
         /* Three image containers (use 25% for four, and 50% for two, etc) */
     .column {
@@ -45,29 +45,29 @@
             </ul>
 
             <ul class="sidebar-list list-unstyled components">
+                <!-- <li class="">
+                    <a href="#introduction">01. Introduction</a>
+                </li> -->
                 <li class="">
-                    <a href="#">01. Introduction</a>
+                    <a href="#monte-carlo-review">01. Monte Carlo Review</a>
                 </li>
                 <li class="">
-                    <a href="#">02. Monte-Carlo Review</a>
+                    <a href="#td-prediction-td0">02. TD Prediction: TD(0)</a>
                 </li>
                 <li class="">
-                    <a href="#">03. TD Prediction: TD(0)</a>
+                    <a href="#td-prediction-action-values">03. TD Prediction: Action Values</a>
                 </li>
                 <li class="">
-                    <a href="#">04. TD Prediction: Action Values</a>
+                    <a href="#td-control-sarsa0">04. TD Control: Sarsa(0)</a>
                 </li>
                 <li class="">
-                    <a href="#">05. TD Control: Sarsa(0)</a>
+                    <a href="#td-control-sarsamax">05. TD Control: Sarsamax</a>
                 </li>
                 <li class="">
-                    <a href="#">06. TD Control: Sarsamax</a>
+                    <a href="#td-control-expected-sarsa">06. TD Control: Expected Sarsa</a>
                 </li>
                 <li class="">
-                    <a href="#">07. TD Control: Expected Sarsa</a>
-                </li>
-                <li class="">
-                    <a href="#">08. Analyzing Performance</a>
+                    <a href="#analyzing-performance">07. Analyzing Performance</a>
                 </li>
             </ul>
 
@@ -92,7 +92,6 @@
                                     <div></div>
                                     <div></div>
                                 </button>
-
                                 <h1 style="display: inline-block">Temporal-Difference Methods</h1>
                             </div>
                         </div>
@@ -117,7 +116,8 @@
                 <div class="ud-atom">
                     <h3></h3>
                     <div>
-                        <h2 id="review">Monte-Carlo Review</h2>
+                        <p><a name="monte-carlo-review"></a></p>
+                        <h2 id="review">Monte Carlo Review</h2>
                         <br />
                         <p>Monte-Carlo methods needed the episode to end so that the return could be calculated and then used as an estimate for the action values.</p>
 
@@ -129,7 +129,6 @@
                             <figure class="figure">
                                 <img src="img/mc_review.png" alt="" style="width:60%" class="img img-fluid">
                                 <figcaption class="figure-caption">
-
                                 </figcaption>
                             </figure>
                         </div>
@@ -138,6 +137,7 @@
                     <div class="ud-atom">
                         <h3></h3>
                         <div>
+                            <p><a name="td-prediction-td0"></a></p>
                             <h2 id="-td-prediction-td0">TD Prediction: TD(0)</h2>
                             <ul>
                                 <li>Whereas Monte Carlo (MC) prediction methods must wait until the end of an episode to update the value function estimate, temporal-difference (TD) methods update the value function after every time step.</li>
@@ -206,13 +206,13 @@
                                         out Example 6.2 in the <a href="http://go.udacity.com/rl-textbook" target="_blank">textbook</a>.</li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                     <div class="divider"></div>
                     <div class="ud-atom">
                         <h3></h3>
                         <div>
+                            <p><a name="td-prediction-action-values"></a></p>
                             <h2 id="-td-prediction-action-values">TD Prediction: Action Values</h2>
                             <ul>
                                 <li>In this concept, we discussed a TD prediction algorithm for estimating action values. </li>
@@ -250,8 +250,8 @@
                     <div class="ud-atom">
                         <h3></h3>
                         <div>
+                            <p><a name="td-control-sarsa0"></a></p>
                             <h2 id="-td-control-sarsa0">TD Control: Sarsa(0)</h2>
-
                             <p>How might an agent determine an optimal policy?</p>
                         </div>
                         <div class="row">
@@ -284,7 +284,6 @@
                             <figure class="figure">
                                 <img src="img/sarsa.png" alt="" style="width:60%" class="img img-fluid">
                                 <figcaption class="figure-caption">
-
                                 </figcaption>
                             </figure>
                         </div>
@@ -306,6 +305,7 @@
                     <div class="ud-atom">
                         <h3></h3>
                         <div>
+                            <p><a name="td-control-sarsamax"></a></p>
                             <h2 id="-td-control-sarsamax">TD Control: Sarsamax</h2>
                             <ul>
                                 <li><strong>Sarsamax</strong> (or <strong>Q-Learning</strong>) is an off-policy TD control method</li>
@@ -358,6 +358,7 @@
                 <div class="ud-atom">
                     <h3></h3>
                     <div>
+                        <p><a name="td-control-expected-sarsa"></a></p>
                         <h2 id="-td-control-expected-sarsa">TD Control: Expected Sarsa</h2>
                         <ul>
                             <li><strong>Expected Sarsa</strong> is an on-policy TD control method. </li>
@@ -377,16 +378,15 @@
                     <p>However, <strong><em>in practice</em></strong>, for all of the algorithms we have discussed, it is common to completely ignore these conditions and still discover an optimal policy.</p>
                 </div>
                 <div class="divider"></div>
-
                 <div class="ud-atom">
                     <div>
+                        <p><a name="analyzing-performance"></a></p>
                         <h2 id="-analyzing-performance">Analyzing Performance</h2>
                         <ul>
                             <li>On-policy TD control methods (like Expected Sarsa and Sarsa) have better online performance than off-policy TD control methods (like Q-learning). </li>
                             <li>Expected Sarsa generally achieves better performance than Sarsa.</li>
                         </ul>
                     </div>
-
                     <p>All of the TD control algorithms we have examined (Sarsa, Sarsamax, Expected Sarsa) converge to the optimal action-value function <span class="mathquill ud-math">q_*</span> (and so yield the optimal policy <span class="mathquill ud-math">\pi_*</span>)
                         if
                         <ol>
@@ -403,20 +403,17 @@
                     </ul>
                     <p>If you would like to learn more, you are encouraged to read Chapter 6 of the <a href="http://go.udacity.com/rl-textbook" target="_blank">textbook</a> (especially sections 6.4-6.6).</p>
 
-
                     <img src="img/screen-shot-2017-12-17-at-12.49.34-pm.png" alt="" class="img img-fluid" />
                     <p>The figure shows the performance of Sarsa and Q-learning on the cliff walking environment for constant <span class="mathquill ud-math">\epsilon = 0.1</span>. As described in the textbook, in this case,</p>
                     <ul>
                         <li>Q-learning achieves worse online performance (where the agent collects less reward on average in each episode), but learns the optimal policy, and</li>
                         <li>Sarsa achieves better online performance, but learns a sub-optimal "safe" policy.</li>
                     </ul>
-
                 </div>
-
                 <div class="divider"></div>
                 <!-- </div> -->
-
             </main>
+
             <footer class="footer">
                 <div class="container">
                     <div class="row">
@@ -428,8 +425,8 @@
                     </div>
                 </div>
             </footer>
+            
         </div>
-
     </div>
 
     <script src="../../assets/js/jquery-3.3.1.min.js"></script>
