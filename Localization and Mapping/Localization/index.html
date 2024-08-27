@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="../../assets/css/styles.css">
       <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">
       <!-- Creative Commons Icons -->
-      <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
+      <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png">
       <style type="text/css">
          /* Three image containers (use 25% for four, and 50% for two, etc) */
          .column {
@@ -51,7 +51,7 @@
                <a href="#ekf">03. Extended Kalman Filter</a>
             </li>
             <li class="">
-               <a href="#">04. Monte-Carlo Localization</a>
+               <a href="#mc-localization">04. Monte Carlo Localization</a>
             </li>
          </ul>
          </ul>
@@ -85,7 +85,7 @@
          <div class="ud-atom">
             <div>
                <p><a name="localization"></a></p>
-               <h2 id="review">Introduction to Localization</h2>
+               <h2 id="-localization">Introduction to Localization</h2>
                Localization is the challenge of determining robot's pose in a mapped environment. We do this by implementing a probabilistic algorithm to filter noisy sensor measurement and track robot's position and orientation.
                <div class="row">
                   <div class="column">
@@ -168,7 +168,7 @@
             <div class="ud-atom">
                <div>
                   <p><a name="kalman"></a></p>
-                  <h2 id="-td-prediction-td0">Kalman Filters</h2>
+                  <h2 id="-kalman-filters">Kalman Filters</h2>
                   Kalman Filter is an estimation algorithm, used to estimate the value of variable in real time as the data is being collected.
                   <p>The reason why KF is noteworthy is that it can take data with a lots of uncertainties or noise in the measurement and provides very accurate estimate of the real values.</p>
                   <img src="img/loc5.png" alt="loc5" style="width:60%" />
@@ -709,7 +709,7 @@
             <div class="divider"></div>
             <div class="divider"></div>
             <div class="ud-atom">
-                <p><a name="ekf"></a></p>
+               <p><a name="ekf"></a></p>
                <h2 id="-Extended-KF">Extended Kalman Filters</h2>
                <p>Assumptions under which the Kalman Filter operates:</p>
                <ul>
@@ -932,9 +932,29 @@
                </br> 
                <div class="divider"></div>
                <div class="divider"></div>
-               </br>
             </div>
-            <!-- ---------^^--------- -->
+            <div class="ud-atom">
+                <div>
+                    <p><a name="mc-localization"></a></p>
+                    <h2 id="-mc-localization">Monte Carlo Localization</h2>
+                </div>
+                <div>
+                    <p>Monte Carlo localization is also known as <strong>Particle Filter Localization</strong> since it uses particles to localize a robot.</p> 
+                    <p>In robotics, we can think of a particle as a virtual element that resemble the robot. Each particle has a position and orientation and representing guess of where the robot might be located. These particles are re-sampled each time our robot moves and senses its environment.</p>
+                    <p><span style="background-color: #FFFF00"><strong>MCL is limited to local and global localization problems only</strong></span> so we loose track of our robot if someone hacks into it!</p>
+                    <h5 id="-mcl-vs-ekf">MCL vs EKF:</h5></br>
+                    <p><img src="img/loc41.png" alt="loc41" style="width:50%" class="img img-fluid" /></p>
+                    <p>MCL represents non-Gaussian distributions and can approximate other practically important distributions. This means that MCL is not restricted by a linear Gaussian state-space assumption, as is the case with the EKF. This allows MCL to model a much greater variety of environments.</p>
+                    <p>Additionally, with MCL, we can control the computational memory and resolution of our solution by changing the number of particles, distributed uniformly and randomly throughout the map.</p>
+                    <p><strong>Additional References:</strong></p>
+                    <ul>
+                        <li><a href="http://robots.stanford.edu/papers/thrun.robust-mcl.pdf">Robust Monte Carlo Localization for Mobile Robots.</a></li>
+                        <li><a href="https://sites.cc.gatech.edu/ai/robot-lab/online-publications/dellaert_frank_1999_2.pdf">Monte Carlo Localization for Mobile Robots</a></li>
+                        <li><a href="http://robots.stanford.edu/papers/fox.aaai99.pdf">Monte Carlo Localization: Efficient Position Estimation for Mobile Robots</a></li>
+                    </ul>
+                </div>
+                
+            </div>
          </div>
       </main>
       <footer class="footer">
