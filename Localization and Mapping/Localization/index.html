@@ -84,7 +84,7 @@
       <main class="container">
          <div class="ud-atom">
             <div>
-                <p><a name="localization"></a></p>
+               <p><a name="localization"></a></p>
                <h2 id="review">Introduction to Localization</h2>
                Localization is the challenge of determining robot's pose in a mapped environment. We do this by implementing a probabilistic algorithm to filter noisy sensor measurement and track robot's position and orientation.
                <div class="row">
@@ -103,28 +103,29 @@
                it should narrowed down on a precise location. Robot's pose is X and Y positioned coordinates within the room and θ, its orientation.
                <br />
                <br />
-               <div class="row">
-                  <div class="column">
-                     <img src="img/loc3.png" alt="loc3" style="width:100%">
-                  </div>
-                  <div class="column">
-                     <ul>
-                        <li>
-                           <strong>Extended Kalman Filter</strong> is the most common Gaussian Filter that helps in estimating the state of non-linear models.
-                        </li>
-                        <li>
-                           <strong>Markov Localization</strong> is a Bayes Filter localization algorithm which maintains the probability distribution over the set of all possible positions and orientations the robot might be located at.
-                        </li>
-                        <li>
-                           <strong>Grid Localization</strong> is referred to as Histogram Filter since it is capable of estimating the robot's pose using grids.
-                        </li>
-                        <li>
-                           <strong>Monte Carlo Localization</strong> is also known as Particle Filter because it estimates the robot's pose using particles.
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-               <br /> The amount of information present and the nature of the environement that a robot is operating in determines the difficulty of the localization tasks.
+               <h5 id="-loc-algorithms">Localization Algorithms:</h5>
+               <!-- <ul>
+                <li><strong>Extended Kalman Filter</strong></li>
+                <li><strong>Markov Localization</strong></li>
+                <li><strong>Grid Localization</strong></li>
+                <li><strong>Monte Carlo Localization</strong></li>
+               </ul> -->
+               <ul>
+                    <li>
+                       <strong>Extended Kalman Filter</strong> is the most common <span style="background-color: #FFC0CB">Gaussian Filter</span> that helps in <span style="background-color: #FFFF00">estimating the state of non-linear models</span>.
+                    </li>
+                    <li>
+                       <strong>Markov Localization</strong> is a <span style="background-color: #FFC0CB">Bayes Filter localization</span> algorithm which <span style="background-color: #FFFF00">maintains the probability distribution over the set of all possible positions and orientations the robot might be located at</span>.
+                    </li>
+                    <li>
+                       <strong>Grid Localization</strong> is referred to as <span style="background-color: #FFC0CB">Histogram Filter</span> since it is <span style="background-color: #FFFF00">capable of estimating the robot's pose using grids</span>.
+                    </li>
+                    <li>
+                       <strong>Monte Carlo Localization</strong> is also known as <span style="background-color: #FFC0CB">Particle Filter</span> because it <span style="background-color: #FFFF00">estimates the robot's pose using particles</span>.
+                    </li>
+                </ul>
+               <!-- <img src="img/loc3.png" alt="loc3" style="width:100%"/> -->
+               <p>The amount of information present and the nature of the environement that a robot is operating in determines the difficulty of the localization tasks.</p>
                <ul>
                   <li><strong>Local Localization Problem</strong></li>
                   <ul>
