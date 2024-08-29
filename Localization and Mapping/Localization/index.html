@@ -27,6 +27,20 @@
          display: table;
          }
       </style>
+      <style type="text/css">
+         /* Two image containers (use 25% for four, and 50% for two, etc) */
+         .mcl-vs-ekf-column {
+         float: left;
+         width: 50%;
+         padding: 5px;
+         }
+         /* Clear floats after image containers */
+         .mcl-vs-ekf-row::after {
+         content: "";
+         clear: both;
+         display: table;
+         }
+      </style>
    </head>
    <body>
       <div class="wrapper">
@@ -946,6 +960,118 @@
                     <p><img src="img/loc41.png" alt="loc41" style="width:50%" class="img img-fluid" /></p>
                     <p>MCL represents non-Gaussian distributions and can approximate other practically important distributions. This means that MCL is not restricted by a linear Gaussian state-space assumption, as is the case with the EKF. This allows MCL to model a much greater variety of environments.</p>
                     <p>Additionally, with MCL, we can control the computational memory and resolution of our solution by changing the number of particles, distributed uniformly and randomly throughout the map.</p>
+                    <h5 id="-particle-filters">Particle Filters</h5>
+                    <div class="row">
+                        <div class="column">
+                            <img src="img/loc42.png" alt="loc42" style="width:100%">
+                        </div>
+                        <div class="column">
+                            <img src="img/loc43.png" alt="loc43" style="height:100%">
+                        </div>
+                    </div>
+                    <p>In above 2D map, the robot has no idea where it is located. Since its initial state is unknown, the robot is trying to estimate its pose by solving the global localization problem. The robot has onboard range sensors which permit it to sense obstacles such as objects, walls, etc. and ultimately determine where it is located.  </p>
+                    <p>Here the current robot pose is represented by <span class="mathquill ud-math">x</span> coordinate <span class="mathquill ud-math">(X_{Robot})</span>, <span class="mathquill ud-math">y</span> coordinate <span class="mathquill ud-math">(Y_{Robot})</span> and an orientation <span class="mathquill ud-math">\theta_{Robot}</span>, all w.r.t. the global coordinate frame.</p>
+                    <p>
+                        <div class="row">
+                            <div class="column">
+                                <img src="img/loc44.png" alt="loc44" style="height:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/loc45.png" alt="loc45" style="height:100%">
+                            </div>
+                            <div class="column">
+                                <img src="img/loc46.png" alt="loc46" style="height:100%">
+                            </div>
+                        </div>
+                    </p>
+                    <p>With the Monte Carlo Localization algorithm, particles are initially spread randomly and uniformly throughout the entire map. These particles do not physically exist and are shown in simulation. Just like the robot, each particle has an <span class="mathquill ud-math">x</span> coordinate <span class="mathquill ud-math">(X_{particle})</span>, <span class="mathquill ud-math">y</span> coordinate <span class="mathquill ud-math">(Y_{particle})</span> and an orientation, <span class="mathquill ud-math">\theta_{particle}</span>. So, each of these particle represents a hypothesis of where the robot might be.</p>
+
+                    <p>In addition to a 3D vector, particles are each assigned a weight. <span style="background-color: #FFC0CB">The weight of a particle is the difference between the robot's actual pose and the particle's predicted pose.</span><span style="background-color: #FFFF00"> The importance of a particle depends on its weight and the bigger the particle, the more accurate it is. Particles with large weight are more likely to survive during a resampling process.</span> For example, P2 will be twice as more likely to survive than P1 since it has larger weight and thus the larger probability of survival.</p>
+                    <p>After the resampling process, particles with significant weights are more likely to survive, while those with lower weights are more likely to be discarded. Finally, after several iterations of the Monte Carlo Localization algorithm and after different statges of resampling, the particles will converge and estimate the robot's pose.</p>
+                    <div>
+                        <h5 id="-bayes-filtering">Bayes Filtering</h5>
+                        <p>The powerful Monte Carlo localization algorithm estimates the posterior distribution of a robot’s position and orientation based on sensory information. This process is known as a <strong>recursive Bayes filter</strong>. </p>
+                        <p>Using a Bayes filtering approach, roboticists can estimate the state of a dynamical system from sensor measurements.  </p>
+                        <p>In mobile robot localization, it’s  important to be acquainted with the following definitions:</p>
+                        <ul>
+                            <li><strong>Dynamical system</strong>: The mobile robot and its environment</li>
+                            <li><strong>State</strong>: The robot’s pose, including its position and orientation.</li>
+                            <li><strong>Measurements</strong>:  Perception data(e.g. laser scanners) and odometry data(e.g. rotary encoders)</li>
+                        </ul>
+                        <p>The goal of Bayes filtering is to estimate a probability density over the state space conditioned on the measurements. The probability density, or also known as <strong>posterior</strong> is called the <strong>belief</strong> and is denoted as:</p>
+                        <div class="mathquill">Bel(X_{t}) = P(X_{t} |Z_{1...t} )</div>
+                        <p>Where, </p>
+                        <ul>
+                            <li><strong>X<sub>t</sub></strong>:  State at time t</li>
+                            <li><strong>Z<sub>1…t</sub></strong> : Measurements from time 1 up to time t</li>
+                        </ul>
+                        <h6 id="probability">Probability:</h6>
+                        <p>Given a set of probabilities, <strong>P(A|B)</strong> is calculated as follows:</p>
+                        <div class="mathquill">\large P(A|B) = \frac{P(B|A)*P(A)}{P(B)} = \frac{P(B|A)*P(A)}{P(A)*P(B|A) + P(\neg A)*P(B|\neg A)}</div></br><!-- </br> -->
+                        <p><strong>Example: </strong>A robot is located inside of a 1D hallway which has three doors. The robot doesn't know where it is located in this hallway, but it has sensors onboard that can tell it, with some amount of precision, whether it is standing in front of a door, or in front of a wall. The robot also has the ability to move around - with some precision provided by its odometry data. Neither the sensors nor the movement is perfectly accurate, but the robot aims to locate itself in this hallway. </p>
+                        <p>The mobile robot is now moving in the 1D hallway and collecting odometry and perception data. With the odometry data, the robot is keeping track of its current position. Whereas, with the perception data, the robot is identifying the presence of doors. </p>
+                        <figure class="figure">
+                            <img src="img/l4-c6-bayesfiltering.png" alt="Source: Thrun, 2005 - Probabilistic Robotics" class="img img-fluid">
+                            <figcaption class="figure-caption">
+                              <p>Source: Thrun, 2005 - Probabilistic Robotics</p>
+                            </figcaption>
+                        </figure>
+                        <p>We are aiming to calculate the state of the robot, given its measurements. This is known by the belief: <strong>P(X<sub>t</sub>|Z)</strong> </p>
+                        <p><strong>Given</strong>:</p>
+                        <ul>
+                            <li><strong>P(POS)</strong>: The probability of the robot being at the actual position</li>
+                            <li><strong>P(DOOR|POS)</strong>: The probability of the robot seeing the door given that it’s in the actual position</li>
+                            <li><strong>P(DOOR|¬POS)</strong>: The probability of the robot seeing the door given that it’s not in the actual position</li>
+                        </ul>
+                        <p><strong>Compute</strong>:</p>
+                        <ul>
+                            <li><strong>P(POS|DOOR)</strong>: The belief or the probability of the robot being at the actual position given that it’s seeing the door. </li>
+                        </ul>
+                    </div></br>
+                    <div>
+                        <h5 id="-mcl-algorithm">MCL: The Algorithm</h5></br>
+                        <img src="img/mcl-algo.png" alt="mcl-algo" style="width:60%" class="img img-fluid"/></br>
+                        <p>Given the map of the environment, the goal of MCL is to determine the robot's pose represented by the belief.</p>
+                        <p>At each iteration, the algorithm takes the previous belief, the actuation command, and the sensor measurements as inputs. Initially, the belief is formed by randomly generating <span class="mathquill">m</span> particles. The hypothetical state is updated whenever the robot moves. The particle weights are then calculated based on the sensor measurements. Finally, motion and measurement are both added to the previous state.</p>
+                        <p>During the resampling process, particles with high probabilities are retained and carried forward to the next iteration, while those with lower probabilities are discarded. </p>
+                        <p>Finally, the algorithm outputs the new belief, and the next iteration begins by executing the subsequent motion and processing the new sensor measurements.</p>
+                    </div>
+                    <div>
+                        <h5 id="-mcl-algorithm">MCL vs EKF in Action</h5></br>
+                        <div class="mcl-vs-ekf-row">
+                            <figure class="mcl-vs-ekf-column">
+                                <h6 id="-ekf-exp">EKF:</h6>
+                                <img src="img/l4-c7-ekf.png" alt="Source: Thrun, 2005 - Probabilistic Robotics" style="width:100%" class="img img-fluid">
+                                <figcaption class="figure-caption">
+                                  <p>Source: Thrun, 2005 - Probabilistic Robotics</p>
+                                </figcaption>
+                                <p><strong>At time</strong>:</p>
+                                <ul>
+                                    <li><strong>t=1</strong>, Initial belief represented by a Gaussian distribution around the first door. </li>
+                                    <li><strong>t=2</strong>, Motion is updated and the new belief is represented by a shifted Gaussian of increased weight.</li>
+                                    <li><strong>t=3</strong>, Measurement is updated and the robot is more certain of its location. The new posterior is represented by a Gaussian with a small variance. </li>
+                                    <li><strong>t=4</strong>, Motion is updated and the uncertainty increases.</li>
+                                </ul>
+                            </figure>
+                            <figure class="mcl-vs-ekf-column">
+                                <h6 id="-mcl-exp">MCL:</h6>
+                                <img src="img/l4-c7-mcl.png" alt="Source: Thrun, 2005 - Probabilistic Robotics" style="width:100%" class="img img-fluid">
+                                <figcaption class="figure-caption">
+                                  <p>Source: Thrun, 2005 - Probabilistic Robotics</p>
+                                </figcaption>
+                                <p><strong>At time</strong>:</p>
+                                <ul>
+                                    <li><strong>t=1</strong>, Particles are drawn randomly and uniformly over the entire pose space.</li>
+                                    <li><strong>t=2</strong>, Measurement is updated and an importance weight is assigned to each particle. </li>
+                                    <li><strong>t=3</strong>, Motion is updated and a new particle set with uniform weights and high number of particles around the three most likely places is obtained in resampling.</li>
+                                    <li><strong>t=4</strong>, Measurement assigns non-uniform weight to the particle set.    </li>
+                                    <li><strong>t=5</strong>, Motion is updated and a new resampling step is about to start.</li>
+                                </ul>
+                            </figure>
+
+                        </div>
+                        
+                    </div>
                     <p><strong>Additional References:</strong></p>
                     <ul>
                         <li><a href="http://robots.stanford.edu/papers/thrun.robust-mcl.pdf">Robust Monte Carlo Localization for Mobile Robots.</a></li>
@@ -953,7 +1079,6 @@
                         <li><a href="http://robots.stanford.edu/papers/fox.aaai99.pdf">Monte Carlo Localization: Efficient Position Estimation for Mobile Robots</a></li>
                     </ul>
                 </div>
-                
             </div>
          </div>
       </main>
