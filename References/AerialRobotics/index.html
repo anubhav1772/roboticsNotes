@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Study materials</title>
+    <title>Aerial Robotics</title>
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/plyr.css">
     <link rel="stylesheet" href="../../assets/css/katex.min.css">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../assets/css/cc-icons.min.css">    <!-- Creative Commons Icons -->
     <link rel="shortcut icon" type="image/png" href="../../assets/img/robo-icon.png" />
     <style type="text/css">
-        /* Three image containers (use 25% for four, and 50% for two, etc) */
+      /* Three image containers (use 25% for four, and 50% for two, etc) */
       .column {
         float: left;
         width: 33.33%;
@@ -34,9 +34,31 @@
     <div class="wrapper">
         <nav id="sidebar">
             <div class="sidebar-header">
-                <!-- <h3>Study materials</h3> -->
+                <!-- <h3>Statistics</h3> -->
                 </br></br></br>
             </div>
+
+            <ul class="sidebar-list list-unstyled CTAs">
+                <li>
+                    <a href="../../index.html" class="article">Back to Home</a>
+                </li>
+            </ul>
+
+            <ul class="sidebar-list list-unstyled components">
+                <li id="id1">
+                    <a href="#">Introduction to Aerial Robotics</a>
+                </li>
+                <li id="id2">
+                    <a href="#">Geometry and Mechanics</a>
+                </li>
+                <li id="id3">
+                    <a href="#">Planning and Control</a>
+                </li>
+                <li id="id4">
+                    <a href="#">Advanced Topics: On-Board Estimation, Nonlinear Control and Swarms </a>
+                </li>
+            </ul>
+
             <ul class="sidebar-list list-unstyled CTAs">
                 <li>
                    <a href="../../index.html" class="article">Back to Home</a>
@@ -68,11 +90,9 @@
 
             <main class="container">
                 <div class="ud-atom">
-                    <div>
-                        
-                        <p> The content will be uploaded soon! </p>
-
-                    </div>
+                    <iframe name="myiframe" id="contentiframe" style='width: 100%; margin-left: 0px; border: thin solid rgb(153, 153, 153);  
+                        padding-right: 10px; height:100vh;' frameborder="0" marginheight="0" marginwidth="0" src="docs/module1.pdf" allowfullscreen>loading...
+                    </iframe>
                 </div>
             </main>
 
@@ -88,15 +108,31 @@
                 </div>
             </footer>
 
+            <script>
+                document.getElementById('id1').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default link action
+                    document.getElementById('contentiframe').src = 'docs/module1.pdf'; 
+                });
+                document.getElementById('id2').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default link action
+                    document.getElementById('contentiframe').src = 'docs/module2.pdf'; 
+                });
+                document.getElementById('id3').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default link action
+                    document.getElementById('contentiframe').src = 'docs/module3.pdf'; 
+                });
+                document.getElementById('id4').addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default link action
+                    document.getElementById('contentiframe').src = 'docs/module4.pdf'; 
+                });
+            </script>
+
             <script src="../../assets/js/jquery-3.3.1.min.js"></script>
             <script src="../../assets/js/plyr.polyfilled.min.js"></script>
             <script src="../../assets/js/bootstrap.min.js"></script>
             <script src="../../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
             <script src="../../assets/js/katex.min.js"></script>
             <script>
-                // Initialize Plyr video players
-                const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
-            
                 // render math equations
                 let elMath = document.getElementsByClassName('mathquill');
                 for (let i = 0, len = elMath.length; i < len; i += 1) {
