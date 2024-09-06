@@ -46,7 +46,7 @@
 
             <ul class="sidebar-list list-unstyled components">
                 <li class="">
-                    <a href="">01. Introduction to Mapping and SLAM</a>
+                    <a href="#intro">01. Introduction to Mapping and SLAM</a>
                 </li>
                 <li class="">
                     <a href="">02. Occupancy Grid Mapping</a>
@@ -91,11 +91,40 @@
             <main class="container">
                 <div class="ud-atom">
                     <div>
-                        
-                        <p> The content will be uploaded soon! </p>
-
-                    </div>
-                </div>
+                       <p><a name="intro"></a></p>
+                       <h2 id="-intro">Introduction to Mapping and SLAM</h2>
+                       <p>Here, we will see how robots build map of the environment and how they perform SLAM.</p>
+                       <p>In localization, a robot is provided with the map of its environment. The robot also has an access to its movement and sensor data and using the three of these together the robot must estimate its pose. </p>
+                       <p>But, what if the map of the environment doesn't exist? There are many applications where there isn't a known map, either because the area is unexplored or because the surrounding changes often and the may not be up to data. In such a case, the robot has to construct a map.</p>
+                       <p>Mapping assumes the robot knowns its pose and as usual has an access to its movement and sensor data. The robot must produce the map of the environment using the known trajectory and measurement data. However, even such a case can be quite uncommon in the real world. Often, we neither have a map, nor know the robot's pose.</p>
+                       <p>This is where SLAM comes in! With access only to robot's own movement and sensory data, the robot must build a map of its environment while simultaneously localizing itself relative to the map. </p>
+                       <ul>
+                           <li><strong>Localization:</strong> Estimate the robot's pose given the map of the environment. </li>
+                           <li><strong>Mapping:</strong> Produces a map of the environment given the robot's pose(s).</li>
+                           <li><strong>SLAM:</strong> Simultaneously estimate the robot's pose and produce a map of the environment.</li>
+                       </ul>
+                       <h5 id="-mapping">Mapping</h5>
+                       <p>Robot mapping sounds similar to localization. Instead of assuming a known map and estimating robot's pose, we are assuming a known path and estimating the environment.</p>
+                       <p>What can be so hard?</p>
+                       <p>Robot's pose can be defined by some finite number of state variables such as robot's x and y positions. In most application, there are only a handful. On the other hand, a map generally lies in a continuous space and as a result, there are infinitely many variables used to describe it. Couple this with the uncertainties present in perception and the mapping task becomes even more challenging.</p>
+                       <p>There are other challenges too depending on the nature of the space we are mapping. For instance, the geometry and whether the space is repeatitive in the sense that many different places look alike. Like if we are driving through a forest which only contains a trees of one type, then we are going to have a lot of troubles distinguishing between trees and establishing correspondences, making challenging to map the environment.</p>
+                       <p>There are several mapping algorithms, but our focus will be on the Occupancy Grid Mapping algorithm. This method allows us to map an arbitrary environment by dividing it into a finite number of grid cells. By estimating the state of each individual cell, we can construct an accurate map of the entire environment.</p>
+                       <h5 id="-slam">SLAM (Simultaneous Localization and Mapping)</h5>
+                       <p>In SLAM, a robot must construct a map of the environment while simultaneously localizing itself relative to the map.</p>
+                       <p>This problem is more challenging than localization and mapping since neither the map nor the robot's pose(s) are provided. With noise in the robot's motions and measurements, the map and robot's pose will be uncertain and the errors in the robot's pose estimate and the map will be correlated.</p>
+                       <p>The accuracy of the map depends on the accuracy of the localization and vice-versa. SLAM is often referred to as the "chicken or the egg" problem because a map is needed for localization, and the robot's pose is required for mapping.</p>
+                       <p>One application of SLAM is in robot vacuum cleaners, which are equipped with sensors that help them map the room and estimate their position. SLAM is also used in self-driving vehicles, aerial surveillance, and even in robotic missions to map the surface of Mars.</p>
+                       <p>SLAM algorithms are typically classified into five main categories:</p>
+                       <ul>
+                           <li><strong>Extended Kalman Filter SLAM (EKF)</strong></li>
+                           <li><strong>Sparse Extended Information Filter (SEIF)</strong></li>
+                           <li><strong>Extended Information Form (EIF)</strong></li>
+                           <li><strong>FastSLAM:</strong> It uses the particle filter approach along with a low dimensional EKF to solve the SLAM problem.</li>
+                           <li><strong>GraphSLAM:</strong> It uses constraints to represent relationships between robot's pose(s) and the environment and then tries to resolve all of these constraints to create the most likely map given the data.</li>
+                       </ul>
+                </div></br>
+                <div class="divider"></div>
+                <div class="divider"></div>
             </main>
 
             <footer class="footer">
