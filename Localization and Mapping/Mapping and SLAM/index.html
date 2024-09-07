@@ -49,7 +49,7 @@
                     <a href="#intro">01. Introduction to Mapping and SLAM</a>
                 </li>
                 <li class="">
-                    <a href="">02. Occupancy Grid Mapping</a>
+                    <a href="#ogm">02. Occupancy Grid Mapping</a>
                 </li>
                 <li class="">
                     <a href="">03. Grid-based FastSLAM</a>
@@ -99,8 +99,8 @@
                        <p>Mapping assumes the robot knowns its pose and as usual has an access to its movement and sensor data. The robot must produce the map of the environment using the known trajectory and measurement data. However, even such a case can be quite uncommon in the real world. Often, we neither have a map, nor know the robot's pose.</p>
                        <p>This is where SLAM comes in! With access only to robot's own movement and sensory data, the robot must build a map of its environment while simultaneously localizing itself relative to the map. </p>
                        <ul>
-                           <li><strong>Localization:</strong> Estimate the robot's pose given the map of the environment. </li>
-                           <li><strong>Mapping:</strong> Produces a map of the environment given the robot's pose(s).</li>
+                           <li><strong>Localization:</strong> Estimate the robot's pose (position and orientation) or trajectory given the map of the environment. </li>
+                           <li><strong>Mapping:</strong> Produces a map of the environment given the robot's pose or trajectory.</li>
                            <li><strong>SLAM:</strong> Simultaneously estimate the robot's pose and produce a map of the environment.</li>
                        </ul>
                        <h5 id="-mapping">Mapping</h5>
@@ -125,6 +125,57 @@
                 </div></br>
                 <div class="divider"></div>
                 <div class="divider"></div>
+                <div>
+                    <p><a name="ogm"></a></p>
+                    <h2 id="-ogm">Occupancy Grid Mapping</h2>
+                    <p>In this section, we will explore how to map an environment using the Occupancy Grid Mapping algorithm.</p>
+                    <h5 id="-importance-of-mapping">Importance of Mapping</h5>
+                    <p>Mapping is essential in unexplored areas where a prior map is unavailable. However, when deploying a robot in a familiar setting like a home, we can typically provide it with an existing map, allowing the robot to focus solely on accurate navigation without the need to create a new one.</p>
+                    <div class="row">
+                      <div class="column">
+                         <img src="img/map1.png" alt="map1" style="width:100%">
+                      </div>
+                      <div class="column">
+                         <img src="img/map2.png" alt="map2" style="width:100%">
+                      </div>
+                    </div></br>
+                    <p>Here’s an example of a mobile robot equipped with a robotic arm deployed in a home. The map of the home has been preloaded into the robot, which lacks the capability for real-time mapping of the environment. The robot is tasked with picking up a cup from room A and delivering it to room B. After calculating its trajectory, the robot begins navigating from room A to room B. In this case, the robot is solely focused on localization to track its position and ensure it follows the designated path accurately.</p>
+                    <div class="row">
+                      <div class="column">
+                         <img src="img/map3.png" alt="map3" style="width:100%">
+                      </div>
+                    </div></br>
+                    <p>Now, imagine the scenario where the resident of the house has rearranged the furniture, blocking the passage between room A and room B. The robot is again instructed to deliver an item to room B. It successfully picks up the item and begins navigating, but soon collides with one of the newly placed pieces of furniture, becoming stuck and unable to proceed.</p>
+                    <p><em>Why did this happen, and how can we prevent it from happening again?</em></p>
+                    <p>The robot is unable to adapt to changes and subsequently update its map. Mapping becomes crucial in dynamic environments where objects may shift over time. If the map had been updated after the changes or rearrangement, the robot would have chosen an alternative path. Therefore, in evolving environments, the robot should always perform real-time mapping in both known and unknown areas, even when a prior map is available. </p>
+                    <h5 id="-challenges-of-mapping">Mapping Challenges</h5>
+                    <p>Mapping with mobile robots presents significant challenges due to two main reasons.</p>
+                    <p>First, <strong>both the map and the robot’s poses are initially unknown.</strong> In localization, we typically work with a known map and aim to estimate the robot’s pose. However, in mapping, the map itself is unknown, leading to a dilemma: we either assume known poses and estimate the map, or assume unknown poses and estimate both the map and the poses relative to it. Estimating the map with known poses is complex due to the large number of variables involved, but this can be addressed using techniques such as the Occupancy Grid Mapping algorithm. More challenging is the task of estimating both the map and the poses simultaneously.</p>
+                    <p>Second, <strong>the hypothesis space is vast.</strong> This refers to the set of all possible maps that can be generated during the mapping process. The space is highly dimensional because maps are defined over continuous environments. This complexity is particularly pronounced in open environments where robots need to sense and account for a potentially infinite number of objects.</p>
+                    <p>The Occupancy Grid Mapping algorithm provides a discrete approximation of the map. Despite this discretization, the space of all possible maps remains large. Thus, the challenge lies in estimating the full posterior map within these high-dimensional spaces. The Bayes' filtering approach used in localization to estimate the posterior pose may diverge in mapping scenarios. Therefore, an extension of this approach is needed to accommodate the vast hypothesis space in mapping.</p>
+                    <h5 id="-difficulties-in-mapping">Mapping Difficulties</h5><!-- </br> -->
+                    <div class="row">
+                      <div class="column">
+                         <img src="img/map4.png" alt="map4" style="width:100%">
+                      </div>
+                      <div class="column">
+                         <img src="img/map5.png" alt="map5" style="width:100%">
+                      </div>
+                    </div></br>
+                    <p>To map an environment, we need information about walls and objects. For instance, consider deploying a mobile robot equipped with a laser range finder sensor. The robot collects sensory data that allows it to detect obstacles in the environment. By using one of the mapping algorithms, we can group these data into a resulting map. In above example, we can see that there are several possible data represented by instantaneous maps that the robot has to combine in order to estimate the actual map. This process is more challenging than it might seem, as there are numerous difficulties involved in accurately mapping an environment.</p>
+                    <div class="row">
+                      <div class="column">
+                         <img src="img/map6.png" alt="map6" style="width:100%">
+                      </div>
+                      <div class="column">
+                         <img src="img/map7.png" alt="map7" style="width:100%">
+                      </div>
+                      <div class="column">
+                         <img src="img/map8.png" alt="map8" style="width:100%">
+                      </div>
+                    </div></br>
+                    <p>The first difficulty in mapping is <strong>the size of the environment.</strong> Mapping a large area is challenging due to the vast amount of data that needs to be processed. The robot's onboard microcontroller must collect all the instantaneous poses and obstacle data, then create a resulting map and localize the robot with respect to this map. The challenge intensifies when the size of the map exceeds the robot's perceptual range. Additionally, noise in perception sensors, odometry sensors, and actuators further complicates the mapping process. During mapping, we must always filter the noise from these sensors and actuators. With large noise, mapping becomes more difficult and challenging as these noise add up. <strong>Perceptual ambiguity</strong> is another difficulty in mapping. The ambiguity occurs when two locations look alike and the robot must correlate between these two places which the robot travels through at different point in time. Another difficult in mapping occurs <strong>when a robot travels in a cyclic manner.</strong> For example, going back and forth in a corridor. When travelling in cycles, the robot odometry incrementally accumulates error and at the end of the cycle, the error is quite large.  </p>
+                </div>
             </main>
 
             <footer class="footer">
@@ -138,7 +189,6 @@
                     </div>
                 </div>
             </footer>
-
 
             <script src="../../assets/js/jquery-3.3.1.min.js"></script>
             <script src="../../assets/js/plyr.polyfilled.min.js"></script>
