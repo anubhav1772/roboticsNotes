@@ -175,6 +175,71 @@
                       </div>
                     </div></br>
                     <p>The first difficulty in mapping is <strong>the size of the environment.</strong> Mapping a large area is challenging due to the vast amount of data that needs to be processed. The robot's onboard microcontroller must collect all the instantaneous poses and obstacle data, then create a resulting map and localize the robot with respect to this map. The challenge intensifies when the size of the map exceeds the robot's perceptual range. Additionally, noise in perception sensors, odometry sensors, and actuators further complicates the mapping process. During mapping, we must always filter the noise from these sensors and actuators. With large noise, mapping becomes more difficult and challenging as these noise add up. <strong>Perceptual ambiguity</strong> is another difficulty in mapping. The ambiguity occurs when two locations look alike and the robot must correlate between these two places which the robot travels through at different point in time. Another difficult in mapping occurs <strong>when a robot travels in a cyclic manner.</strong> For example, going back and forth in a corridor. When travelling in cycles, the robot odometry incrementally accumulates error and at the end of the cycle, the error is quite large.  </p>
+                    <h5 id="-mapping-with-known-poses">Mapping with Known Poses</h5><!-- </br> -->
+                    <p>The problem of generating a map under the assumption that the robot's poses are known and non-noisy is referred to as mapping with known poses.</p>
+                    <div class="row">
+                        <div class="column">
+                            <img src="img/map8.png" alt="map8" style="width:100%">
+                        </div>
+                        <div class="column">
+                            <img src="img/map9.png" alt="map9" style="width:100%">
+                        </div>
+                        <div class="column">
+                            <img src="img/map10.png" alt="map10" style="width:100%">
+                        </div>
+                    </div></br>
+                    <p>The mapping with known poses problem is represented in above graph where <b>X</b> represents the poses, <b>Z</b> the measurements and <b>m</b> the map. The Occupancy Grid Mapping algorithm can estimate the posterior map given noisy measurements and known poses. In most robotics apllications, odometry data is noisy and robot poses are unknown to us, so we might be wondering why mapping is necessary under such a situation? </p>
+                    <div class="row">
+                        <div class="column">
+                            <img src="img/map11.png" alt="map11" style="width:100%">
+                        </div>
+                    </div></br>
+                    <p>Mapping typically occurs after SLAM, with its strength lying in the post-processing of the data. In SLAM, the problem shifts from mapping with known poses to mapping with unknown poses. During SLAM, the robot simultaneously builds a map of the environment and localizes itself relative to that map. After SLAM, the Occupancy Grid Mapping algorithm utilizes the precise robot poses filtered from SLAM. With these known poses and noisy measurements, the mapping algorithm then generates a map suitable for path planning and navigation.</p>
+                    <h5 id="-posterior-probability">Posterior Probability & 2D Maps</h5><!-- </br> -->
+                    <div class="row">
+                        <div class="column">
+                            <img src="img/map12.png" alt="map12" style="width:100%">
+                        </div>
+                    </div></br>
+                    <p>Going back to the graphical model of mapping with known poses, our goal is to implement a mapping algorithm and estimate the map given noisy measurements and assuming known poses. </p>
+                    <p>The Mapping with Known Poses problem can be represented with <span class="mathquill ud-math">P(m | z_{1:t}, x_{1:t})</span> function. With this function, we can compute the posterior over the map given all the measurements up to time <strong>t</strong> and all the poses up to time <strong>t</strong> represented by the robot trajectory. </p>
+                    <p>In estimating the map, we’ll exclude the controls <strong>u</strong> since the robot path is provided to us from SLAM. However, keep in mind that the robot controls will be included later in SLAM to estimate the robot’s trajectory. </p>
+                    <p>For now, we will only estimate the posterior for two-dimensional maps. In the real world, a mobile robot with a two-dimensional laser rangefinder sensor is generally deployed on a flat surface to capture a slice of the 3D world. Those two-dimensional slices will be merged at each instant and partitioned into grid cells to estimate the posterior through the occupancy grid mapping algorithm. Three-dimensional maps can also be estimated through the occupancy grid algorithm, but at much higher computational memory because of the large number of noisy three-dimensional measurements that need to be filtered out.</p>
+                    <table class="table">
+                      <tr class="thead-dark">
+                        <th>
+                          <p>Robotic Problems</p>
+                        </th>
+                        <th>
+                          <p>Probability Equations</p>
+                        </th>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <p>P(x<sub>1:t</sub> , m | z<sub>1:t</sub> , u<sub>1:t</sub>)</p>
+                        </td>
+                        <td>
+                            <p>SLAM</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p>P(x<sub>1:t</sub> | u<sub>1:t</sub> , m , z<sub>1:t</sub>)</p>
+                        </td>
+                        <td>
+                            <p>Localization</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p>P(m | z<sub>1:t</sub> , x<sub>1:t</sub>)</p>
+                        </td>
+                        <td>
+                            <p>Mapping</p>
+                        </td>
+                      </tr>
+                    </table>
                 </div>
             </main>
 
